@@ -23,36 +23,49 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Form(
-          key: formkey,
+      body: Form(
+        key: formkey,
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Receive an email to reset your password.'
-              ),
+              Image.asset('assets/images/frame3.jpg'),
               SizedBox(height: 20,),
-              TextFormField(
-                controller: emailController,
-                cursorColor: Colors.white,
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  labelText: 'Email'),
-                autovalidateMode : AutovalidateMode.onUserInteraction,
-                validator: (email) => 
-                  email != null && !EmailValidator.validate(email)
-                    ? 'Enter a valid email'
-                    : null,
+              Text(
+                'Receive an email to reset your password.',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: emailController,
+                  cursorColor: Colors.white,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    labelText: 'Email'),
+                  autovalidateMode : AutovalidateMode.onUserInteraction,
+                  validator: (email) => 
+                    email != null && !EmailValidator.validate(email)
+                      ? 'Enter a valid email'
+                      : null,
+                ),
               ),
               SizedBox(height: 20,),
               ElevatedButton(onPressed: (){
                 resetPassword();
-              }, child: Text('Reset Password'))
+              }, child: Text('Reset Password')),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Back'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+                ),
+              )
             ],
-          )
-        ),
+          ),
+        )
       ),
     );
   }

@@ -40,6 +40,20 @@ class _SpellingGameState extends State<SpellingGame> {
 
       if (!snapshot.exists) {
         print('No documents found for student in game');
+        answer = word[level]; 
+        for (int i = 0; i < answer.length; i++) {
+              spell.add(answer[i]);
+            }
+            if(spell.length != 8){
+              int num = spell.length;
+              for(int i = num; i < 8; i++){
+                letter.shuffle();
+                spell.add(letter[i]);
+                num += 1;
+              }
+            }
+            spell.shuffle();
+      setState(() {});
         return;
       }
       Map<String, dynamic> data =
@@ -88,25 +102,35 @@ class _SpellingGameState extends State<SpellingGame> {
   }
   
   Future<void> updateArray() async {
-    level += 1;
-    try {
-      final CollectionReference gameCollection = FirebaseFirestore.instance.collection('game');
-      final DocumentReference userDocument = gameCollection.doc(widget.userid);
+  level += 1;
+  try {
+    final CollectionReference gameCollection = FirebaseFirestore.instance.collection('game');
+    final DocumentReference userDocument = gameCollection.doc(widget.userid);
+    
+    if ((await userDocument.get()).exists) {
       await userDocument.update({
         'spelling': level,
       });
-      setState(() {
-        getWord();
+    } else {
+      await userDocument.set({
+        'spelling': level,
       });
-    } catch (e) {
-      print('Error updating array: $e');
     }
-    Future.delayed(Duration(seconds: 5), () {
-      setState(() {
-        image = !image;
-      });
+
+    setState(() {
+      getWord();
     });
+  } catch (e) {
+    print('Error updating array: $e');
   }
+
+  Future.delayed(Duration(seconds: 5), () {
+    setState(() {
+      image = !image;
+    });
+  });
+}
+
 
 
   @override

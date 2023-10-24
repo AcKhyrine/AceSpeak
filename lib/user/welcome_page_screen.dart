@@ -1,9 +1,8 @@
+import 'package:acespeak/STUDENT/student_registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:acespeak/user/login_screen.dart';
 import 'package:acespeak/user/user_screen.dart';
 import 'package:acespeak/welcome_message_screen.dart';
-
-import '../STUDENT/student_registration_screen.dart';
 
 class WelcomPageScreen extends StatelessWidget {
   const WelcomPageScreen({Key? key}) : super(key: key);

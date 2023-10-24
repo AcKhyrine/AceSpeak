@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'STUDENT/FEATURE/game/findobject.dart';
 import 'STUDENT/FEATURE/quiz/list_quiz_screen.dart';
 import 'STUDENT/MAIN FEATURE/LESSONS/video.dart';
-import 'TEACHER/QUIZ/teacher_quiz_section.dart';
+import '0LD_CODE_TEACHER/QUIZ/teacher_quiz_section.dart';
 import 'firebase_options.dart';
 import 'user/welcome_page_screen.dart';
 import 'package:google_fonts/google_fonts.dart';

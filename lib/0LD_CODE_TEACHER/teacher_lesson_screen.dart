@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:acespeak/TEACHER/teacher_homescreen.dart';
-import 'package:acespeak/TEACHER/teacher_level_screen.dart';
-import 'package:acespeak/TEACHER/teacher_score_screen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_homescreen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_level_screen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_score_screen.dart';
 
 class TeacherLessonScreen extends StatefulWidget {
   final String uid;

@@ -7,7 +7,7 @@ import '../STUDENT/MAIN FEATURE/avatar.dart';
 import '../STUDENT/assessment test/start.dart';
 import '../STUDENT/MAIN FEATURE/student_classroom.dart';
 import '../STUDENT/student_homescreen.dart';
-import '../TEACHER/teacher_homescreen.dart';
+import '../0LD_CODE_TEACHER/teacher_homescreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VerifyEmailPage extends StatefulWidget {
@@ -199,17 +199,19 @@ Widget build(BuildContext context) => isEmailVerified
         },
       )
     : Scaffold(
-        appBar: AppBar(
-          title: Text('Verify Email'),
-        ),
+        // appBar: AppBar(
+        //   title: Text('Verify Email'),
+        // ),
         body: Container(
           width: double.infinity,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset('assets/images/frame3.jpg', width: double.infinity,),
+              SizedBox(height: 15,),
               Text(
-                'A verification email has been sent to your email.',
-                style: TextStyle(fontSize: 20),
+                'A verification email has been sent to your email.', 
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 24),
@@ -230,6 +232,7 @@ Widget build(BuildContext context) => isEmailVerified
               TextButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Cancel',

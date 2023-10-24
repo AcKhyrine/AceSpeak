@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:acespeak/TEACHER/teacher_homescreen.dart';
-import 'package:acespeak/TEACHER/teacher_lesson_screen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_homescreen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_lesson_screen.dart';
 
 class TeacherLevelScreen extends StatefulWidget {
   final String userid;

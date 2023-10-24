@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:acespeak/TEACHER/teacher_account.dart';
-import 'package:acespeak/TEACHER/teacher_level_screen.dart';
-import 'package:acespeak/TEACHER/teacher_score_screen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_account.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_level_screen.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/teacher_score_screen.dart';
 import 'package:acespeak/user/login_screen.dart';
 import 'package:acespeak/user/welcome_page_screen.dart';
 

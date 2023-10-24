@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:acespeak/user/user_screen.dart';
 import 'package:acespeak/user/welcome_page_screen.dart';
 
+import '../STUDENT/student_registration_screen.dart';
 import 'forgotpassword.dart';
 import 'verifyemail.dart';
 
@@ -234,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        UserScreen()));
+                                                        StudentRegistration()));
                                           },
                                           child: Text('Sign up here'))
                                     ],

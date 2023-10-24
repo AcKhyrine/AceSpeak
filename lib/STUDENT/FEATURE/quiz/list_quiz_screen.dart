@@ -273,7 +273,7 @@ Column(
                                 child: ListTile(
                                   title: Text(title[index]),
                                   subtitle: Text(deadline[index]),
-                                  trailing: Text(completed_quiz[title[index]].toString()+'/'+ overall.toString())
+                                  trailing: Text(completed_quiz[title[index]].toString()+'/'+ completed_quiz["_about sounds"].length.toString())
                                 ),
                               ),
                             );
@@ -283,57 +283,55 @@ Column(
                       ),
                   ],
                 ),
-//////////////////////////////////// PASTDUE
+//////////////////////////////////// PASTDUE //////////////////////////////////// 
                Column(
-  children: [
-    if (isLoading)
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Image.asset('assets/images/quizloading.gif'),
-          ),
-        ],
-      ),
-    if (!isLoading && title.length > 0)
-      Expanded(
-        child: ListView.builder(
-          itemCount: title.length,
-          itemBuilder: (context, index) {
-            final isCompleted = completed_quiz.containsKey(title[index]);
-            final isPastDue = DateTime.parse(deadline[index]).isBefore(DateTime.now() );
-
-            if (isPastDue && !isCompleted && status[index] == "uploaded") {
-              // Display past due quizzes
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.red,
-                      width: 2.0,
+                children: [
+                  if (isLoading)
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Image.asset('assets/images/quizloading.gif'),
+                        ),
+                      ],
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: ListTile(
-                    title: Text(title[index]),
-                    subtitle: Text(deadline[index]),
-                    trailing: Icon(Icons.close, color: Colors.red),
-                  ),
-                ),
-              );
-            } else {
-              // Display upcoming quizzes
-              return SizedBox.shrink();
-            }
-          },
-        ),
-      ),
-  ],
-),
+                  if (!isLoading && title.length > 0)
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: title.length,
+                        itemBuilder: (context, index) {
+                          final isCompleted = completed_quiz.containsKey(title[index]);
+                          final isPastDue = DateTime.parse(deadline[index]).isBefore(DateTime.now() );
 
-
+                          if (isPastDue && !isCompleted && status[index] == "uploaded") {
+                            // Display past due quizzes
+                            return Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.red,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: ListTile(
+                                  title: Text(title[index]),
+                                  subtitle: Text(deadline[index]),
+                                  trailing: Icon(Icons.close, color: Colors.red),
+                                ),
+                              ),
+                            );
+                          } else {
+                            // Display upcoming quizzes
+                            return SizedBox.shrink();
+                          }
+                        },
+                      ),
+                    ),
+                ],
+              ),
               ],
             ),
           ),

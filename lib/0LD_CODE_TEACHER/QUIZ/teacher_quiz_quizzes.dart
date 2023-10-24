@@ -1,4 +1,4 @@
-import 'package:acespeak/TEACHER/QUIZ/teacher_quiz_scores.dart';
+import 'package:acespeak/0LD_CODE_TEACHER/QUIZ/teacher_quiz_scores.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
