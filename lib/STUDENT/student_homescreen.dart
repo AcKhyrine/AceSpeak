@@ -1,3 +1,4 @@
+import 'package:acespeak/STUDENT/update_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,35 @@ class StudentScreen extends StatefulWidget {
 class _StudentScreenState extends State<StudentScreen> {
   final _formkey = GlobalKey<FormState>();
   var codeController = TextEditingController();
+  int avatar = 0;
+  String grade = '';
+    @override
+  void initState() {
+    super.initState();
+    StudentData();
+  }
+
+  void StudentData() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        avatar = data['avatar'];
+        grade = data['Grade'];
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +55,28 @@ class _StudentScreenState extends State<StudentScreen> {
       appBar: AppBar(
         title: Text('Student'),
         actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                return WelcomPageScreen();
-              }));
-            },
-            icon: Icon(Icons.logout),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                    return UpdateStudentProfile(userId: widget.userId);
+                  }));
+                },
+                child: CircleAvatar(
+                  child: Image.asset('assets/avatar/a' + avatar.toString() + '.png'),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                    return WelcomPageScreen();
+                  }));
+                },
+                icon: Icon(Icons.logout),
+              ),
+            ],
           ),
         ],
       ),
@@ -81,9 +125,10 @@ class _StudentScreenState extends State<StudentScreen> {
                               .collection('classroom')
                               .where('Class Code', isEqualTo: classroomCode)
                               .get();
-
                           if (querySnapshot.docs.isNotEmpty) {
                             final documentId = querySnapshot.docs.first.id;
+                            final classGrade = querySnapshot.docs.first['Grade'];
+                            if(classGrade == grade){
                             await FirebaseFirestore.instance
                                 .collection('classroom')
                                 .doc(documentId)
@@ -95,6 +140,9 @@ class _StudentScreenState extends State<StudentScreen> {
                             EasyLoading.showSuccess(
                                 'Your request has been successfully sent. Please wait for your teacher to confirm it.');
                             print('Classroom exists. Document ID: $documentId');
+                            }else{
+                              EasyLoading.showInfo("Your grade is not the same as the classroom code you entered.");
+                            }
                           } else {
                             EasyLoading.showError('Classroom code does not exist');
                             print('Classroom code does not exist.');
