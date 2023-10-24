@@ -51,22 +51,45 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
     super.initState();
   }
 
+  String _classCode = '';
+  void classCode()async{
+      try {
+        DocumentSnapshot snapshot = await FirebaseFirestore.instance
+            .collection('classroom')
+            .doc(widget.classroomID)
+            .get();
+
+        if (!snapshot.exists) {
+          print('No documents found for the user ID: ${widget.userId}');
+          return;
+        }
+
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+          setState(() {
+            _classCode = data['Class Code'];
+          });
+          print(_classCode);
+      } catch (e) {
+        print('Error fetching data: $e');
+      }
+    }
+
   Future<void> lesson() async {
     print('post-assessment' + widget.pre_assessment);
       if(widget.grade == 'Grade 1'){
-        docID = 'I7v0oFqQeVnrBR3hF9qm';
+        docID = 'klpfg14MaQIRm5yfqk4u';
       }
       else if(widget.grade == 'Grade 2'){
-
+        docID = 'VSqeQfpysqAkYYHhSWGA';
       }
       else if(widget.grade == 'Grade 3'){
-
+        docID = '1sX5TLd6MXl8kQD42q43';
       }
       else if(widget.grade == 'Grade 4'){
-
+        docID = '5hlL0bScnBpTJaPFDcWt';
       }
       else if(widget.grade == 'Grade 5'){
-
+        docID = 'EmjyO4Qf9dBU8zYmpZct';
       }
       else if(widget.grade == 'Grade 6'){
         docID = 'I7v0oFqQeVnrBR3hF9qm';
@@ -91,7 +114,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
         print('Document data is empty');
         return;
       }
-
+      print('post-assessment' + widget.pre_assessment);
       if (!data.containsKey('post-assessment' + widget.pre_assessment)) {
         print('No data found for the specified lesson');
         return;
@@ -119,7 +142,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
-          .doc(widget.userId)
+          .doc(widget.userId+_classCode)
           .get();
 
       if (!snapshot.exists) {

@@ -66,8 +66,32 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
   @override
   void initState() {
     super.initState();
+    classCode();
     _audioPlayer = AudioPlayer();
     _recording = Record();
+  }
+
+  String _classCode = '';
+void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   @override
@@ -201,7 +225,7 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
     print('validating');
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+_classCode)
             .get();
 
           if (!snapshot.exists) {
@@ -222,6 +246,13 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
               return;
           }
           if(data[data[widget.lesson + ' lesson']].length == 10){
+            // await FirebaseFirestore.instance
+            //     .collection('score')
+            //     .doc(widget.userId+_classCode)
+            //     .update({
+            //       'number': FieldValue.increment(1),
+            //     });
+            // print('next level.');
             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
               return SpeechPost_Assessment_Score(
                   userId: widget.userId,
@@ -231,8 +262,10 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
                   docId: widget.docID,
                   pre_assessment: widget.pre_assessment, 
                   );
-            }));
-          }
+            }
+          )
+        );
+      }
             
             // await FirebaseFirestore.instance
             //     .collection('score')
@@ -254,7 +287,7 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
     try {
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('score');
-      String documentId = widget.userId;
+      String documentId = widget.userId+_classCode;
       DocumentSnapshot snapshot = await usersCollection.doc(documentId).get();
       print(resultController.text);
       List<dynamic> newArray = [resultController.text];

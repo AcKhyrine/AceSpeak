@@ -43,7 +43,31 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
   @override
   void initState() {
     super.initState();
-    assessment();
+    classCode();
+  }
+
+  String _classCode = '';
+void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          assessment();
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   void audio(String name) async {
@@ -60,9 +84,27 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
   }
 
   void assessment() async {
-    if (widget.grade == 'Grade 6') {
-      docID = 'I7v0oFqQeVnrBR3hF9qm';
-    }
+    if(widget.grade == 'Grade 1'){
+        docID = 'klpfg14MaQIRm5yfqk4u';
+      }
+      else if(widget.grade == 'Grade 2'){
+        docID = 'VSqeQfpysqAkYYHhSWGA';
+      }
+      else if(widget.grade == 'Grade 3'){
+        docID = '1sX5TLd6MXl8kQD42q43';
+      }
+      else if(widget.grade == 'Grade 4'){
+        docID = '5hlL0bScnBpTJaPFDcWt';
+      }
+      else if(widget.grade == 'Grade 5'){
+        docID = 'EmjyO4Qf9dBU8zYmpZct';
+      }
+      else if(widget.grade == 'Grade 6'){
+        docID = 'I7v0oFqQeVnrBR3hF9qm';
+      }
+      else{
+        print('check your grade level');
+      }
 
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -92,7 +134,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
-          .doc(widget.userId)
+          .doc(widget.userId+_classCode)
           .get();
 
       if (!snapshot.exists) {
@@ -117,7 +159,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
     }
     
     try {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId+_classCode).get();
 
       if (userDoc.exists) {
         Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;
@@ -125,7 +167,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
         List<String> scores = (data[widget.lesson + ' lesson'] as List<dynamic>?)?.cast<String>() ?? [];
         scores.add(newScore);
 
-        await FirebaseFirestore.instance.collection('score').doc(widget.userId).update({
+        await FirebaseFirestore.instance.collection('score').doc(widget.userId+_classCode).update({
           widget.lesson + ' lesson': scores,
         });
       }
@@ -141,14 +183,14 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
       try {
         DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+_classCode)
             .get();
 
         if (snapshot.exists) {
           Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
             await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+_classCode)
                 .update({
                   'number': FieldValue.increment(1),
                   'finished': FieldValue.arrayUnion([widget.lesson]),
@@ -167,7 +209,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
       try {
         DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+_classCode)
             .get();
 
         if (snapshot.exists) {
@@ -175,7 +217,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
           if (!data.containsKey('finished') || !data['finished'].contains(widget.lesson)) {
             await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+_classCode)
                 .update({
                   'finished': FieldValue.arrayUnion([widget.lesson]),
                 });
@@ -199,7 +241,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
       CollectionReference scoreCollection =
           FirebaseFirestore.instance.collection('score');
 
-      DocumentSnapshot docSnapshot = await scoreCollection.doc(documentId).get();
+      DocumentSnapshot docSnapshot = await scoreCollection.doc(documentId+_classCode).get();
 
       if (docSnapshot.exists) {
         Map<String, dynamic>? data =
@@ -259,7 +301,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
   void Cheked()async{
     if (correct != words[widget.length - 1]) {
       String answer = words[widget.length - 1];
-      await FirebaseFirestore.instance.collection('score').doc(widget.userId).update({
+      await FirebaseFirestore.instance.collection('score').doc(widget.userId+_classCode).update({
         widget.lesson +'wrong': FieldValue.arrayUnion([answer]),
     });
     }

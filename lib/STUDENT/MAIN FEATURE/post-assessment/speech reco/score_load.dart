@@ -25,19 +25,42 @@ class Loading_scores extends StatefulWidget {
 }
 
 class _Loading_scoresState extends State<Loading_scores> {
-
+  String _classCode ='';
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
-      Score();
-    });
+    classCode();
+  }
+
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          Future.delayed(Duration(seconds: 1), () {
+            Score();
+          });
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   List<String>scores =[];
 
   Future<void> Score() async {
     try {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId+_classCode).get();
 
       if (userDoc.exists) {
         Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;

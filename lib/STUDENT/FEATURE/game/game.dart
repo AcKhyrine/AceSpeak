@@ -1,9 +1,8 @@
 import 'package:acespeak/STUDENT/FEATURE/game/findobject.dart';
+import 'package:acespeak/STUDENT/FEATURE/game/spelling.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'animal.dart';
-import 'memorygame/managers/game_manager.dart';
-import 'memorygame/pages/game_page.dart';
 
 class GameScreen extends StatefulWidget {
   final String userId;
@@ -17,41 +16,65 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+  
     return Scaffold(
-      body: Center(
-        child: Column(
+      body: SafeArea(
+        child: Stack(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                  return AnimalGameScreen(
-                      userId: widget.userId, grade: widget.grade);
-                }));
-              },
-              child: Text('Find Animal Name'),
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/image 2.png',
+                fit: BoxFit.cover,
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ChangeNotifierProvider(
-                      create: (_) => GameManager(),
-                      child: GamePage(),
-                    ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(onPressed: (){
+                  Navigator.pop(context);
+                }, icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 3, 48, 85),)),
+                SizedBox(height: screenHeight * .075,),
+                Center(child: Text('GAMES', style: TextStyle(fontSize: screenHeight * .065, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 3, 48, 85)),)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: screenHeight * .03,),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                            return FindObjects(
+                                userid: widget.userId,);
+                          }));
+                        },
+                        child: Image.asset('assets/images/FINDOBJECTS.png', width: screenWidth * 1,)),
+                        SizedBox(height: screenHeight * .03,),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                            return AnimalGameScreen(
+                                userId: widget.userId, grade: widget.grade);
+                          }));
+                        },
+                        child: Image.asset('assets/images/ANIMALSOUNDS.png', width: screenWidth * 2)),
+                      SizedBox(height: screenHeight * .01,),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                            return SpellingGame(
+                                userid: widget.userId,);
+                          }));
+                        },
+                        child: Image.asset('assets/images/SPELLING.png')),
+                    
+                    ],
                   ),
-                );
-              },
-              child: Text('Memory Game'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                  return FindObjects(
-                     userId: widget.userId, grade: widget.grade
-                  );
-                }));
-              },
-              child: Text('Find Objects'),
+                ),
+              ],
             ),
           ],
         ),

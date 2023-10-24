@@ -32,10 +32,34 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
   @override
   void initState() {
     super.initState();
-    fetchResults();
+    classCode();
     fetchLesson();
   }
   int flag = 0;
+
+  String _classCode = '';
+void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          fetchResults();
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
 
   void Added() async {
     int? n = int.tryParse(widget.pre_assessment);
@@ -44,14 +68,14 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
       try {
         DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+_classCode)
             .get();
 
         if (snapshot.exists) {
           Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
             await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+_classCode)
                 .update({
                   'number': FieldValue.increment(1),
                 });
@@ -68,7 +92,7 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
       try {
         DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+_classCode)
             .get();
 
         if (snapshot.exists) {
@@ -122,7 +146,7 @@ Future<void> fetchResults() async {
   try {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('score')
-        .doc(widget.userId)
+        .doc(widget.userId+_classCode)
         .get();
 
     if (!snapshot.exists) {

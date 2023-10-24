@@ -12,17 +12,40 @@ class LeaderBoardScreen extends StatefulWidget {
 class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
   List<String> student = [];
   Map<String, int> studentScores = {};
-
+  String _classCode ='';
   @override
   void initState() {
     super.initState();
     students();
+    classCode();
+  }
+
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   void students() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('Student')
+          .collection('classroom')
           .doc(widget.classroomID)
           .get();
 
@@ -72,7 +95,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
   Future<int> StudentScore(int i) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('score')
-        .doc(student[i])
+        .doc(student[i]+_classCode)
         .get();
 
     if (!snapshot.exists) {

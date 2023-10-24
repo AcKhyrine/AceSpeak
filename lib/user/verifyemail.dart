@@ -70,13 +70,13 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     super.dispose();
   }
 
-  void assessment(grade, documentId) async {
+  void assessment(grade, documentId, classCode) async {
     print(grade);
-
+    print(classCode);
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
-          .doc(widget.userId)
+          .doc(widget.userId+ classCode)
           .get();
 
       if (!snapshot.exists) {
@@ -145,7 +145,7 @@ Widget build(BuildContext context) => isEmailVerified
               if (data != null && data['role'] == 'Student') {
                 return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   future:
-                      FirebaseFirestore.instance.collection('Student').get(),
+                      FirebaseFirestore.instance.collection('classroom').get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -162,14 +162,15 @@ Widget build(BuildContext context) => isEmailVerified
                             studentData.containsKey('StudentList')) {
                           final studentList =
                               studentData['StudentList'] as List<dynamic>;
-                          String grade = studentData['Grade'] ?? ''; // Handle null
+                          String grade = studentData['Grade'] ?? ''; 
+                          String classCode = studentData['Class Code'] ?? '';
                           if (studentList.contains(widget.userId)) {
                             print('assessment');
                             print('CLASSROOM: ' + documentId);
                             if (documentId != null) {
-                              assessment(grade, documentId);
+                              assessment(grade, documentId, classCode);
                             } else {
-                              assessment(grade, documentId = '');
+                              assessment(grade, documentId = '', classCode);
                             }
 
                             foundStudent = true;

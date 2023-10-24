@@ -3,6 +3,8 @@ import 'package:acespeak/user/login_screen.dart';
 import 'package:acespeak/user/user_screen.dart';
 import 'package:acespeak/welcome_message_screen.dart';
 
+import '../STUDENT/student_registration_screen.dart';
+
 class WelcomPageScreen extends StatelessWidget {
   const WelcomPageScreen({Key? key}) : super(key: key);
 
@@ -98,13 +100,13 @@ class WelcomPageScreen extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (ctx) {
-                                return UserScreen();
-                              },
-                            ),
-                          );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return StudentRegistration();
+                            },
+                          ),
+                        );
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.lightGreen,

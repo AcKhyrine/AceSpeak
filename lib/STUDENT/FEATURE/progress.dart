@@ -14,10 +14,33 @@ class ProgressHistory extends StatefulWidget {
 
 class _ProgressHistoryState extends State<ProgressHistory> {
   int score1=0, score2=0, score3=0, score4=0, score5=0, score6=0, score7=0, score8=0, score9=0, score10=0, score11=0, score12=0, score13=0, score14=0, score15=0, score16=0, score17=0, score18=0, score19=0, score20=0;
+  String _classCode ='';
   @override
   void initState() {
-    postAssessmentScore();
+    classCode();
     super.initState();
+  }
+
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          postAssessmentScore();
+        });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   void postAssessmentScore() async {
@@ -27,7 +50,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
           FirebaseFirestore.instance.collection('score');
 
       DocumentSnapshot docSnapshot =
-          await scoreCollection.doc(documentId).get();
+          await scoreCollection.doc(documentId+_classCode).get();
 
       if (docSnapshot.exists) {
         Map<String, dynamic>? data =

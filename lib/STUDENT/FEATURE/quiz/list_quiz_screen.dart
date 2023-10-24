@@ -28,6 +28,7 @@ class _QuizzesState extends State<Quizzes> {
   List<dynamic> quizData = [];
   List<String> deadline = [];
   List<String> title = [];
+  List<String> status = [];
   Map<String, dynamic> completed_quiz = {};
   int overall = 0;
   String getCurrentDate() {
@@ -90,7 +91,8 @@ class _QuizzesState extends State<Quizzes> {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       if (data['quiz'] != null) {
         quizData = data['quiz'];
-        startquiz();
+        print(quizData);
+        startquiz(quizData);
       } else {
         print('No classQuiz data found in the document');
       }
@@ -100,7 +102,7 @@ class _QuizzesState extends State<Quizzes> {
     }
   }
 
-  void startquiz() async {
+  void startquiz(quizData) async {
     if (quizData.isNotEmpty) {
       for (var item in quizData) {
         try {
@@ -118,6 +120,8 @@ class _QuizzesState extends State<Quizzes> {
             overall = data['quiz'].length;
             title.add(data['title'] ?? ''); 
             deadline.add(data['deadline'] ?? ''); 
+            status.add(data['status'] ?? ''); 
+            print(title);
           } else {
             print('No quiz data found in the document');
           }
@@ -129,7 +133,6 @@ class _QuizzesState extends State<Quizzes> {
     } else {
       print('No quiz');
     }
-
     setState(() {
       isLoading = false;
     });
@@ -148,6 +151,7 @@ class _QuizzesState extends State<Quizzes> {
     }
     setState(() {
       completed_quiz = snapshot.data() as Map<String, dynamic>;
+      print(completed_quiz);
     });
 
   } catch (e) {
@@ -178,68 +182,61 @@ class _QuizzesState extends State<Quizzes> {
             ),
             body: TabBarView(
               children: <Widget>[
-                Column(
-                  children: [
-                    if (isLoading) 
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Image.asset('assets/images/quizloading.gif'),
-                          )
-                        ],
+                // Assuming this is your Column for "Upcoming" quizzes
+Column(
+  children: [
+    if (title.isNotEmpty)
+      Expanded(
+        child: ListView.builder(
+          itemCount: title.length,
+          itemBuilder: (context, index) {
+            bool isCompleted = completed_quiz.containsKey(title[index]);
+            DateTime quizDeadline = DateTime.parse(deadline[index]);
+            DateTime now = DateTime.now();
+
+            if (!isCompleted && quizDeadline.isAfter(now) && status[index] == "uploaded") {
+              print('Upcoming: ${title[index]}');
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: GestureDetector(
+                  onTap: () {
+                    if (!isLoading) {
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return StartQuizScreen(
+                          userId: widget.userId,
+                          classroomID: widget.classroomID,
+                          grade: widget.grade,
+                          classCode: classCode,
+                          quizData: quizData[index],
+                          title: title[index],
+                        );
+                      }));
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.green,
+                        width: 2.0,
                       ),
-//////////////////////////////////// UPCOMING
-                    if (!isLoading && title.length > 0) 
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: title.length,
-                          itemBuilder: (context, index) {
-                            bool isCompleted = completed_quiz.containsKey(title[index]);
-                            if(isCompleted || DateTime.parse(deadline[index]).isBefore(DateTime.now())){
-                              print('completed');
-                              print(isCompleted);
-                            }else{
-                              print('not completed');
-                            return Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  if (!isLoading) {
-                                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                                      return StartQuizScreen(
-                                        userId: widget.userId,
-                                        classroomID: widget.classroomID,
-                                        grade: widget.grade,
-                                        classCode: classCode,
-                                        quizData: quizData[index],
-                                        title: title[index],
-                                      );
-                                    }));
-                                  }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.green,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(title[index]),
-                                    subtitle: Text(deadline[index]),
-                                  ),
-                                ),
-                              ),
-                            );
-                            }
-                          },
-                        ),
-                      ),
-                  ],
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: ListTile(
+                      title: Text(title[index]),
+                      subtitle: Text(deadline[index]),
+                    ),
+                  ),
                 ),
+              );
+            }
+            // Return an empty Container for quizzes that don't match the criteria
+            return Container();
+          },
+        ),
+      ),
+  ],
+),
+
 //////////////////////////////////// COMPLETED
                 Column(
                   children: [
@@ -287,51 +284,56 @@ class _QuizzesState extends State<Quizzes> {
                   ],
                 ),
 //////////////////////////////////// PASTDUE
-                Column(
-                  children: [
-                    if (isLoading) 
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Image.asset('assets/images/quizloading.gif'),
-                          )
-                        ],
-                      ),
-                    if (!isLoading && title.length > 0) 
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: title.length,
-                          itemBuilder: (context, index) {
-                            print(deadline[index]);
-                            if(DateTime.parse(deadline[index]).isBefore(DateTime.now()) && completed_quiz[title[index]] == null){
-                            print('past due');
-                            return Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: ListTile(
-                                  title: Text(title[index]),
-                                  subtitle: Text(deadline[index]),
-                                  trailing: Icon(Icons.close,color: Colors.red,)
-                                ),
-                              ),
-                            );
-                            }else{
-                              print('not');
-                            }
-                          },
-                        ),
-                      ),
-                  ],
+               Column(
+  children: [
+    if (isLoading)
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Image.asset('assets/images/quizloading.gif'),
+          ),
+        ],
+      ),
+    if (!isLoading && title.length > 0)
+      Expanded(
+        child: ListView.builder(
+          itemCount: title.length,
+          itemBuilder: (context, index) {
+            final isCompleted = completed_quiz.containsKey(title[index]);
+            final isPastDue = DateTime.parse(deadline[index]).isBefore(DateTime.now() );
+
+            if (isPastDue && !isCompleted && status[index] == "uploaded") {
+              // Display past due quizzes
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.red,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: ListTile(
+                    title: Text(title[index]),
+                    subtitle: Text(deadline[index]),
+                    trailing: Icon(Icons.close, color: Colors.red),
+                  ),
                 ),
+              );
+            } else {
+              // Display upcoming quizzes
+              return SizedBox.shrink();
+            }
+          },
+        ),
+      ),
+  ],
+),
+
+
               ],
             ),
           ),

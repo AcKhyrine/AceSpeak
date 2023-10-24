@@ -80,12 +80,7 @@ class _StudentRegistrationState extends State<StudentRegistration> {
                       Icons.arrow_back_ios_new,
                       color: Colors.black,
                     ),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UserScreen(),
-                      ),
-                    ),
+                    onPressed: () => Navigator.pop(context)
                   ),
                 ),
                 Image.asset('assets/images/logo1.png'),

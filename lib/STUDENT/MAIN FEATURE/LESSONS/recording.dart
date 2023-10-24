@@ -56,7 +56,7 @@ class _RecordingState extends State<Recording> {
 
   final String coreType = "sent.eval";
   final audioType = "wav";
-
+  String _classCode = '';
   TextEditingController resultController = TextEditingController();
 
   @override
@@ -64,6 +64,29 @@ class _RecordingState extends State<Recording> {
     super.initState();
     _audioPlayer = AudioPlayer();
     _recording = Record();
+    classCode();
+  }
+
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   @override
@@ -197,7 +220,7 @@ class _RecordingState extends State<Recording> {
     int addvalue = widget.index +=1 ;
       await FirebaseFirestore.instance
       .collection('score')
-      .doc(widget.userId)
+      .doc(widget.userId+_classCode)
       .update({
         widget.item: addvalue,
       });

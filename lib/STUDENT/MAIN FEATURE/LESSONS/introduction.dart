@@ -23,18 +23,61 @@ class _LessonIntroState extends State<LessonIntro> {
   final FlutterTts flutterTts = FlutterTts();
   String docID = '';
   String intro = '';
+  String _classCode = '';
   
   @override
   void initState() {
     super.initState();
+    classCode();
     Introduction();
     print(widget.lesson);
   }
 
-  void Introduction() async {
-    if(widget.grade == 'Grade 6'){ // change this into grade 1 later
-      docID = 'I7v0oFqQeVnrBR3hF9qm';
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          print(_classCode);
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
     }
+  }
+
+  void Introduction() async {
+    if(widget.grade == 'Grade 1'){
+        docID = 'klpfg14MaQIRm5yfqk4u';
+      }
+      else if(widget.grade == 'Grade 2'){
+        docID = 'VSqeQfpysqAkYYHhSWGA';
+      }
+      else if(widget.grade == 'Grade 3'){
+        docID = '1sX5TLd6MXl8kQD42q43';
+      }
+      else if(widget.grade == 'Grade 4'){
+        docID = '5hlL0bScnBpTJaPFDcWt';
+      }
+      else if(widget.grade == 'Grade 5'){
+        docID = 'EmjyO4Qf9dBU8zYmpZct';
+      }
+      else if(widget.grade == 'Grade 6'){
+        docID = 'I7v0oFqQeVnrBR3hF9qm';
+      }
+      else{
+        print('check your grade level');
+      }
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('lessons')
@@ -111,7 +154,7 @@ class _LessonIntroState extends State<LessonIntro> {
                         onPressed: () async {
                           await FirebaseFirestore.instance
                             .collection('score')
-                            .doc(widget.userId)
+                            .doc(widget.userId+_classCode)
                             .update({
                               widget.item : 1,
                             });

@@ -35,12 +35,41 @@ class LessonScore extends StatefulWidget {
 }
 
 class _LessonScoreState extends State<LessonScore> {
+  String _classCode ='';
+  @override
+  void initState() {
+    super.initState();
+    classCode();
+  }
   
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     int? score= int.tryParse(widget.score);
     return Scaffold(
-      body: SafeArea(
+      body: score != null ?
+      SafeArea(
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -101,7 +130,7 @@ class _LessonScoreState extends State<LessonScore> {
                         if(widget.index == 11){
                           await FirebaseFirestore.instance
                           .collection('score')
-                          .doc(widget.userId)
+                          .doc(widget.userId+_classCode)
                           .update({
                             'finished': FieldValue.arrayUnion([widget.item]),
                           });
@@ -193,7 +222,9 @@ class _LessonScoreState extends State<LessonScore> {
           ),
           ],
         ),
-      ),
+      ) : Center(
+        child: CircularProgressIndicator(),
+      )
     );
   }
 }

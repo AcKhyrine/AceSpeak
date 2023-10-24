@@ -7,7 +7,8 @@ class AssessmentScoreScreen extends StatefulWidget {
   final String lesson;
   final String grade;
   final String classroomID;
-  const AssessmentScoreScreen({super.key, required this.userId, required this.lesson, required this.grade, required this.classroomID});
+  final String classCode;
+  const AssessmentScoreScreen({super.key, required this.classCode, required this.userId, required this.lesson, required this.grade, required this.classroomID});
 
   @override
   State<AssessmentScoreScreen> createState() => _AssessmentScoreScreenState();

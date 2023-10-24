@@ -125,8 +125,9 @@ class _StartQuizScreenState extends State<StartQuizScreen> {
 }
 
 
-  Future<void> saveScore() async {
-  try {
+  Future<void> saveScore(answer) async {
+  if(answer == "True"){
+    try {
     DocumentReference docRef = FirebaseFirestore.instance
         .collection('quizScore')
         .doc(widget.userId + widget.classCode);
@@ -134,18 +135,72 @@ class _StartQuizScreenState extends State<StartQuizScreen> {
     DocumentSnapshot docSnapshot = await docRef.get();
     
     if (docSnapshot.exists) {
-      await docRef.update({widget.title: FieldValue.increment(1)});
+      await docRef.update({
+        widget.title: FieldValue.increment(1),
+        '_' + widget.title: FieldValue.arrayUnion([userAnswer]),
+        });
       print('Score updated successfully.');
     } else {
-      await docRef.set({widget.title: 1});
+      await docRef.set({
+        widget.title: 1,
+        '_' + widget.title: [userAnswer],
+        });
       print('Document created with an initial score of 1.');
     }
   } catch (e) {
     print('Error updating score: $e');
   }
+  }else{
+    try {
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('quizScore')
+        .doc(widget.userId + widget.classCode);
+
+    DocumentSnapshot docSnapshot = await docRef.get();
+    
+    if (docSnapshot.exists) {
+      await docRef.update({
+        '_' + widget.title: FieldValue.arrayUnion([userAnswer]),
+        });
+      print('Score updated successfully.');
+    } else {
+      await docRef.set({
+        '_' + widget.title: [userAnswer],
+        });
+      print('Document created with an initial score of 1.');
+    }
+  } catch (e) {
+    print('Error updating score: $e');
+  }
+  }
 }
 
+/////////////////////////////////////////////////////
+// void Answer(userAnswer) async {
+//   try {
+//     DocumentReference docRef = FirebaseFirestore.instance
+//         .collection('quizScore')
+//         .doc(widget.userId + widget.classCode);
 
+//     DocumentSnapshot snapshot = await docRef.get();
+
+//     if (snapshot.exists) {
+//       await docRef.update({
+//         '_' + widget.title: FieldValue.arrayUnion([userAnswer]),
+//       });
+//       print('Document updated successfully.');
+//     } else {
+//       await docRef.set({
+//         '_' + widget.title: [userAnswer],
+//       });
+//       print('New document created for user ID: ${widget.userId}');
+//     }
+//   } catch (e) {
+//     print('Error updating/creating document: $e');
+//   }
+// }
+
+////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -273,12 +328,15 @@ class _StartQuizScreenState extends State<StartQuizScreen> {
                                   onPressed: () {
                                     if(select != ''){
                                       if (userAnswer == answer) {
-                                      saveScore();
+                                      String ans = "True";
+                                      saveScore(ans);
                                       setState(() {
                                         score +=1;
                                       });
                                       print('Correct answer');
                                     } else {
+                                      String ans = "False";
+                                      saveScore(ans);
                                       print('Wrong answer');
                                     }
                                     

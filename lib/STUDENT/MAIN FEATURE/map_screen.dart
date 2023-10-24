@@ -22,23 +22,47 @@ class _MapScreenState extends State<MapScreen> {
   int number = 0;
   List<dynamic> finished = [];
   int score1=0, score2=0, score3=0, score4=0, score5=0, score6=0, score7=0, score8=0, score9=0, score10=0, score11=0, score12=0, score13=0, score14=0, score15=0, score16=0, score17=0, score18=0, score19=0, score20=0;
+  String _classCode = '';
   @override
   void initState() {
     super.initState();
-    assessment();
-    postAssessmentScore();
-   
+    classCode();
+  }
+
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No classroom found for the user ID: ${widget.classroomID}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          assessment();
+          postAssessmentScore();
+          print(_classCode);
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   void assessment() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
-          .doc(widget.userId)
+          .doc(widget.userId+_classCode)
           .get();
 
       if (!snapshot.exists) {
-        print('No documents found for the user ID: ${widget.userId}');
+        print('No score found for the user ID: ${widget.userId+_classCode}');
         return;
       }
 
@@ -441,45 +465,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.15,
                         top: screenHeight * 0.803,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score4);
+                            if(finished.contains('1-4') || number > 4){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '1-4', post : '4', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('1-4') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score4 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score4 <= 55 && score4 > 40
+                                                ? Icons.star_half_outlined
+                                                : score4 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score4 <= 85 && score4 > 70
+                                                ? Icons.star_half_outlined
+                                                : score4 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 5
@@ -515,45 +562,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.45,
                         top: screenHeight * 0.750,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score5);
+                            if(finished.contains('1-5') || number > 5){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '1-5', post : '5', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('1-5') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score5 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score5 <= 55 && score5 > 40
+                                                ? Icons.star_half_outlined
+                                                : score5 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score5 <= 85 && score5 > 70
+                                                ? Icons.star_half_outlined
+                                                : score5 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
 
@@ -605,45 +675,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.53,
                         top: screenHeight * 0.68,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score6);
+                            if(finished.contains('2-1') || number > 6){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-1', post : '6', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('2-1') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score6 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score6 <= 55 && score6 > 40
+                                                ? Icons.star_half_outlined
+                                                : score6 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score6 <= 85 && score6 > 70
+                                                ? Icons.star_half_outlined
+                                                : score6 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 2
@@ -679,45 +772,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.40,
                         top: screenHeight * 0.642,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score7);
+                            if(finished.contains('2-2') || number > 7){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-2', post : '7', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('2-2') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score7 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score7 <= 55 && score7 > 40
+                                                ? Icons.star_half_outlined
+                                                : score7 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score7 <= 85 && score7 > 70
+                                                ? Icons.star_half_outlined
+                                                : score7 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 3
@@ -753,45 +869,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.69,
                         top: screenHeight * 0.600,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score8);
+                            if(finished.contains('2-4') || number > 9){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-4', post : '9', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('2-4') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score9 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score9 <= 55 && score9 > 40
+                                                ? Icons.star_half_outlined
+                                                : score9 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score9 <= 85 && score9 > 70
+                                                ? Icons.star_half_outlined
+                                                : score9 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 4
@@ -827,45 +966,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.15,
                         top: screenHeight * 0.557,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score4);
+                            if(finished.contains('2-4') || number > 9){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-1', post : '6', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('2-1') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score6 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score6 <= 55 && score6 > 40
+                                                ? Icons.star_half_outlined
+                                                : score6 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score6 <= 85 && score6 > 70
+                                                ? Icons.star_half_outlined
+                                                : score6 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 5
@@ -901,45 +1063,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.42,
                         top: screenHeight * 0.505,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score10);
+                            if(finished.contains('2-5') || number > 10){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-5', post : '10', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('2-5') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score10 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score10 <= 55 && score10 > 40
+                                                ? Icons.star_half_outlined
+                                                : score10 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score10 <= 85 && score10 > 70
+                                                ? Icons.star_half_outlined
+                                                : score10 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
 
@@ -991,45 +1176,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.53,
                         top: screenHeight * 0.43,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score11);
+                            if(finished.contains('3-1') || number > 11){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '3-1', post : '11', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('3-1') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score11 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score11 <= 55 && score11 > 40
+                                                ? Icons.star_half_outlined
+                                                : score11 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score11 <= 85 && score11 > 70
+                                                ? Icons.star_half_outlined
+                                                : score11 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 2
@@ -1065,45 +1273,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.40,
                         top: screenHeight * 0.394,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score12);
+                            if(finished.contains('3-2') || number > 12){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '3-2', post : '12', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('3-2') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score12 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score12 <= 55 && score12 > 40
+                                                ? Icons.star_half_outlined
+                                                : score12 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score12 <= 85 && score12 > 70
+                                                ? Icons.star_half_outlined
+                                                : score12 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 3
@@ -1139,45 +1370,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.70,
                         top: screenHeight * 0.352,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score13);
+                            if(finished.contains('3-3') || number > 13){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '3-3', post : '13', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('3-3') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score13 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score13 <= 55 && score13 > 40
+                                                ? Icons.star_half_outlined
+                                                : score13 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score13 <= 85 && score13 > 70
+                                                ? Icons.star_half_outlined
+                                                : score13 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 4
@@ -1213,45 +1467,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.15,
                         top: screenHeight * 0.308,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score14);
+                            if(finished.contains('3-4') || number > 14){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '3-4', post : '14', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('3-4') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score14 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score14 <= 55 && score14 > 40
+                                                ? Icons.star_half_outlined
+                                                : score14 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score14 <= 85 && score14 > 70
+                                                ? Icons.star_half_outlined
+                                                : score14 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 5
@@ -1287,45 +1564,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.42,
                         top: screenHeight * 0.256,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score15);
+                            if(finished.contains('3-5') || number > 15){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '3-5', post : '15', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('3-5') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score15 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score15 <= 55 && score15 > 40
+                                                ? Icons.star_half_outlined
+                                                : score15 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score15 <= 85 && score15 > 70
+                                                ? Icons.star_half_outlined
+                                                : score15 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
 
@@ -1377,45 +1677,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.53,
                         top: screenHeight * 0.180,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score16);
+                            if(finished.contains('4-1') || number > 16){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '4-1', post : '16', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('4-1') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score16 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score16 <= 55 && score16 > 40
+                                                ? Icons.star_half_outlined
+                                                : score16 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score16 <= 85 && score16 > 70
+                                                ? Icons.star_half_outlined
+                                                : score16 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 2
@@ -1451,45 +1774,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.40,
                         top: screenHeight * 0.145,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score17);
+                            if(finished.contains('4-2') || number > 17){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '4-2', post : '17', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('4-2') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score17 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score17 <= 55 && score17 > 40
+                                                ? Icons.star_half_outlined
+                                                : score17 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score17 <= 85 && score17 > 70
+                                                ? Icons.star_half_outlined
+                                                : score17 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 3
@@ -1525,45 +1871,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.68,
                         top: screenHeight * 0.10,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score18);
+                            if(finished.contains('4-3') || number > 18){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '4-3', post : '18', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('4-3') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score18 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score18 <= 55 && score18 > 40
+                                                ? Icons.star_half_outlined
+                                                : score18 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score18 <= 85 && score18 > 70
+                                                ? Icons.star_half_outlined
+                                                : score18 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 4
@@ -1599,45 +1968,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.15,
                         top: screenHeight * 0.06,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score19);
+                            if(finished.contains('4-4') || number > 19){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '4-4', post : '19', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('4-4') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score19 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score19 <= 55 && score19 > 40
+                                                ? Icons.star_half_outlined
+                                                : score19 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score19 <= 85 && score19 > 70
+                                                ? Icons.star_half_outlined
+                                                : score19 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                       // LESSON 5
@@ -1673,45 +2065,68 @@ class _MapScreenState extends State<MapScreen> {
                       Positioned(
                         left: screenWidth * 0.38,
                         top: screenHeight * 0.01,
-                        child: Column(
-                          children: [
-                            Stack(
-                              alignment: Alignment.topCenter,
+                        child: GestureDetector(
+                          onTap: (){
+                            print(score20);
+                            if(finished.contains('4-5') || number > 20){
+                              print('you may go');
+                              // add number + 1;
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '4-5', post : '20', classroomID : widget.classroomID);
+                            }));
+                            }
+                            else{
+                              EasyLoading.showInfo("You cant open this yet");
+                            }
+                          },
+                          child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    size: screenWidth * 0.07, 
-                                    color: Color.fromARGB(255, 228, 14, 14),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Stack(
+                                  alignment: Alignment.topCenter,
                                   children: [
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Icon(
-                                        Icons.star_border_outlined,
-                                        size: screenWidth * 0.05,
-                                        color: Color.fromARGB(255, 228, 14, 14),
+                                        finished.contains('4-5') ? Icons.circle_rounded : Icons.circle_outlined,
+                                        size: screenWidth * 0.07, 
+                                        color: Colors.red
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.star_border_outlined,
-                                      size: screenWidth * 0.05,
-                                      color: Color.fromARGB(255, 228, 14, 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          score20 >= 40 ? Icons.star : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color: Colors.red
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            score20 <= 55 && score20 > 40
+                                                ? Icons.star_half_outlined
+                                                : score20 > 55
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                            size: screenWidth * 0.05,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Icon(
+                                          score20 <= 85 && score20 > 70
+                                                ? Icons.star_half_outlined
+                                                : score20 > 85
+                                                    ? Icons.star
+                                                    : Icons.star_border_outlined,
+                                          size: screenWidth * 0.05,
+                                          color:Colors.red,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
                         )
                       ),
                     ],
@@ -1746,7 +2161,7 @@ class _MapScreenState extends State<MapScreen> {
           FirebaseFirestore.instance.collection('score');
 
       DocumentSnapshot docSnapshot =
-          await scoreCollection.doc(documentId).get();
+          await scoreCollection.doc(documentId+_classCode).get();
 
       if (docSnapshot.exists) {
         Map<String, dynamic>? data =

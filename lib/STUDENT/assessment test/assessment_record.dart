@@ -22,6 +22,7 @@ class AssessmentRecord extends StatefulWidget {
   final String lesson;
   final String grade;
   final String classroomID;
+  final String classCode;
   const AssessmentRecord(
       {Key? key,
       required this.classroomID,
@@ -31,6 +32,7 @@ class AssessmentRecord extends StatefulWidget {
       required this.isLevelEmpty,
       required this.userId,
       required this.grade,
+      required this.classCode,
       required this.lesson})
       : super(key: key);
 
@@ -199,7 +201,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
     print('validating');
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+widget.classCode)
             .get();
 
           if (!snapshot.exists) {
@@ -246,7 +248,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             else{
               await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+widget.classCode)
                 .update({
                 'number': 1,
                 'assessment': 1
@@ -256,6 +258,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                     userId: widget.userId,
                     lesson: widget.lesson,
                     classroomID : widget.classroomID,
+                    classCode: widget.classCode,
                     grade: widget.grade);
               }));
             }
@@ -284,7 +287,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             else{
               await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+widget.classCode)
                 .update({
                 'number': 6,
                 'assessment': 2
@@ -294,6 +297,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                     userId: widget.userId,
                     classroomID : widget.classroomID,
                     lesson: widget.lesson,
+                    classCode : widget.classCode,
                     grade: widget.grade);
               }));
             }
@@ -322,7 +326,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             else{
               await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+widget.classCode)
                 .update({
                 'number': 11,
                 'assessment': 3
@@ -332,6 +336,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                     userId: widget.userId,
                     lesson: widget.lesson,
                     classroomID : widget.classroomID,
+                    classCode: widget.classCode,
                     grade: widget.grade);
               }));
             }
@@ -360,7 +365,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             else{
               await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+widget.classCode)
                 .update({
                 'number': 16,
                 'assessment': 4
@@ -370,6 +375,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                     userId: widget.userId,
                     lesson: widget.lesson,
                     classroomID : widget.classroomID,
+                    classCode: widget.classCode,
                     grade: widget.grade);
               }));
             }
@@ -409,7 +415,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
     try {
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('score');
-      String documentId = widget.userId;
+      String documentId = widget.userId+widget.classCode;
       DocumentSnapshot snapshot = await usersCollection.doc(documentId).get();
       print(resultController.text);
       List<dynamic> newArray = [resultController.text];

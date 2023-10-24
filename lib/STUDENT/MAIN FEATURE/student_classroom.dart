@@ -2,11 +2,13 @@ import 'package:acespeak/STUDENT/FEATURE/update_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../user/welcome_page_screen.dart';
 import '../FEATURE/leaderboard.dart';
 import '../FEATURE/progress.dart';
 import '../FEATURE/game/game.dart';
 import '../FEATURE/quiz/list_quiz_screen.dart';
+import '../FEATURE/studentprofile.dart';
 import 'map_screen.dart';
 import '../speech recognition feature/level.dart';
 import '../../user/login_screen.dart';
@@ -30,8 +32,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
   void initState() {
     super.initState();
     assessment();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
-
   void assessment() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -59,7 +61,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
+  
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -224,6 +226,15 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                     }));
                   },
                   child: Text('leader board'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                      return StudentProfile(userId: widget.userId,);
+                    }));
+                  },
+                  child: Text('Profile'),
                 ),
                 ElevatedButton(
                   onPressed: () {

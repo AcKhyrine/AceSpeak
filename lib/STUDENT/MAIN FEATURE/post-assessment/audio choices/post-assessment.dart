@@ -19,16 +19,40 @@ class _PostAssessmentState extends State<PostAssessment> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
-      assessment();
-    });
+    classCode();
+  }
+
+String _classCode = '';
+void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+          Future.delayed(Duration(seconds: 1), () {
+            assessment();
+          });
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
 void assessment() async {
   try {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('score')
-        .doc(widget.userId)
+        .doc(widget.userId+_classCode)
         .get();
 
     if (!snapshot.exists) {
@@ -73,7 +97,7 @@ void assessment() async {
     } else {
       await FirebaseFirestore.instance
         .collection('score')
-        .doc(widget.userId)
+        .doc(widget.userId+_classCode)
         .update({
           widget.lesson + ' lesson': [],
           widget.lesson + 'wrong' : []

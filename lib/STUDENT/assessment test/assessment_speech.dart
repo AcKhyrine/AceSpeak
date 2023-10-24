@@ -28,7 +28,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
   double speechRate = 0.50;
   List<String> level = [];
   int next = 0;
-
+  String _classCode = '';
   Speak(text) async {
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1);
@@ -39,19 +39,19 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
   Future<void> lesson() async {
     var docID;
       if(widget.grade == 'Grade 1'){
-        docID = 'I7v0oFqQeVnrBR3hF9qm';
+        docID = 'klpfg14MaQIRm5yfqk4u';
       }
       else if(widget.grade == 'Grade 2'){
-
+        docID = 'VSqeQfpysqAkYYHhSWGA';
       }
       else if(widget.grade == 'Grade 3'){
-
+        docID = '1sX5TLd6MXl8kQD42q43';
       }
       else if(widget.grade == 'Grade 4'){
-
+        docID = '5hlL0bScnBpTJaPFDcWt';
       }
       else if(widget.grade == 'Grade 5'){
-
+        docID = 'EmjyO4Qf9dBU8zYmpZct';
       }
       else if(widget.grade == 'Grade 6'){
         docID = 'I7v0oFqQeVnrBR3hF9qm';
@@ -102,7 +102,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
-          .doc(widget.userId)
+          .doc(widget.userId+_classCode)
           .get();
 
       if (!snapshot.exists) {
@@ -121,7 +121,9 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                   userId: widget.userId,
                   lesson: widget.lesson,
                   classroomID : widget.classroomID,
-                  grade: widget.grade);
+                  grade: widget.grade,
+                  classCode : _classCode
+                );
             }));
           }
         });
@@ -136,10 +138,33 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
 
   @override
   void initState() {
+    classCode();
     number();
     lesson();
     _onUploadComplete();
     super.initState();
+  }
+
+  void classCode()async{
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('classroom')
+          .doc(widget.classroomID)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        setState(() {
+          _classCode = data['Class Code'];
+        });
+        print(_classCode);
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   void moveToNextWord() {
@@ -152,6 +177,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
               userId: widget.userId,
               classroomID : widget.classroomID,
               lesson: widget.lesson,
+              classCode : _classCode,
               grade: widget.grade);
         }));
       }
@@ -172,7 +198,8 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: level.isNotEmpty ? 
+      Stack(
       children: [
         Image.asset(
           'assets/images/assessment.png',
@@ -256,6 +283,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                           userId: widget.userId,
                           classroomID : widget.classroomID,
                           lesson: widget.lesson,
+                          classCode : _classCode,
                         ),
                       ),
                     ],
@@ -266,7 +294,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
           ],
         ),
       ]
-    )
+    ) : Center(child: CircularProgressIndicator())
   ); 
  } 
 }
