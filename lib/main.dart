@@ -30,11 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(child: Quizzes(
-          userId: "5PJROWGLNNSF56C7wZkHC85HhPJ3",
-          grade: "Grade 6",
-          classroomID: "H8lBJJgjokJz7wVDvWEi",
-        ),),
+        body: Center(child: HomeScreen(),),
       ),
       theme: ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
