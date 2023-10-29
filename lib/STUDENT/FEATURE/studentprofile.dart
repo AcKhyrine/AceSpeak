@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:animated_text_kit/animated_text_kit.dart'; 
 
 class StudentProfile extends StatefulWidget {
   final String userId;
@@ -58,12 +59,18 @@ class _StudentProfileState extends State<StudentProfile> {
       print('Error fetching data: $e');
     }
   }
+static const colorizeColors = [
+  Color.fromARGB(255, 3, 48, 85),
+  Colors.blue,
+  Colors.orange,
+  Color.fromARGB(255, 127, 244, 54),
+];
+
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -79,8 +86,20 @@ class _StudentProfileState extends State<StudentProfile> {
               child: Column(
                 children: [
                 SizedBox(height: screenHeight * .065,),
-                Center(child: Text('Student Profile', style: TextStyle(fontSize: screenHeight * .045, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 3, 48, 85)),)),
-                  
+                Center(
+                  child: 
+                  AnimatedTextKit(
+                    repeatForever: true,
+                    isRepeatingAnimation: true,
+                    animatedTexts: [
+                      ColorizeAnimatedText(
+                        'Student Profile',
+                        textStyle: TextStyle(fontSize: screenHeight * .045, fontWeight: FontWeight.bold,),
+                        colors: colorizeColors,
+                      ),
+                    ],
+                  ),
+                  ),
                   Form(
                     key: _formkey,
                     child: Column(
@@ -97,7 +116,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           height: screenHeight * 0.09,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.black, 
+                              color: Colors.red, 
                               width: .5,         
                             ),
                             borderRadius: BorderRadius.circular(1.0),
@@ -126,7 +145,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           height: screenHeight * 0.09,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.black, 
+                              color: Colors.red, 
                               width: .5,         
                             ),
                             borderRadius: BorderRadius.circular(1.0),
@@ -267,7 +286,7 @@ class _StudentProfileState extends State<StudentProfile> {
                                   ),
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
-                                    Color.fromARGB(255, 180, 133, 133),
+                                    Colors.grey,
                                   ),
                                 ),
                               ),

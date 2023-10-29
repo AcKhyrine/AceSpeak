@@ -12,6 +12,7 @@ import '../FEATURE/studentprofile.dart';
 import 'map_screen.dart';
 import '../speech recognition feature/level.dart';
 import '../../user/login_screen.dart';
+import 'package:avatar_glow/avatar_glow.dart'; 
 
 class ClassRoomScreen extends StatefulWidget {
   final String userId;
@@ -127,11 +128,19 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                                 onTap: (){
                                   _showDialog(context);
                                 },
-                                child: Image.asset(
-                                  avatar != 0 ? 'assets/avatar/a' + avatar.toString() + '.png'
-                                  : 'assets/avatar/a1.png',
-                                  width: screenWidth * 0.20,
-                                  height: screenWidth * 0.20,
+                                child: AvatarGlow(
+                                  glowColor: Colors.white,
+                                  endRadius: 50,
+                                  duration: Duration(seconds: 10),
+                                  repeat: true,
+                                  showTwoGlows: true,
+                                  repeatPauseDuration: Duration(seconds: 5),
+                                  child: Image.asset(
+                                    avatar != 0 ? 'assets/avatar/a' + avatar.toString() + '.png'
+                                    : 'assets/avatar/a1.png',
+                                    width: screenWidth * 0.20,
+                                    height: screenWidth * 0.20,
+                                  ),
                                 ),
                               ),
                             ),

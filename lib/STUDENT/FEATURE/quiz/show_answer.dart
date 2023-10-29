@@ -72,7 +72,8 @@ class _ShowAnswerScreenState extends State<ShowAnswerScreen> {
                   SizedBox(height: 20),
                   Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
-                    height: 200.0,
+                    padding: EdgeInsets.only(top: 40),
+                    height: 220.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/board.png'),
@@ -89,7 +90,7 @@ class _ShowAnswerScreenState extends State<ShowAnswerScreen> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 22.0,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -102,41 +103,46 @@ class _ShowAnswerScreenState extends State<ShowAnswerScreen> {
                     child: ListView.builder(
                       itemCount: widget.choices.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          height: 80.0,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                widget.userAnswer == widget.answer &&
-                                        widget.choices[index] == widget.answer
-                                    ? 'assets/images/correct.png'
-                                    : (widget.userAnswer != widget.answer &&
-                                            widget.userAnswer ==
-                                                widget.choices[index]
-                                        ? 'assets/images/wrong.png'
-                                        : (widget.answer ==
-                                                widget.choices[index]
-                                            ? 'assets/images/correct.png'
-                                            : 'assets/images/choices.png')),
+                        return Column(
+                          children: [
+                            SizedBox(height: 5,),
+                            Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 80.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    widget.userAnswer == widget.answer &&
+                                            widget.choices[index] == widget.answer
+                                        ? 'assets/images/correct.png'
+                                        : (widget.userAnswer != widget.answer &&
+                                                widget.userAnswer ==
+                                                    widget.choices[index]
+                                            ? 'assets/images/wrong.png'
+                                            : (widget.answer ==
+                                                    widget.choices[index]
+                                                ? 'assets/images/correct.png'
+                                                : 'assets/images/choices.png')),
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                widget.choices[index],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(
+                                    widget.choices[index],
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         );
                       },
                     ),

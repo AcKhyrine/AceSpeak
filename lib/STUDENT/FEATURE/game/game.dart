@@ -1,6 +1,7 @@
 import 'package:acespeak/STUDENT/FEATURE/game/findobject.dart';
 import 'package:acespeak/STUDENT/FEATURE/game/spelling.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'animal.dart';
 
@@ -15,10 +16,15 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   @override
+  void initState() {
+    SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitUp]);
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-  
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -33,17 +39,22 @@ class _GameScreenState extends State<GameScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(onPressed: (){
-                  Navigator.pop(context);
-                }, icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 3, 48, 85),)),
-                SizedBox(height: screenHeight * .075,),
-                Center(child: Text('GAMES', style: TextStyle(fontSize: screenHeight * .065, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 3, 48, 85)),)),
+                Row(
+                  children: [
+                    IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 3, 48, 85),)),
+                    Text('Back'),
+                  ],
+                ),
+                SizedBox(height: screenHeight * .079,),
+                Center(child: Image.asset('assets/images/games.png')),
                 Padding(
                   padding: const EdgeInsets.only(left: 30, right: 30),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: screenHeight * .03,),
+                      // SizedBox(height: screenHeight * .02,),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (ctx) {
@@ -51,8 +62,8 @@ class _GameScreenState extends State<GameScreen> {
                                 userid: widget.userId,);
                           }));
                         },
-                        child: Image.asset('assets/images/FINDOBJECTS.png', width: screenWidth * 1,)),
-                        SizedBox(height: screenHeight * .03,),
+                        child: Image.asset('assets/images/fndobject.png', width: screenWidth * 30,)),
+                        SizedBox(height: screenHeight * .02,),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (ctx) {
@@ -60,7 +71,7 @@ class _GameScreenState extends State<GameScreen> {
                                 userId: widget.userId, grade: widget.grade);
                           }));
                         },
-                        child: Image.asset('assets/images/ANIMALSOUNDS.png', width: screenWidth * 2)),
+                        child: Image.asset('assets/images/listenmatch.png', width: screenWidth * 25)),
                       SizedBox(height: screenHeight * .01,),
                       GestureDetector(
                         onTap: (){
@@ -69,7 +80,7 @@ class _GameScreenState extends State<GameScreen> {
                                 userid: widget.userId,);
                           }));
                         },
-                        child: Image.asset('assets/images/SPELLING.png')),
+                        child: Image.asset('assets/images/spellings.png')),
                     
                     ],
                   ),

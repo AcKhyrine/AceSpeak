@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'list_quiz_screen.dart';
+import 'package:avatar_glow/avatar_glow.dart'; 
 
 class QuizScoreScreen extends StatefulWidget {
   final String userId;
@@ -37,7 +38,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/bg4.png',
+              'assets/images/image 2.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -46,28 +47,55 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Container(
+                  width: 260,
+                  decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/aceSpeak2.png'),
+                    fit: BoxFit.cover, 
+                  ),
+                ),
+                child: SizedBox(height: 70,),
+                ),
                 Text(
                   "Quiz Score",
                   style: TextStyle(
-                    fontSize: 35,
-                    color: Color.fromARGB(255, 19, 74, 21),
+                    fontSize: 30,
+                    color: Colors.green,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  minRadius: 100,
-                  maxRadius: 100,
-                  child: Text(
-                    widget.score.toString(),
-                    style: TextStyle(
-                      fontSize: 55,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                AvatarGlow(
+                  glowColor: const Color.fromARGB(255, 11, 102, 14),
+                  endRadius: 100,
+                  duration: Duration(seconds: 10),
+                  repeat: true,
+                  showTwoGlows: true,
+                  repeatPauseDuration: Duration(seconds: 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.green, 
+                      width: 10.0, 
                     ),
                   ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    minRadius: 70,
+                    maxRadius: 70,
+                    child: Text(
+                      widget.score.toString(),
+                      style: TextStyle(
+                        fontSize: 55,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                )
+
                 ),
-                SizedBox(height: 15),
                 Container(
                   width: 300,
                   child: Column(

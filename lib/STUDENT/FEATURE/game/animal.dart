@@ -229,62 +229,106 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Image.asset(
-                currentLevelData['imagePath'],
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/image 2.png',
+                fit: BoxFit.cover,
               ),
-              Column(
+            ),
+            SingleChildScrollView(
+              child: Column(
                 children: [
-                  for (var choice in currentLevelData['choices'])
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  Container(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        ElevatedButton(
-                          onPressed: () => checkAnswer(choice['label']),
-                          child: Text(choice['label']),
-                        ),
-                        SizedBox(width: 20),
-                        IconButton(
-                          onPressed: () => playSound(choice['audioPath']),
-                          icon: Icon(Icons.volume_up_rounded),
+                        Row(
+                          children: [
+                            IconButton(onPressed: (){
+                              Navigator.pop(context);
+                            }, icon: Icon(Icons.arrow_back)),
+                            Text('Back')
+                          ],
                         ),
                       ],
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                    child: Image.asset(
+                      currentLevelData['imagePath'],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: 180,),
+                          Text('Listen to the sound', style: TextStyle(color: const Color.fromARGB(255, 133, 127, 127)),)
+                        ],
+                      ),
+                      SizedBox(height: 15,),
+                      for (var choice in currentLevelData['choices'])
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => checkAnswer(choice['label']),
+                              child: Text(choice['label'], style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(0xFF07883A), 
+                                minimumSize: Size(120, 38),
+                              ),
+                            ),
+                            SizedBox(width: 40),
+                            GestureDetector(
+                              onTap: (){
+                                playSound(choice['audioPath']);
+                              },
+                              child: Image.asset('assets/images/loud.png'))
+                          ],
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  if (showResult)
+                    Text(
+                      selectedAnswer == currentLevelData['correctAnswer'] ? 'Correct!' : 'Wrong!',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: selectedAnswer == currentLevelData['correctAnswer']
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : Colors.red,
+                      ),
+                    ),
                 ],
               ),
-              SizedBox(height: 20),
-              if (showResult)
-                Text(
-                  selectedAnswer == currentLevelData['correctAnswer'] ? 'Correct!' : 'Wrong!',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: selectedAnswer == currentLevelData['correctAnswer']
-                        ? Colors.green
-                        : Colors.red,
-                  ),
-                ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (currentLevel > 0)
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (currentLevel > 0)
+                ElevatedButton(
+                  onPressed: () => goToPreviousLevel(),
+                  child: Text('Previous Level'),
+                ),
               ElevatedButton(
-                onPressed: () => goToPreviousLevel(),
-                child: Text('Previous Level'),
+                onPressed: () => resetLevels(),
+                child: Text('Restart Levels'),
               ),
-            ElevatedButton(
-              onPressed: () => resetLevels(),
-              child: Text('Restart Levels'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

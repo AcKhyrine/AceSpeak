@@ -73,6 +73,7 @@ class _FindObjectsState extends State<FindObjects> {
 
   @override
   void dispose() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     flutterTts.stop();
     super.dispose();
   }
@@ -84,7 +85,7 @@ class _FindObjectsState extends State<FindObjects> {
 
     double containerWidth = screenWidth * 0.8;
     double containerHeight = screenHeight * 0.7;
-
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -92,10 +93,19 @@ class _FindObjectsState extends State<FindObjects> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Find The 50 Object That is being ask',
-              style: TextStyle(
-                  fontSize: screenHeight * 0.06, fontWeight: FontWeight.w400),
+            Row(
+              children: [
+                IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 3, 48, 85),)),
+                Text('Back'),
+                SizedBox(width: 80,),
+                Text(
+                  'Find The 50 Object That is being ask',
+                  style: TextStyle(
+                      fontSize: screenHeight * 0.06, fontWeight: FontWeight.w400),
+                ),
+              ],
             ),
             Text(
               'play the audio to get a hint. Goodluck!',

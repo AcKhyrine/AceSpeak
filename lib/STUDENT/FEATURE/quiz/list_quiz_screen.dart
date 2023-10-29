@@ -169,73 +169,88 @@ class _QuizzesState extends State<Quizzes> {
           length: myTabs.length,
           child: Scaffold(
             appBar: AppBar(
-              leading: IconButton(onPressed: (){
-                print('back');
-                  Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                  return ClassRoomScreen(userId: widget.userId, grade: widget.grade, classroomID: widget.classroomID);
-                  }));
-                }, icon: Icon(Icons.arrow_back)),
-              title: Text('Quiz'),
+              toolbarHeight: 100,
+              leading: Column(
+                children: [
+                  IconButton(onPressed: (){
+                    print('back');
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                      return ClassRoomScreen(userId: widget.userId, grade: widget.grade, classroomID: widget.classroomID);
+                      }));
+                    }, icon: Icon(Icons.arrow_back)),
+                ],
+              ),
+              title: Container(
+                width: double.infinity,
+               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   SizedBox(height: 25,),
+                   Text('Quiz',),
+                   Image.asset('assets/images/aceSpeak2.png', height: 60,),
+                 ],
+               )),
               bottom: TabBar(
                 tabs: myTabs,
               ),
             ),
             body: TabBarView(
               children: <Widget>[
-                // Assuming this is your Column for "Upcoming" quizzes
-Column(
-  children: [
-    if (title.isNotEmpty)
-      Expanded(
-        child: ListView.builder(
-          itemCount: title.length,
-          itemBuilder: (context, index) {
-            bool isCompleted = completed_quiz.containsKey(title[index]);
-            DateTime quizDeadline = DateTime.parse(deadline[index]);
-            DateTime now = DateTime.now();
+//////////////////////////////uPCOMMING
+            Column(
+              children: [
+                if (title.isNotEmpty)
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: title.length,
+                      itemBuilder: (context, index) {
+                        bool isCompleted = completed_quiz.containsKey(title[index]);
+                        DateTime quizDeadline = DateTime.parse(deadline[index]);
+                        DateTime now = DateTime.now();
 
-            if (!isCompleted && quizDeadline.isAfter(now) && status[index] == "uploaded") {
-              print('Upcoming: ${title[index]}');
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: GestureDetector(
-                  onTap: () {
-                    if (!isLoading) {
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                        return StartQuizScreen(
-                          userId: widget.userId,
-                          classroomID: widget.classroomID,
-                          grade: widget.grade,
-                          classCode: classCode,
-                          quizData: quizData[index],
-                          title: title[index],
-                        );
-                      }));
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.green,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: ListTile(
-                      title: Text(title[index]),
-                      subtitle: Text(deadline[index]),
+                        if (!isCompleted && quizDeadline.isAfter(now) && status[index] == "uploaded") {
+                          print('Upcoming: ${title[index]}');
+                          return Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (!isLoading) {
+                                  Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                                    return StartQuizScreen(
+                                      userId: widget.userId,
+                                      classroomID: widget.classroomID,
+                                      grade: widget.grade,
+                                      classCode: classCode,
+                                      quizData: quizData[index],
+                                      title: title[index],
+                                    );
+                                  }));
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.green,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: ListTile(
+                                  title: Text(title[index]),
+                                  subtitle: Text(deadline[index]),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        // Return an empty Container for quizzes that don't match the criteria
+                        return Container();
+                      },
                     ),
                   ),
-                ),
-              );
-            }
-            // Return an empty Container for quizzes that don't match the criteria
-            return Container();
-          },
-        ),
-      ),
-  ],
-),
+              ],
+            ),
 
 //////////////////////////////////// COMPLETED
                 Column(

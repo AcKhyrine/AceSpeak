@@ -242,7 +242,8 @@ class _StartQuizScreenState extends State<StartQuizScreen> {
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 10, right: 10),
-                            height: 200.0,
+                            padding: EdgeInsets.only(top: 40),
+                            height: 220.0,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage('assets/images/board.png'),
@@ -253,13 +254,13 @@ class _StartQuizScreenState extends State<StartQuizScreen> {
                               children: <Widget>[
                                 Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(20.0),
                                     child: Text(
                                       no.toString() + '. ' + question,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 22.0,
-                                        color: Colors.white,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -283,31 +284,36 @@ class _StartQuizScreenState extends State<StartQuizScreen> {
                                     play = true;
                                   });
                                 },
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  height: 80.0,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(isSelected
-                                          ? 'assets/images/choices2.png'
-                                          : 'assets/images/choices.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Text(
-                                        choices[index],
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 5,),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 10, right: 10),
+                                      height: 80.0,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(isSelected
+                                              ? 'assets/images/choices2.png'
+                                              : 'assets/images/choices.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Text(
+                                            choices[index],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               );
                             },

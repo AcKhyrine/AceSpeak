@@ -146,8 +146,15 @@ class _MapScreenState extends State<MapScreen> {
                       //   ),
                       // ),
                       // LESSON 1
+                       Positioned(
+                        left: screenWidth * 0.03,
+                        top: screenHeight * 0.977,
+                        child: Image.asset(
+                              'assets/images/level1.png',
+                            width: 140,),
+                      ),
                       Positioned(
-                        left: screenWidth * 0.70,
+                        left: screenWidth * 0.55,
                         top: screenHeight * 0.965,
                         child: GestureDetector(
                           onTap: (){
@@ -157,6 +164,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: Row(
                             children: [
+                              Text('Lesson 1 ', style: TextStyle(color: Color(0xFF656967), fontWeight: FontWeight.bold),),
                               Image.asset(
                                 number >= 1 ?
                                 'assets/lesson.png' :
@@ -165,7 +173,7 @@ class _MapScreenState extends State<MapScreen> {
                               number == 1 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
                             ],
                           ),
                         ),
@@ -263,7 +271,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 2 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text('Lesson 2 ', style: TextStyle(color: Color(0xFF656967), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -337,7 +346,7 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       // LESSON 3
                       Positioned(
-                        left: screenWidth * 0.68,
+                        left: screenWidth * 0.60,
                         top: screenHeight * 0.890,
                         child: GestureDetector(
                           onTap: (){
@@ -352,6 +361,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: Row(
                             children: [
+                              Text('Lesson 3 ', style: TextStyle(color: Color(0xFF656967), fontWeight: FontWeight.bold),),
                               Image.asset(
                                 number >= 3 ?
                                 'assets/lesson.png' :
@@ -457,7 +467,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 4 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 4 ', style: TextStyle(color: Color(0xFF656967), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -554,7 +565,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 5 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 5 ', style: TextStyle(color: Color(0xFF656967), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -644,6 +656,13 @@ class _MapScreenState extends State<MapScreen> {
                       // ),
                       // LESSON 1
                       Positioned(
+                        left: screenWidth * 0.03,
+                        top: screenHeight * 0.712,
+                        child: Image.asset(
+                              'assets/images/level2.png',
+                            width: 140,),
+                      ),
+                      Positioned(
                         left: screenWidth * 0.70,
                         top: screenHeight * 0.712,
                         child: GestureDetector(
@@ -667,7 +686,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 6 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 1 ', style: TextStyle(color: Color(0xFFA8340C), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -764,7 +784,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 7 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                               Text(' Lesson 2 ', style: TextStyle(color: Color(0xFFA8340C), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -838,7 +859,7 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       // LESSON 3
                       Positioned(
-                        left: screenWidth * 0.75,
+                        left: screenWidth * 0.60,
                         top: screenHeight * 0.640,
                         child: GestureDetector(
                           onTap: (){
@@ -853,6 +874,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: Row(
                             children: [
+                               Text(' Lesson 3 ', style: TextStyle(color: Color(0xFFA8340C), fontWeight: FontWeight.bold),),
                               Image.asset(
                                 number >= 8 ?
                                 'assets/lesson.png' :
@@ -958,7 +980,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 9 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                               Text(' Lesson 4 ', style: TextStyle(color: Color(0xFFA8340C), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1055,7 +1078,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 10 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                               Text(' Lesson 5 ', style: TextStyle(color: Color(0xFFA8340C), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1145,6 +1169,13 @@ class _MapScreenState extends State<MapScreen> {
                       // ),
                       // LESSON 1
                       Positioned(
+                        left: screenWidth * 0.03,
+                        top: screenHeight * 0.463,
+                        child: Image.asset(
+                              'assets/images/level3.png',
+                            width: 140,),
+                      ),
+                      Positioned(
                         left: screenWidth * 0.70,
                         top: screenHeight * 0.463,
                         child: GestureDetector(
@@ -1168,7 +1199,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 11 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 1 ', style: TextStyle(color: Color(0xFFEF1111), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1265,7 +1297,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 12 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 2 ', style: TextStyle(color: Color(0xFFEF1111), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1339,8 +1372,8 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       // LESSON 3
                       Positioned(
-                        left: screenWidth * 0.75,
-                        top: screenHeight * 0.391,
+                        left: screenWidth * 0.62,
+                        top: screenHeight * 0.388,
                         child: GestureDetector(
                           onTap: (){
                             if(number >= 13){
@@ -1354,6 +1387,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: Row(
                             children: [
+                              Text(' Lesson 3 ', style: TextStyle(color: Color(0xFFEF1111), fontWeight: FontWeight.bold),),
                               Image.asset(
                                 number >= 13 ?
                                 'assets/lesson.png' :
@@ -1436,7 +1470,7 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       // LESSON 4
                       Positioned(
-                        left: screenWidth * 0.55,
+                        left: screenWidth * 0.38,
                         top: screenHeight * 0.325,
                         child: GestureDetector(
                           onTap: (){
@@ -1451,6 +1485,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: Row(
                             children: [
+                              Text(' Lesson 4 ', style: TextStyle(color: Color(0xFFEF1111), fontWeight: FontWeight.bold),),
                               Image.asset(
                                 number >= 14 ?
                                 'assets/lesson.png' :
@@ -1556,7 +1591,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 15 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 5 ', style: TextStyle(color: Color(0xFFEF1111), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1646,6 +1682,13 @@ class _MapScreenState extends State<MapScreen> {
                       // ),
                       // LESSON 1
                       Positioned(
+                        left: screenWidth * 0.03,
+                        top: screenHeight * 0.22,
+                        child: Image.asset(
+                              'assets/images/level4.png',
+                            width: 140,),
+                      ),
+                      Positioned(
                         left: screenWidth * 0.70,
                         top: screenHeight * 0.20,
                         child: GestureDetector(
@@ -1669,7 +1712,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 16 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 1 ', style: TextStyle(color: Color(0xFF07883A), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1766,7 +1810,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 17 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 2 ', style: TextStyle(color: Color(0xFF07883A), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -1840,7 +1885,7 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       // LESSON 3
                       Positioned(
-                        left: screenWidth * 0.75,
+                        left: screenWidth * 0.61,
                         top: screenHeight * 0.14,
                         child: GestureDetector(
                           onTap: (){
@@ -1855,6 +1900,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: Row(
                             children: [
+                              Text(' Lesson 3 ', style: TextStyle(color: Color(0xFF07883A), fontWeight: FontWeight.bold),),
                               Image.asset(
                                 number >= 18 ?
                                 'assets/lesson.png' :
@@ -1960,7 +2006,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 19 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 4 ', style: TextStyle(color: Color(0xFF07883A), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -2057,7 +2104,8 @@ class _MapScreenState extends State<MapScreen> {
                               number == 20 
                               ? Image.asset('assets/flag.png',
                               width: 50)
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
+                              Text(' Lesson 5 ', style: TextStyle(color: Color(0xFF07883A), fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),

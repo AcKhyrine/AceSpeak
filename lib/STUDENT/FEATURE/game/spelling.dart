@@ -145,6 +145,14 @@ class _SpellingGameState extends State<SpellingGame> {
         child: spell.length != 0 ? 
          Stack(
            children: [
+            Row(
+                  children: [
+                    IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 3, 48, 85),)),
+                    Text('Back'),
+                  ],
+                ),
              Container(
               width: double.infinity,
               child: Column(
