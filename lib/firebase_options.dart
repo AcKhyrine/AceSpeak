@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDqD2mOz7Fm_M87Z0jRhh67ZSoAyPX2K8c',
-    appId: '1:17368171101:web:ce93a4ab2216bc1b6403b4',
-    messagingSenderId: '17368171101',
-    projectId: 'casptone-14c19',
-    authDomain: 'casptone-14c19.firebaseapp.com',
-    storageBucket: 'casptone-14c19.appspot.com',
-    measurementId: 'G-8C4KKWE2PD',
+    apiKey: 'AIzaSyDxKyjLf0OgfNe0x5aPIBa-5PaVgIDlFFg',
+    appId: '1:1011225792451:web:6ee5a8bc1b1399f8dc3776',
+    messagingSenderId: '1011225792451',
+    projectId: 'appdev-81395',
+    authDomain: 'appdev-81395.firebaseapp.com',
+    storageBucket: 'appdev-81395.appspot.com',
+    measurementId: 'G-TTCL46KMR7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCa2EiKCEsduSJnpwegmX8JOiqXj5ZBPpw',
-    appId: '1:17368171101:android:211b7656614580b36403b4',
-    messagingSenderId: '17368171101',
-    projectId: 'casptone-14c19',
-    storageBucket: 'casptone-14c19.appspot.com',
+    apiKey: 'AIzaSyDm5HmDMXJnltSRL7LfYdpeJ8AXO5Wmmec',
+    appId: '1:1011225792451:android:513fed36a2c2bf97dc3776',
+    messagingSenderId: '1011225792451',
+    projectId: 'appdev-81395',
+    storageBucket: 'appdev-81395.appspot.com',
   );
 }

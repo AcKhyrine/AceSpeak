@@ -1,4 +1,4 @@
-import 'package:acespeak/STUDENT/student_registration_screen.dart';
+import 'package:acespeak/user/student_registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:acespeak/user/login_screen.dart';
 import 'package:acespeak/user/user_screen.dart';

@@ -1,3 +1,4 @@
+import 'package:acespeak/user/student_registration_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:acespeak/user/user_screen.dart';
 import 'package:acespeak/user/welcome_page_screen.dart';
-
-import '../STUDENT/student_registration_screen.dart';
 import 'forgotpassword.dart';
 import 'verifyemail.dart';
 
