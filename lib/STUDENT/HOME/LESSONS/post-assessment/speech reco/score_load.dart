@@ -31,7 +31,7 @@ class _Loading_scoresState extends State<Loading_scores> {
   List<String>scores =[];
   Future<void> Score() async {
     try {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId+widget.grade).get();
 
       if (userDoc.exists) {
         Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;

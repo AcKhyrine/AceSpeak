@@ -43,14 +43,14 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
       try {
         DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+widget.grade)
             .get();
 
         if (snapshot.exists) {
           Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
             await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+widget.grade)
                 .update({
                   'number': FieldValue.increment(1),
                 });
@@ -67,7 +67,7 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
       try {
         DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+widget.grade)
             .get();
 
         if (snapshot.exists) {
@@ -75,7 +75,7 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
           if (!data.containsKey('finished') || !data['finished'].contains(widget.lesson)) {
             await FirebaseFirestore.instance
                 .collection('score')
-                .doc(widget.userId)
+                .doc(widget.userId+widget.grade)
                 .update({
                   'finished': FieldValue.arrayUnion([widget.lesson]),
                 });
@@ -121,7 +121,7 @@ Future<void> fetchResults() async {
   try {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('score')
-        .doc(widget.userId)
+        .doc(widget.userId+widget.grade)
         .get();
 
     if (!snapshot.exists) {
@@ -157,7 +157,7 @@ Future<void> fetchResults() async {
 
 
 
-  void scoreDetails() {
+void scoreDetails() {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -178,51 +178,57 @@ Future<void> fetchResults() async {
                 style: TextStyle(fontSize: 15),
                 textAlign: TextAlign.center,
               ),
-              Text('Score: $average'), 
+              Text('Score: $average'),
             ],
           ),
         ),
-        content: Container(
-          height: 200,
-          child: ListView.builder(
-            itemCount: words.length,
-            itemBuilder: (context, index) {
-              final word = words[index];
-              var isWrong = scores[index] < 60;
-              final textColor = isWrong ? Colors.red : Colors.green;
-              n = index + 1;
+content: SingleChildScrollView(
+  child: Container(
+    height: 200,
+    child: ListView.builder(
+      itemCount: words.length,
+      itemBuilder: (context, index) {
+        final word = words[index];
+        var isWrong = scores[index] < 60;
+        final textColor = isWrong ? Colors.red : Colors.green;
+        n = index + 1;
 
-              return GestureDetector(
-                onTap: () async {
-                  await flutterTts.setLanguage("en-US");
-                  await flutterTts.setPitch(1);
-                  await flutterTts.setSpeechRate(0.50);
-                  await flutterTts.setVoice({"name": "Karen", "locale": "en-AU"});
-                  await flutterTts.speak(word);
-                },
+        return GestureDetector(
+          onTap: () async {
+            await flutterTts.setLanguage("en-US");
+            await flutterTts.setPitch(1);
+            await flutterTts.setSpeechRate(0.50);
+            await flutterTts.setVoice({"name": "Karen", "locale": "en-AU"});
+            await flutterTts.speak(word);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                flex: 5, 
+                child: Text(
+                  '$n. $word',
+                  style: TextStyle(color: textColor),
+                ),
+              ),
+              Spacer(), 
+              Expanded(
+                flex: 2,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '$n. $word', 
-                          style: TextStyle(color: textColor),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(scores[index].toString(), style: TextStyle(color: textColor),),
-                        Icon(Icons.volume_up, color: textColor),
-                      ],
-                    )
+                    Text(scores[index].toString(), style: TextStyle(color: textColor),),
+                    Icon(Icons.volume_up, color: textColor),
                   ],
                 ),
-              );
-            },
+              ),
+            ],
           ),
-        ),
+        );
+      },
+    ),
+  ),
+),
+
+
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -235,6 +241,7 @@ Future<void> fetchResults() async {
     },
   );
 }
+
 
 
 

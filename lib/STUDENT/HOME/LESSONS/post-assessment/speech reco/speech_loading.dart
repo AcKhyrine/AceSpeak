@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/speech%20reco/speech_intro.dart';
+import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/speech%20reco/speech_speech.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ void assessment() async {
   try {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('score')
-        .doc(widget.userId)
+        .doc(widget.userId+widget.grade)
         .get();
 
     if (!snapshot.exists) {
@@ -40,37 +41,47 @@ void assessment() async {
     if (data[pre] != null) {
     if (data[pre].length < 9) {
       int length = data[pre].length;
+      print(length.toString()+'...........................................');
       if (length > 0) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (ctx) {
-            return SpeechPostAssessmentInstructionsScreen(
-              userId: widget.userId,
-              grade: widget.grade,
-              pre_assessment: widget.post,
-              length: length,
-              lesson: widget.lesson,
-            );
-          }),
-        );
-      } else {
-        Navigator.push(
-      context,
-      MaterialPageRoute(builder: (ctx) {
-        return SpeechPostAssessmentInstructionsScreen(
+        Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+          return SpeechRecoScreen(
           userId: widget.userId,
           grade: widget.grade,
+          lesson: widget.lesson, 
+          length: length,
           pre_assessment: widget.post,
-          length: 1,
-          lesson: widget.lesson,
-        );
-      }),
-    );
+         );
+         }));
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (ctx) {
+        //     return SpeechPostAssessmentInstructionsScreen(
+        //       userId: widget.userId,
+        //       grade: widget.grade,
+        //       pre_assessment: widget.post,
+        //       length: length,
+        //       lesson: widget.lesson,
+        //     );
+        //   }),
+        // );
+      } else {
+        Navigator.push(
+        context,
+        MaterialPageRoute(builder: (ctx) {
+          return SpeechPostAssessmentInstructionsScreen(
+            userId: widget.userId,
+            grade: widget.grade,
+            pre_assessment: widget.post,
+            length: 0,
+            lesson: widget.lesson,
+          );
+        }),
+      );
       }
     } else {
       await FirebaseFirestore.instance
         .collection('score')
-        .doc(widget.userId)
+        .doc(widget.userId+widget.grade)
         .update({
           widget.lesson + ' lesson': [],
           widget.lesson + 'wrong' : []
@@ -82,7 +93,7 @@ void assessment() async {
             userId: widget.userId,
             grade: widget.grade,
             pre_assessment: widget.post,
-            length: 1,
+            length: 0,
             lesson: widget.lesson,
           );
         }),
@@ -96,7 +107,7 @@ void assessment() async {
           userId: widget.userId,
           grade: widget.grade,
           pre_assessment: widget.post,
-          length: 1,
+          length: 0,
           lesson: widget.lesson,
         );
       }),

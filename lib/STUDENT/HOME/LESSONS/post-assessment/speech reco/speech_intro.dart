@@ -1,5 +1,6 @@
 import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/speech%20reco/speech_speech.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../map_screen.dart';
@@ -23,14 +24,48 @@ SpeechPostAssessmentInstructionsScreen({super.key,
 
 class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAssessmentInstructionsScreen> {
   final player = AudioPlayer();
+  
   Future<void> playAudio(String url) async{
-    await Future.delayed(Duration(seconds: 1));
-    await player.play(UrlSource(url));
+    AudioPlayer player = AudioPlayer();
+  await player.setPlaybackRate(.75);
+  await Future.delayed(Duration(seconds: 1));
+  await player.play(UrlSource(url));
+    // await Future.delayed(Duration(seconds: 1));
+    // await player.play(UrlSource(url));
+  }
+
+   String _audio = "true";
+  void audioValue() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        setState(() {
+          _audio = data['audio'];
+        });
+        print(_audio+"...............................................................");
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+    if(_audio == "true"){
+      playAudio('https://firebasestorage.googleapis.com/v0/b/casptone-14c19.appspot.com/o/audio%2Finstructions2.mp3?alt=media&token=4b6c7005-59a9-46be-8007-e81eed4f4506');
+    }
   }
 
   @override
   void initState() {
-    playAudio('https://firebasestorage.googleapis.com/v0/b/casptone-14c19.appspot.com/o/audio%2Finstructions2.mp3?alt=media&token=4b6c7005-59a9-46be-8007-e81eed4f4506');
+    print(widget.length.toString()+'...........................................');
+    audioValue();
     super.initState();
   }
   @override

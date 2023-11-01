@@ -1,5 +1,6 @@
 import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/speech%20reco/score_load.dart';
 import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/speech%20reco/speech_record.dart';
+import 'package:acespeak/STUDENT/HOME/map_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
   }
 
   void initState() {
+    next = widget.length;
     // number();
     lesson();
     _onUploadComplete();
@@ -99,7 +101,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
         print('No data found for the specified lesson level');
         return;
       }
-
+      next = widget.length;
       level = List<String>.from(levelData);
       getImageDownloadURL(level[next]);
       setState(() {
@@ -115,7 +117,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
-          .doc(widget.userId)
+          .doc(widget.userId+widget.grade)
           .get();
 
       if (!snapshot.exists) {
@@ -211,7 +213,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
         
         Column(
           children: [
-            SizedBox(height: 170),
+            SizedBox(height: 150),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -298,6 +300,18 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
             ),
           ],
         ),
+        Positioned(
+            top: 20,
+            right: 20,
+            child: IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                  return MapScreen(userId: widget.userId, grade: widget.grade,);
+                  }));
+              },
+            ),
+          ),
       ]
     )
   ); 

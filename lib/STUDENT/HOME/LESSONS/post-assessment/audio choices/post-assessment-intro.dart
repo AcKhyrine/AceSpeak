@@ -1,5 +1,6 @@
 import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/audio%20choices/test.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../map_screen.dart';
@@ -24,13 +25,41 @@ PostAssessmentInstructionsScreen({super.key,
 class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstructionsScreen> {
   final player = AudioPlayer();
   Future<void> playAudio(String url) async{
+    await player.setPlaybackRate(.75);
     await Future.delayed(Duration(seconds: 1));
     await player.play(UrlSource(url));
   }
 
+  String _audio = "true";
+  void audioValue() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        setState(() {
+          _audio = data['audio'];
+        });
+        print(_audio+"...............................................................");
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+    if(_audio == "true"){
+      playAudio('https://firebasestorage.googleapis.com/v0/b/casptone-14c19.appspot.com/o/audio%2Finstructions.mp3?alt=media&token=062797aa-4e5a-4afb-82cf-4e9ad8e99709');
+    }
+  }
   @override
   void initState() {
-    playAudio('https://firebasestorage.googleapis.com/v0/b/casptone-14c19.appspot.com/o/audio%2Finstructions.mp3?alt=media&token=062797aa-4e5a-4afb-82cf-4e9ad8e99709');
+    audioValue();
     super.initState();
   }
   @override

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../user/welcome_page_screen.dart';
 import '../../user/login_screen.dart';
 import 'package:avatar_glow/avatar_glow.dart';
@@ -25,6 +26,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
   int avatar = 0;
   String fname='';
   String lname='';
+  String audio = '';
   
   @override
   void initState() {
@@ -49,6 +51,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
         avatar = data['avatar'];
         fname = data['Firstname'];
         lname = data['Lastname'];
+        audio = data['audio'];
       });
     } catch (e) {
       print('Error fetching data: $e');
@@ -241,6 +244,43 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                   },
                   child: Text('Profile'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (audio == "true") {
+                      audio = "false";
+                      EasyLoading.showSuccess('Volume turn off Sucessfully');
+                    } else {
+                      audio = "true";
+                      EasyLoading.showSuccess('Volume turn on Sucessfully');
+                    }
+                    FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+                      'audio': audio
+                    }).then((_) {
+                      print('updated successfully');
+                    }).catchError((error) {
+                      print('Error updating $error');
+                    });
+                    setState(() {
+                    });
+                  },
+                  child: audio == "true"
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Audio ON'),
+                            Icon(Icons.volume_up)
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Audio OFF'),
+                            Icon(Icons.volume_off)
+                          ],
+                        ),
+                ),
+
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();

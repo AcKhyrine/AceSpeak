@@ -46,9 +46,14 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
 
   Future<String?> getImageDownloadURL(picture) async {
     try {
-      Reference reference =
-          FirebaseStorage.instance.ref('images/' + picture + '.png');
+      Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
       downloadURL = await reference.getDownloadURL();
+      print(downloadURL);
+      // Reference reference =
+      // FirebaseStorage.instance.ref('images/' + picture + '.png');
+      //     // FirebaseStorage.instance.ref(picture + '.png');
+      // print(picture + '.png');
+      // downloadURL = await reference.getDownloadURL();
       setState(() {});
     } catch (e) {
       print('Error getting image download URL: $e');
@@ -211,7 +216,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
                 ),
                 Column(
                   children: [
-                    SizedBox(height: 170),
+                    SizedBox(height: 150),
                     Expanded(
                       child: Container(
                         width: double.infinity,

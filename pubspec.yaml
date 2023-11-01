@@ -81,7 +81,7 @@ flutter:
     - assets/numbers/
     - assets/emoji/
     - assets/avatar/
-    - assets/assessment/Grade 6/
+    - assets/assessment/
     - assets/game_findObjects/
     - assets/game_spelling/
   # An image asset can refer to one or more resolution-specific "variants", see

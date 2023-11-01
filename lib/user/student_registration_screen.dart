@@ -3,7 +3,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:acespeak/user/user_screen.dart';
 import '../user/verifyemail.dart';
 
 class StudentRegistration extends StatefulWidget {
@@ -20,10 +19,7 @@ class _StudentRegistrationState extends State<StudentRegistration> {
   var passwordController = TextEditingController();
   var firstnameController = TextEditingController();
   var lastnameController = TextEditingController();
-  var parentController = TextEditingController();
-  var schoolController = TextEditingController();
-  var gradeController = TextEditingController();
-  String? _selectedGrade;
+
   void registerUser() async {
     try {
       EasyLoading.show(
@@ -41,7 +37,8 @@ class _StudentRegistrationState extends State<StudentRegistration> {
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
         'Firstname': firstnameController.text,
         'Lastname': lastnameController.text,
-        'avatar' : 0
+        'avatar' : 0,
+        'audio' : "true"
       });
       EasyLoading.showSuccess('User account has been registered.');
       Navigator.push(

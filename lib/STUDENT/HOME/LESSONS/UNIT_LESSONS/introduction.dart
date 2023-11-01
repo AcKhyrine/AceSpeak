@@ -25,8 +25,31 @@ class _LessonIntroState extends State<LessonIntro> {
   @override
   void initState() {
     super.initState();
+    audioValue();
     Introduction();
     print(widget.lesson);
+  }
+  String _audio = "true";
+  void audioValue() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        _audio = data['audio'];
+        print(_audio+"...............................................................");
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
 
@@ -66,7 +89,9 @@ class _LessonIntroState extends State<LessonIntro> {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       setState(() {
          intro = data['intro ' + widget.lesson];
-         audio();
+         if(_audio == "true"){
+          audio();
+         }
       });
     } catch (e) {
       print('Error fetching data: $e');

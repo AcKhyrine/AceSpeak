@@ -224,7 +224,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                                     color: Colors.white,
                                   ),
                                   child: Image.asset(
-                                    'assets/assessment/' + widget.grade + '/' + level[next] + '.png',
+                                    'assets/assessment/' + level[next] + '.png',
                                   ),
                                 ),
                                 Text(

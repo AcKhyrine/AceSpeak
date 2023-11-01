@@ -198,7 +198,7 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
     print('validating');
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
             .collection('score')
-            .doc(widget.userId)
+            .doc(widget.userId+widget.grade)
             .get();
 
           if (!snapshot.exists) {
@@ -259,7 +259,7 @@ class _SpeechAssessmentRecordState extends State<SpeechAssessmentRecord> {
     try {
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('score');
-      String documentId = widget.userId;
+      String documentId = widget.userId+widget.grade;
       DocumentSnapshot snapshot = await usersCollection.doc(documentId).get();
       print(resultController.text);
       List<dynamic> newArray = [resultController.text];

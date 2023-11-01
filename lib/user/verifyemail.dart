@@ -3,8 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../STUDENT/HOME/student_classroom.dart';
 
 class VerifyEmailPage extends StatefulWidget {
@@ -84,14 +82,14 @@ void initState() {
 
       if (!snapshot.exists) {
         print('No documents found for the user ID: ${widget.userId}');
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (ctx) {
-        //       return AvatarScreen(userId: widget.userId,);
-        //     },
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return ClassRoomScreen(userId: widget.userId);
+            },
+          ),
+        );
         return;
       }
       else{
@@ -106,14 +104,14 @@ void initState() {
           ),
         );return;
       } else {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (ctx) {
-        //       return AvatarScreen(userId: widget.userId);
-        //     },
-        //   ),
-        // );return;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return ClassRoomScreen(userId: widget.userId);
+            },
+          ),
+        );return;
       }
       }
 

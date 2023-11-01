@@ -257,7 +257,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             }
           }
           //level 2
-          else if(assessment.length == 8){
+          else if(assessment.length == 9){
               for (dynamic score in assessment) {
                 if (score is String) {
                   int? parsedScore = int.tryParse(score);
@@ -285,6 +285,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                 'number': 6,
                 'assessment': 2
               });
+              print('assessment 2...............................................');
               Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                 return AssessmentScoreScreen(
                     userId: widget.userId,grade: widget.grade,);
@@ -292,7 +293,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             }
           }
           // level 3
-          else if(assessment.length == 13){
+          else if(assessment.length == 14){
               for (dynamic score in assessment) {
                 if (score is String) {
                   int? parsedScore = int.tryParse(score);
@@ -320,6 +321,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                 'number': 11,
                 'assessment': 3
               });
+              print('assessment 3...............................................');
               Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                 return AssessmentScoreScreen(
                     userId: widget.userId,grade: widget.grade);
@@ -327,7 +329,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             }
           }
           //LEVEL4
-          else if(assessment.length == 18){
+          else if(assessment.length >= 19){
               for (dynamic score in assessment) {
                 if (score is String) {
                   int? parsedScore = int.tryParse(score);
@@ -355,6 +357,7 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                 'number': 16,
                 'assessment': 4
               });
+              print('assessment 4...............................................');
               Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                 return AssessmentScoreScreen(
                     userId: widget.userId, grade: widget.grade);
@@ -362,7 +365,23 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             }
           }
           else{
-            widget.moveToNextWord();
+            print(assessment.length);
+            if(assessment.length == 20){
+              await FirebaseFirestore.instance
+                .collection('score')
+                .doc(widget.userId+widget.grade)
+                .update({
+                'number': 16,
+                'assessment': 4
+              });
+              print('assessment 4...............................................');
+              Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                return AssessmentScoreScreen(
+                    userId: widget.userId, grade: widget.grade);
+              }));
+            }else{
+              widget.moveToNextWord();
+            }
           }
   }
 

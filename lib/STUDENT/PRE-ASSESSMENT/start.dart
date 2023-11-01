@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'assessment_speech.dart';
@@ -15,9 +16,36 @@ class _AssessmentStartState extends State<AssessmentStart> {
   final FlutterTts flutterTts = FlutterTts();
   @override
   void initState() {
-    audio();
+    audioValue();
     super.initState();
   }
+
+  String _audio = "true";
+  void audioValue() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        _audio = data['audio'];
+        print(_audio+"...............................................................");
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+    if(_audio == "true"){
+       audio();
+    }
+  }
+  
   void audio()async{
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(0.8);
