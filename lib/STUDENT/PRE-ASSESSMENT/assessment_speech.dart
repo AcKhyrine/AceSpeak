@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import '../HOME/LESSONS/units.dart';
 import 'assessment_record.dart';
 import 'score/assessment_score.dart';
 
@@ -137,18 +138,25 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
     super.initState();
   }
 
-  void moveToNextWord() {
+  void moveToNextWord()async{
   if (level.isNotEmpty) {
-    setState(() {
       next = (next + 1) % level.length;
       if (next == 0) {
+        await FirebaseFirestore.instance
+                .collection('score')
+                .doc(widget.userId+widget.grade)
+                .update({
+                'number': 16,
+                'assessment': 4
+              });
+              print('assessment 4...............................................');
         Navigator.push(context, MaterialPageRoute(builder: (ctx) {
           return AssessmentScoreScreen(
               userId: widget.userId,
               grade : widget.grade);
         }));
       }
-    });
+    setState((){});
   }
 }
 
@@ -177,7 +185,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
         
         Column(
           children: [
-            SizedBox(height: 170),
+            SizedBox(height: 140),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -240,7 +248,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                         ),
                       ),
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: AssessmentRecord(
                           onUploadComplete: _onUploadComplete,
                           moveToNextWord: moveToNextWord,
@@ -258,8 +266,18 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
             ),
           ],
         ),
+        Positioned(
+            top: 20,
+            right: 20,
+            child: TextButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                return UnitScreen(userid: widget.userId);
+              })));
+              }, child: Icon(Icons.close, color: Colors.black,),
+              )
+          ),
       ]
-    ) : Center(child: CircularProgressIndicator())
+    ) : Center(child: Image.asset('assets/L3.gif'))
   ); 
  } 
 }

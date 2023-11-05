@@ -64,6 +64,11 @@ void initState() {
 
     if (isEmailVerified) {
       timer?.cancel();
+      Future.delayed(Duration.zero, () {
+      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+        return ClassRoomScreen(userId: widget.userId);
+      }));
+    });
     }
   }
 

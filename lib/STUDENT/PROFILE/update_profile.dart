@@ -1,3 +1,4 @@
+import 'package:acespeak/STUDENT/HOME/student_classroom.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -69,7 +70,7 @@ void StudentData() async {
                 children: [
                 SizedBox(height: screenHeight * .065,),
                 Center(child: Text('Student Profile', style: TextStyle(fontSize: screenHeight * .045, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 3, 48, 85)),)),
-                  
+                  SizedBox(height: 25,),
                   Form(
                     key: _formkey,
                     child: Column(
@@ -152,7 +153,9 @@ void StudentData() async {
                               width: 150,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                                    return ClassRoomScreen(userId: widget.userId);
+                                  })));
                                 },
                                 child: Text('Back'),
                                 style: ButtonStyle(

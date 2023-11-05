@@ -258,8 +258,12 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                    child: Image.asset(
-                      currentLevelData['imagePath'],
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      child: Image.asset(
+                        currentLevelData['imagePath'],
+                      ),
                     ),
                   ),
                   Column(

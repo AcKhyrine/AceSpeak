@@ -154,17 +154,31 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
   }
 
    Future<String?> getImageDownloadURL(picture) async {
-    print(picture);
+    print(widget.grade +'/'+widget.lesson+"=========================================");
     try {
-      Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
+      String pictureLower = picture.toLowerCase();
+      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+' lesson/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
-      print(downloadURL);
       setState(() {});
     } catch (e) {
+      setState(() {
+        downloadURL = "not found";
+      });
       print('Error getting image download URL: $e');
-      return null; 
+      return null;
     }
-    return null;
+    print(downloadURL+"................................................");
+    // print(picture);
+    // try {
+    //   Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
+    //   downloadURL = await reference.getDownloadURL();
+    //   print(downloadURL);
+    //   setState(() {});
+    // } catch (e) {
+    //   print('Error getting image download URL: $e');
+    //   return null; 
+    // }
+    // return null;
   }
 
   void moveToNextWord() {
@@ -213,7 +227,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
         
         Column(
           children: [
-            SizedBox(height: 150),
+            SizedBox(height: 140),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -225,11 +239,11 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.only(top:15, left: 15, right: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Text('Pre Assessment',
                       style: TextStyle(
                           fontSize: 20,
@@ -242,11 +256,11 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
                       ),
                       SizedBox(height: 5,),
                       Text(n.toString()+'/10'),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Center(
                         child: Container(
                           child: Padding(
-                            padding: EdgeInsets.all(18),
+                            padding: EdgeInsets.only(right:18, left: 18, top: 18),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
@@ -261,8 +275,13 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
                                     // ),
                                     color: Colors.white,
                                   ),
-                                  child: downloadURL != '' ? Image.network(downloadURL) 
-                                  : CircularProgressIndicator()
+                                  child: downloadURL != '' && downloadURL != "not found"
+                                    ? Image.network(downloadURL)
+                                    : downloadURL == "not found"
+                                      ? Center(child: Text("Image not found"))
+                                      : Center(child: Image.asset('assets/L1.gif')),
+                                  // child: downloadURL != '' ? Image.network(downloadURL) 
+                                  // : Image.asset('assets/L3.gif')
                                   // Image.asset(
                                   //   'assets/lessons/' + widget.lesson  + ' lesson/' + level[next] + '.png',
                                   // ),
@@ -280,7 +299,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
                         ),
                       ),
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: SpeechAssessmentRecord(
                           grade: widget.grade,
                           onUploadComplete: _onUploadComplete,

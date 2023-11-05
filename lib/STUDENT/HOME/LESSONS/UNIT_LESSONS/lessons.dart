@@ -46,19 +46,35 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
 
   Future<String?> getImageDownloadURL(picture) async {
     try {
-      Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
+      String pictureLower = picture.toLowerCase();
+      print(picture);
+      print(pictureLower);
+      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+'/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
       print(downloadURL);
-      // Reference reference =
-      // FirebaseStorage.instance.ref('images/' + picture + '.png');
-      //     // FirebaseStorage.instance.ref(picture + '.png');
-      // print(picture + '.png');
-      // downloadURL = await reference.getDownloadURL();
       setState(() {});
     } catch (e) {
       print('Error getting image download URL: $e');
+      setState(() {
+        downloadURL = "not found";
+      });
       return null;
     }
+
+    // try {
+    //   Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
+    //   downloadURL = await reference.getDownloadURL();
+    //   print(downloadURL);
+    //   // Reference reference =
+    //   // FirebaseStorage.instance.ref('images/' + picture + '.png');
+    //   //     // FirebaseStorage.instance.ref(picture + '.png');
+    //   // print(picture + '.png');
+    //   // downloadURL = await reference.getDownloadURL();
+    //   setState(() {});
+    // } catch (e) {
+    //   print('Error getting image download URL: $e');
+    //   return null;
+    // }
   }
 
   void Introduction() async {
@@ -141,7 +157,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
     }
   }
 
-  void openDialog(BuildContext context) {
+void openDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -151,17 +167,17 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
           width: double.maxFinite,
           child: FutureBuilder(
             future: DictionaryService().getMeaning(word: dictionary),
-            builder: (context, AsyncSnapshot<List<DictionaryModel>> snapshot) {
+            builder: (context, AsyncSnapshot<List<DictionaryModel>?> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return Center(child: Image.asset('assets/L1.gif'));
               } else if (snapshot.hasData) {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final data = snapshot.data![index];
-                    if (data.phonetics == null ||
+                    if (data?.phonetics == null ||
                         data.phonetics!.isEmpty ||
-                        data.meanings == null ||
+                        data?.meanings == null ||
                         data.meanings!.isEmpty) {
                       return ListTile(
                         title: Text('Not Found'),
@@ -170,12 +186,12 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
                     return Column(
                       children: [
                         ListTile(
-                          title: Text(data.word!),
-                          subtitle: Text(data.phonetics![0].text!),
+                          title: Text(data.word ?? 'No Word'),
+                          subtitle: Text(data.phonetics?[0]?.text ?? 'No Phonetics'),
                         ),
                         ListTile(
-                          title: Text(data.meanings![0].definitions![0].definition!),
-                          subtitle: Text(data.meanings![0].partOfSpeech!),
+                          title: Text(data.meanings?[0]?.definitions?[0]?.definition ?? 'No Definition'),
+                          subtitle: Text(data.meanings?[0]?.partOfSpeech ?? 'No Part of Speech'),
                         ),
                       ],
                     );
@@ -184,7 +200,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               } else {
-                return const CircularProgressIndicator();
+                return Center(child: Image.asset('assets/L3.gif'));
               }
             },
           ),
@@ -201,6 +217,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
     },
   );
 }
+
 
   @override
   Widget build(BuildContext context) {
@@ -264,9 +281,14 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                             ),
-                                            child: downloadURL != ''
-                                                ? Image.network(downloadURL)
-                                                : CircularProgressIndicator(),
+                                            child: downloadURL != '' && downloadURL != "not found"
+                                                  ? Image.network(downloadURL)
+                                                  : downloadURL == "not found"
+                                                    ? Center(child: Text("Image not found"))
+                                                    : Center(child: Image.asset('assets/L1.gif')),
+                                            // downloadURL != ''
+                                            //     ? Image.network(downloadURL)
+                                            //     : Center(child: Image.asset('assets/L1.gif'))
                                           ),
                                           TextButton(
                                             onPressed: () async {
@@ -364,7 +386,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
               ],
             )
           : Center(
-              child: CircularProgressIndicator(),
+              child: Center(child: Image.asset('assets/L1.gif'))
             ),
     );
   }

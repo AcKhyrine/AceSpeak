@@ -55,11 +55,9 @@ class _Loading_scoresState extends State<Loading_scores> {
   }
 
   final List<String> gifPaths = [
-    // 'assets/loading1.gif',
-    'assets/loading2.gif',
-    'assets/loading3.gif',
-    'assets/loading4.gif',
-    // 'assets/loading5.gif',
+    'assets/L1.gif',
+    'assets/L2.gif',
+    'assets/L3.gif',
   ];
 
   @override

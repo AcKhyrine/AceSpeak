@@ -61,7 +61,7 @@ class _NextScreenState extends State<NextScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Center(child: Image.asset('assets/L1.gif')),
       ),
     );
   }

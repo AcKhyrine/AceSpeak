@@ -30,14 +30,27 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   Future<String?> getImageDownloadURL() async {
-    try {
-      Reference reference = FirebaseStorage.instance.ref('images/'+widget.words+'.png');
+     try {
+      String pictureLower = widget.words.toLowerCase();
+      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+'/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
+      print(downloadURL);
       setState(() {});
     } catch (e) {
       print('Error getting image download URL: $e');
-      return null; 
+      setState(() {
+        downloadURL = "not found";
+      });
+      return null;
     }
+    // try {
+    //   Reference reference = FirebaseStorage.instance.ref('images/'+widget.words+'.png');
+    //   downloadURL = await reference.getDownloadURL();
+    //   setState(() {});
+    // } catch (e) {
+    //   print('Error getting image download URL: $e');
+    //   return null; 
+    // }
   }
  @override
 Widget build(BuildContext context) {
@@ -53,7 +66,7 @@ Widget build(BuildContext context) {
         
         Column(
           children: [
-            SizedBox(height: 170),
+            SizedBox(height: 140),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -98,8 +111,14 @@ Widget build(BuildContext context) {
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                   ),
-                                  child:downloadURL != '' ? Image.network(downloadURL) 
-                                  : CircularProgressIndicator() 
+                                  child: downloadURL != '' && downloadURL != "not found"
+                                    ? Image.network(downloadURL)
+                                    : downloadURL == "not found"
+                                      ? Center(child: Text("Image not found"))
+                                      : Center(child: Image.asset('assets/L1.gif')),
+
+                                  // downloadURL != '' ? Image.network(downloadURL) 
+                                  // : Center(child: Image.asset('assets/L1.gif')) 
                                   // Image.asset(
                                   //   'assets/lessons/' + widget.lesson + '/' + widget.words + '.png',
                                   // ),

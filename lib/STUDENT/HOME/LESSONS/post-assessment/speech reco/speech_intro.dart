@@ -34,7 +34,7 @@ class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAsses
     // await player.play(UrlSource(url));
   }
 
-   String _audio = "true";
+   String _audio = "";
   void audioValue() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -64,7 +64,6 @@ class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAsses
 
   @override
   void initState() {
-    print(widget.length.toString()+'...........................................');
     audioValue();
     super.initState();
   }
@@ -132,8 +131,10 @@ class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAsses
                         height: 40,
                         child: TextButton(
                           onPressed: () {
+                            setState(() {
+                              _audio = "false";
+                            });
                             player.stop();
-                            print('post-assessment' + widget.pre_assessment);
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                               return SpeechRecoScreen(
                               userId: widget.userId,

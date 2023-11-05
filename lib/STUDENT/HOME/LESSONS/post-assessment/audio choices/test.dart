@@ -285,12 +285,17 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
 
   Future<String?> getImageDownloadURL(picture) async {
     try {
-      Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
+      String pictureLower = picture.toLowerCase();
+      Reference reference = FirebaseStorage.instance.ref(widget.grade+"/"+widget.lesson+' lesson/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
+      print(downloadURL);
       setState(() {});
     } catch (e) {
+      setState(() {
+        downloadURL = "not found";
+      });
       print('Error getting image download URL: $e');
-      return null; 
+      return null;
     }
   }
   
@@ -326,8 +331,11 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
                               width: 2.0,
                             ),
                           ),
-                          child: downloadURL != '' ? Image.network(downloadURL) 
-                                  : CircularProgressIndicator()
+                          child: downloadURL != '' && downloadURL != "not found"
+                                    ? Image.network(downloadURL)
+                                    : downloadURL == "not found"
+                                      ? Center(child: Text("Image not found"))
+                                      : Center(child: Image.asset('assets/L1.gif')),
                           // Image.asset('assets/lessons/' +
                           //     widget.lesson  +
                           //     ' lesson/' +
@@ -350,100 +358,144 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                color: selectedOption == 0 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(20), 
-                                ),
-                                child: TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                    selectedOption = 0;
-                                    correct = selectedList[selectedOption];
-                                    audio(selectedList[selectedOption]);
-                                  });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text('A', style: TextStyle(color: selectedOption == 0 ? Colors.white : Colors.black),),
-                                      Icon(Icons.volume_up, color: selectedOption == 0 ? Colors.white : Colors.black,)
-                                    ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 180,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                    color: selectedOption == 0 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(20), 
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                        selectedOption = 0;
+                                        correct = selectedList[selectedOption];
+                                        // audio(selectedList[selectedOption]);
+                                      });
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('A', style: TextStyle(color: selectedOption == 0 ? Colors.white : Colors.black),),
+                                          // Icon(Icons.volume_up, color: selectedOption == 0 ? Colors.white : Colors.black,)
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  GestureDetector(
+                                    onTap: (){
+                                      audio(selectedList[0]);
+                                    },
+                                    child: Image.asset('assets/images/loud.png'))
+                                ],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 8),
-                                height: 40,
-                                decoration: BoxDecoration(
-                                color: selectedOption == 1 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(20), 
-                                ),
-                                child: TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                    selectedOption = 1;
-                                    correct = selectedList[selectedOption];
-                                    audio(selectedList[selectedOption]);
-                                  });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text('B', style: TextStyle(color: selectedOption == 1 ? Colors.white : Colors.black),),
-                                      Icon(Icons.volume_up, color: selectedOption == 1 ? Colors.white : Colors.black)
-                                    ],
-                                  )
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 8),
+                                    height: 40,
+                                    width: 180,
+                                    decoration: BoxDecoration(
+                                    color: selectedOption == 1 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(20), 
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                        selectedOption = 1;
+                                        correct = selectedList[selectedOption];
+                                        // audio(selectedList[selectedOption]);
+                                      });
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('B', style: TextStyle(color: selectedOption == 1 ? Colors.white : Colors.black),),
+                                          // Icon(Icons.volume_up, color: selectedOption == 1 ? Colors.white : Colors.black)
+                                        ],
+                                      )
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: (){
+                                      audio(selectedList[1]);
+                                    },
+                                    child: Image.asset('assets/images/loud.png'))
+                                ],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 8),
-                                height: 40,
-                                decoration: BoxDecoration(
-                                color: selectedOption == 2 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(20), 
-                                ),
-                                child: TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                    selectedOption = 2;
-                                    correct = selectedList[selectedOption];
-                                    audio(selectedList[selectedOption]);
-                                  });
-                                  },
-                                  child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text('C', style: TextStyle(color: selectedOption == 2 ? Colors.white : Colors.black),),
-                                    Icon(Icons.volume_up, color: selectedOption == 2 ? Colors.white : Colors.black)
-                                  ],
-                                )
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 8),
+                                    height: 40,
+                                    width: 180,
+                                    decoration: BoxDecoration(
+                                    color: selectedOption == 2 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(20), 
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                        selectedOption = 2;
+                                        correct = selectedList[selectedOption];
+                                        // audio(selectedList[selectedOption]);
+                                      });
+                                      },
+                                      child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text('C', style: TextStyle(color: selectedOption == 2 ? Colors.white : Colors.black),),
+                                        // Icon(Icons.volume_up, color: selectedOption == 2 ? Colors.white : Colors.black)
+                                      ],
+                                    )
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: (){
+                                      audio(selectedList[2]);
+                                    },
+                                    child: Image.asset('assets/images/loud.png'))
+                                ],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 8),
-                                height: 40,
-                                decoration: BoxDecoration(
-                                color: selectedOption == 3 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(20), 
-                                ),
-                                child: TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                    selectedOption = 3;
-                                    correct = selectedList[selectedOption];
-                                    audio(selectedList[selectedOption]);
-                                  });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text('D', style: TextStyle(color: selectedOption == 3 ? Colors.white : Colors.black),),
-                                      Icon(Icons.volume_up, color: selectedOption == 3 ? Colors.white : Colors.black)
-                                    ],
-                                  )
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 8),
+                                    height: 40,
+                                    width: 180,
+                                    decoration: BoxDecoration(
+                                    color: selectedOption == 3 ? Color.fromARGB(255, 6, 44, 7) : Colors.green.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(20), 
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                        selectedOption = 3;
+                                        correct = selectedList[selectedOption];
+                                        // audio(selectedList[selectedOption]);
+                                      });
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('D', style: TextStyle(color: selectedOption == 3 ? Colors.white : Colors.black),),
+                                          // Icon(Icons.volume_up, color: selectedOption == 3 ? Colors.white : Colors.black)
+                                        ],
+                                      )
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: (){
+                                      audio(selectedList[3]);
+                                    },
+                                    child: Image.asset('assets/images/loud.png'))
+                                ],
                               ),
                             ],
                           ),
@@ -503,7 +555,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
                     ),
                 ],
               )
-              : CircularProgressIndicator(),
+              : Image.asset('assets/L2.gif'),
         ),
       ),
     );
@@ -534,19 +586,19 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
 
     //Grade 2
     'Backyard' : ['Backyard','Backyord','Backyird','Backyerd'],
-    'Shouted' : ['Souted', 'Shouted', 'Shouded', 'Shooted'],
-    'Surprise' : ['Surpriseee', 'Sarprise', 'Surprise','Sirprise'],
+    'Shouted' : ['Souted', 'Shouted', 'Shoded', 'Shooted'],
+    'Surprise' : ['Surpriseee', 'Sarprise', 'Surprise','Siprise'],
     'Kitchen' : ['Kisschen', 'Kimchen', 'Kitten', 'Kitchen'],
     'Mat' : ['Mat', 'Mit','Met','Nat',],
-    'Table' : ['Tabel', 'Table', 'Tuble', 'Toble'],
-    'Flower' : ['Flowir','Flowar','Flower','Folwer'],
+    'Table' : ['Tebel', 'Table', 'Tuble', 'Toble'],
+    'Flower' : ['Flowir','Flowr','Flower','Folwer'],
     'Notebook' : ['Notebak','Notabook','Natebook','Notebook'],
     'Swing' : ['Swing','Swang','Siwing','Swong'],
     'Drum' : ['Durum', 'Drum', 'Drom', 'Drem'],
 
     'Singer' : ['Siner', 'Siger', 'Singar', 'Singer'],
     'Story' : ['Stary','Stormy','Story','Sory'],
-    'Softdrink' : ['Softrink','Softdrink','Softdrank','Sotdrink'],
+    'Softdrink' : ['Sofrink','Softdrink','Softdank','Sotdrink'],
     'Barber' : ['Barber','Barvem','Barver','Baber'],
     'Broom' : ['vroom', 'Broom','room','Boom'],
     'Newspaper' : ['Nespaper','Newspoper','Newspaper','Newpaper'],

@@ -131,60 +131,172 @@ void Access() async {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: ((context) {
-            return ClassRoomScreen(userId: widget.userid);
-          })));
-        }, icon: Icon(Icons.arrow_back)),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Lesson'),
-            ElevatedButton(onPressed: (){
-              assessmentCheck('Grade 1');
-            }, child: Text('Unit 1')),
-            ElevatedButton(onPressed: (){
-              if(grade2 == true){
-                assessmentCheck('Grade 2');
-              }else{
-                EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
-              }
-            }, child: Text('Unit 2')),
-            ElevatedButton(onPressed: (){
-              if(grade3 == true){
-                assessmentCheck('Grade 3');
-              }else{
-                EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
-              }
-            }, child: Text('Unit 3')),
-            ElevatedButton(onPressed: (){
-              if(grade4 == true){
-                assessmentCheck('Grade 4');
-              }else{
-                EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
-              }
-            }, child: Text('Unit 4')),
-            ElevatedButton(onPressed: (){
-              if(grade5 == true){
-                assessmentCheck('Grade 5');
-              }else{
-                EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
-              }
-            }, child: Text('Unit 5')),
-            ElevatedButton(onPressed: (){
-              if(grade6 == true){
-                assessmentCheck('Grade 6');
-              }else{
-                EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
-              }
-            }, child: Text('Unit 6'))
-          ],
-        ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+              child: Image.asset(
+                'assets/images/image 2.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          Padding(
+            padding: EdgeInsets.only(left: screenWidth * 0.1, right: screenWidth * 0.1, top: screenHeight * 0.13),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Lessons',
+                  style: TextStyle(color: Color(0xFF07883A), fontWeight: FontWeight.bold, fontSize: screenHeight * .05),
+                ),
+                SizedBox(height: screenHeight * .035,),
+                GestureDetector(
+                  onTap: (){
+                    assessmentCheck('Grade 1');
+                  },
+                  child: Container(
+                    height: screenHeight * 0.09,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/unit.png'), 
+                        fit: BoxFit.fill, 
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Unit 1', style: TextStyle(color: Colors.white)),
+                    ),
+                 )
+                ),
+                SizedBox(height: screenHeight * .01,),
+                GestureDetector(
+                  onTap: (){
+                    if(grade2 == true){
+                    assessmentCheck('Grade 2');
+                    }else{
+                      EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
+                    }
+                  },
+                  child: Container(
+                    height: screenHeight * 0.09,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(grade2 == true ? 'assets/images/unit.png' : 'assets/images/unit_lock.png'), 
+                        fit: BoxFit.fill, 
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Unit 2', style: TextStyle(color: Colors.white)),
+                    ),
+                 )
+                ),
+                SizedBox(height: screenHeight * .01,),
+                GestureDetector(
+                  onTap: (){
+                    if(grade3 == true){
+                    assessmentCheck('Grade 3');
+                    }else{
+                      EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
+                    }
+                  },
+                  child: Container(
+                    height: screenHeight * 0.09,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(grade3 == true ? 'assets/images/unit.png' : 'assets/images/unit_lock.png'), 
+                        fit: BoxFit.fill, 
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Unit 3', style: TextStyle(color: Colors.white)),
+                    ),
+                 )
+                ),
+                SizedBox(height: screenHeight * .01,),
+                GestureDetector(
+                  onTap: (){
+                    if(grade4 == true){
+                    assessmentCheck('Grade 4');
+                    }else{
+                      EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
+                    }
+                  },
+                  child: Container(
+                    height:screenHeight * 0.09,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(grade4 == true ? 'assets/images/unit.png' : 'assets/images/unit_lock.png'), 
+                        fit: BoxFit.fill, 
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Unit 4', style: TextStyle(color: Colors.white)),
+                    ),
+                 )
+                ),
+                SizedBox(height: screenHeight * .01,),
+                GestureDetector(
+                  onTap: (){
+                    if(grade5 == true){
+                    assessmentCheck('Grade 5');
+                    }else{
+                      EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
+                    }
+                  },
+                  child: Container(
+                    height:screenHeight * 0.09,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(grade5 == true ? 'assets/images/unit.png' : 'assets/images/unit_lock.png'), 
+                        fit: BoxFit.fill, 
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Unit 5', style: TextStyle(color: Colors.white)),
+                    ),
+                 )
+                ),
+                SizedBox(height: screenHeight * .01,),
+                GestureDetector(
+                  onTap: (){
+                     if(grade6 == true){
+                    assessmentCheck('Grade 6');
+                    }else{
+                      EasyLoading.showInfo("You cannot access this at the moment. Please complete the unit above first.");
+                    }
+                  },
+                  child: Container(
+                    height:screenHeight * 0.09,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(grade6 == true ? 'assets/images/unit.png' : 'assets/images/unit_lock.png'), 
+                        fit: BoxFit.fill, 
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Unit 6', style: TextStyle(color: Colors.white)),
+                    ),
+                 )
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 20,
+            left: 20,
+            child: TextButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                return ClassRoomScreen(userId: widget.userid);
+              })));
+              }, child: Row(
+                children: [
+                  Icon(Icons.arrow_back, color: Colors.black,),
+                  Text('Back', style: TextStyle(color: Colors.black),)
+                ],
+              ),)
+          ),
+        ],
       ),
     );
   }

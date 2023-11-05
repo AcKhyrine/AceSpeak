@@ -48,7 +48,7 @@ void assessment() async {
               userId: widget.userId,
               grade: widget.grade,
               pre_assessment: widget.post,
-              length: length,
+              length: length + 1,
               lesson: widget.lesson,
             );
           }),
@@ -159,10 +159,13 @@ void assessment() async {
 
 
   final List<String> gifPaths = [
+    'assets/L1.gif',
+    'assets/L2.gif',
+    'assets/L3.gif',
     // 'assets/loading1.gif',
-    'assets/loading2.gif',
-    'assets/loading3.gif',
-    'assets/loading4.gif',
+    // 'assets/loading2.gif',
+    // 'assets/loading3.gif',
+    // 'assets/loading4.gif',
     // 'assets/loading5.gif',
   ];
 

@@ -85,10 +85,11 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
                     children: [
                       Container(
                         width: double.infinity,
-                        child: Image.asset('assets/images/'+myList[1]+'.gif', height: 70,),
+                        child: Image.asset('assets/L3.gif'),
+                        // child: Image.asset('assets/images/'+myList[1]+'.gif', height: 70,),
                       ),
-                      LinearProgressIndicator(),
-                      Text('Loading.... Please wait'),
+                      // LinearProgressIndicator(),
+                      // Text('Loading.... Please wait'),
                     ],
                   )
                   : Stack(
@@ -329,7 +330,8 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
             }
           }
           //LEVEL4
-          else if(assessment.length >= 19){
+          else if(assessment.length == 19 || assessment.length == 20){
+            print('ending...............................................');
               for (dynamic score in assessment) {
                 if (score is String) {
                   int? parsedScore = int.tryParse(score);
@@ -347,9 +349,6 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
               averageScore = 0;
             }              
             if(averageScore >= 85){
-              widget.moveToNextWord();
-            }
-            else{
               await FirebaseFirestore.instance
                 .collection('score')
                 .doc(widget.userId+widget.grade)
@@ -361,6 +360,20 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
               Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                 return AssessmentScoreScreen(
                     userId: widget.userId, grade: widget.grade);
+              }));
+            }
+            else{
+              print('averageScore < 85...............................................');
+              await FirebaseFirestore.instance
+                .collection('score')
+                .doc(widget.userId+widget.grade)
+                .update({
+                'number': 11,
+                'assessment': 3
+              });
+              Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                return AssessmentScoreScreen(
+                    userId: widget.userId,grade: widget.grade);
               }));
             }
           }

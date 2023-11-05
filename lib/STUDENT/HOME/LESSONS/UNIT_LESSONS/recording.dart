@@ -83,10 +83,11 @@ class _RecordingState extends State<Recording> {
                     children: [
                       Container(
                         width: double.infinity,
-                        child: Image.asset('assets/images/'+myList[1]+'.gif', height: 70,),
+                        child: Image.asset('assets/L3.gif'),
+                        // child: Image.asset('assets/images/'+myList[1]+'.gif', height: 70,),
                       ),
-                      LinearProgressIndicator(),
-                      Text('Loading.... Please wait'),
+                      // LinearProgressIndicator(),
+                      // Text('Loading.... Please wait'),
                     ],
                   )
                   : Stack(
