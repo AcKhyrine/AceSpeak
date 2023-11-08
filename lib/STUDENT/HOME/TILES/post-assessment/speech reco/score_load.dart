@@ -1,0 +1,79 @@
+import 'dart:math';
+import 'package:acespeak/STUDENT/HOME/TILES/post-assessment/speech%20reco/speech_score.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Loading_scores1 extends StatefulWidget {
+  final String userId;
+  final String grade;
+  final String lesson;
+  final String docId;
+  final String pre_assessment;
+  const Loading_scores1({super.key,
+  required this.userId,
+    required this.grade,
+    required this.lesson,
+    required this.docId,
+    required this.pre_assessment,
+  });
+
+  @override
+  State<Loading_scores1> createState() => _Loading_scores1State();
+}
+
+class _Loading_scores1State extends State<Loading_scores1> {
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 1), () {
+            Score();
+    });
+  }
+  List<String>scores =[];
+  Future<void> Score() async {
+    try {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId+widget.grade).get();
+
+      if (userDoc.exists) {
+        Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;
+
+        scores = (data[widget.lesson + ' lesson'] as List<dynamic>?)?.cast<String>() ?? [];
+        print(scores);
+      }
+
+      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+        return SpeechPost_Assessment_Score1(
+        userId: widget.userId,
+        lesson: widget.lesson,
+        grade: widget.grade, 
+        docId: widget.docId,
+        pre_assessment: widget.pre_assessment,
+      );
+      }));       
+    } catch (e) {
+      print('Error updating score: $e');
+    }
+  }
+
+  final List<String> gifPaths = [
+    'assets/L1.gif',
+    'assets/L2.gif',
+    'assets/L3.gif',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    int randomIndex = Random().nextInt(gifPaths.length);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+           Center(child: 
+           Image.asset(gifPaths[randomIndex])
+           )
+        ],
+      ),
+    );
+  }
+}

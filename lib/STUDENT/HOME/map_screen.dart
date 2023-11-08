@@ -971,7 +971,7 @@ class _MapScreenState extends State<MapScreen> {
                               print('you may go');
                               // add number + 1;
                             Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-1', post : '6');
+                              return  SpeechPostAssessment(userId: widget.userId, grade: widget.grade, lesson : '2-4', post : '9');
                             }));
                             }
                             else{

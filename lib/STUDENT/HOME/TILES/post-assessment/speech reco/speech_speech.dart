@@ -1,32 +1,40 @@
+import 'package:acespeak/STUDENT/HOME/TILES/post-assessment/speech%20reco/score_load.dart';
+import 'package:acespeak/STUDENT/HOME/TILES/post-assessment/speech%20reco/speech_record.dart';
+import 'package:acespeak/STUDENT/HOME/TILES/tiles_screen.dart';
+import 'package:acespeak/STUDENT/HOME/map_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import '../HOME/LESSONS/units.dart';
-import 'assessment_record.dart';
-import 'score/assessment_score.dart';
 
-class AssessmentSpeech extends StatefulWidget {
+class SpeechRecoScreen1 extends StatefulWidget {
   final String userId;
-  final String lesson = 'assessment';
   final String grade;
-  AssessmentSpeech(
+  final String pre_assessment;
+  int length;
+  final String lesson;
+  SpeechRecoScreen1(
       {Key? key,
+      required this.length,
       required this.userId,
-      required this.grade})
+      required this.grade,
+      required this.pre_assessment,
+      required this.lesson,})
       : super(key: key);
 
   @override
-  _AssessmentSpeechState createState() => _AssessmentSpeechState();
+  _SpeechRecoScreen1State createState() => _SpeechRecoScreen1State();
 }
 
-class _AssessmentSpeechState extends State<AssessmentSpeech> {
+class _SpeechRecoScreen1State extends State<SpeechRecoScreen1> {
   List<Reference> references = [];
   final FlutterTts flutterTts = FlutterTts();
   double speechRate = 0.50;
   List<String> level = [];
   int next = 0;
-
+  List<String> scores =[];
+  var docID;
+  String downloadURL = '';
   Speak(text) async {
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1);
@@ -34,8 +42,16 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
     await flutterTts.speak(text);
   }
 
+  void initState() {
+    next = widget.length;
+    // number();
+    lesson();
+    _onUploadComplete();
+    super.initState();
+  }
+
   Future<void> lesson() async {
-    var docID;
+    print('post-assessment' + widget.pre_assessment);
       if(widget.grade == 'Grade 1'){
         docID = 'klpfg14MaQIRm5yfqk4u';
       }
@@ -74,19 +90,21 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
         print('Document data is empty');
         return;
       }
-
-      if (!data.containsKey(widget.lesson)) {
+      print('post-assessment' + widget.pre_assessment);
+      if (!data.containsKey('post-assessment' + widget.pre_assessment)) {
         print('No data found for the specified lesson');
         return;
       }
 
-      List<dynamic> levelData = data['assessment'] as List<dynamic>;
+      List<dynamic> levelData = data['post-assessment' + widget.pre_assessment] as List<dynamic>;
+      print(levelData);
       if (levelData == null || levelData.isEmpty) {
         print('No data found for the specified lesson level');
         return;
       }
-
+      next = widget.length;
       level = List<String>.from(levelData);
+      getImageDownloadURL(level[next]);
       setState(() {
       });
 
@@ -109,15 +127,21 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
       }
 
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      if (data.containsKey(widget.lesson)) {
+      if (data.containsKey( widget.lesson+' lesson')) {
         setState(() {
-          next = List<String>.from(data[widget.lesson]).length;
+          next = List<String>.from(data[widget.lesson+' lesson']).length;
+          getImageDownloadURL(level[next]);
           print(next);
           if (next == 10) {
+            print('NUMBER... END');
             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-              return AssessmentScoreScreen(
-                  userId: widget.userId,grade: widget.grade
-                );
+              return Loading_scores1(
+                  userId: widget.userId,
+                  lesson: widget.lesson,
+                  grade: widget.grade, 
+                  docId: docID,
+                  pre_assessment: widget.pre_assessment,
+                  );
             }));
           }
         });
@@ -130,33 +154,52 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
     }
   }
 
-  @override
-  void initState() {
-    number();
-    lesson();
-    _onUploadComplete();
-    super.initState();
+   Future<String?> getImageDownloadURL(picture) async {
+    print(widget.grade +'/'+widget.lesson+"=========================================");
+    try {
+      String pictureLower = picture.toLowerCase();
+      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+' lesson/$pictureLower.png');
+      downloadURL = await reference.getDownloadURL();
+      setState(() {});
+    } catch (e) {
+      setState(() {
+        downloadURL = "not found";
+      });
+      print('Error getting image download URL: $e');
+      return null;
+    }
+    print(downloadURL+"................................................");
+    // print(picture);
+    // try {
+    //   Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
+    //   downloadURL = await reference.getDownloadURL();
+    //   print(downloadURL);
+    //   setState(() {});
+    // } catch (e) {
+    //   print('Error getting image download URL: $e');
+    //   return null; 
+    // }
+    // return null;
   }
 
-  void moveToNextWord()async{
+  void moveToNextWord() {
   if (level.isNotEmpty) {
+    setState(() {
       next = (next + 1) % level.length;
+      getImageDownloadURL(level[next]);
       if (next == 0) {
-        await FirebaseFirestore.instance
-                .collection('score')
-                .doc(widget.userId+widget.grade)
-                .update({
-                'number': 16,
-                'assessment': 4
-              });
-              print('assessment 4...............................................');
+        print('MOVETONEXT.. END');
         Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-          return AssessmentScoreScreen(
+          return Loading_scores1(
               userId: widget.userId,
-              grade : widget.grade);
+              lesson: widget.lesson,
+              grade: widget.grade,
+              docId: docID,
+              pre_assessment: widget.pre_assessment,
+              );
         }));
       }
-    setState((){});
+    });
   }
 }
 
@@ -172,9 +215,9 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
 
   @override
   Widget build(BuildContext context) {
+    int n = next +1;
     return Scaffold(
-      body: level.isNotEmpty ? 
-      Stack(
+      body: Stack(
       children: [
         Image.asset(
           'assets/images/assessment.png',
@@ -197,7 +240,7 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.only(top:15, left: 15, right: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -212,11 +255,13 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                         thickness: 1,
                         color: Color.fromARGB(255, 59, 58, 58),
                       ),
+                      SizedBox(height: 5,),
+                      Text(n.toString()+'/10'),
                       SizedBox(height: 10),
                       Center(
                         child: Container(
                           child: Padding(
-                            padding: EdgeInsets.all(18),
+                            padding: EdgeInsets.only(right:18, left: 18, top: 18),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
@@ -231,9 +276,16 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                                     // ),
                                     color: Colors.white,
                                   ),
-                                  child: Image.asset(
-                                    'assets/assessment/' + level[next] + '.png',
-                                  ),
+                                  child: downloadURL != '' && downloadURL != "not found"
+                                    ? Image.network(downloadURL)
+                                    : downloadURL == "not found"
+                                      ? Center(child: Text("Image not found"))
+                                      : Center(child: Image.asset('assets/L1.gif')),
+                                  // child: downloadURL != '' ? Image.network(downloadURL) 
+                                  // : Image.asset('assets/L3.gif')
+                                  // Image.asset(
+                                  //   'assets/lessons/' + widget.lesson  + ' lesson/' + level[next] + '.png',
+                                  // ),
                                 ),
                                 Text(
                                   level.isNotEmpty ? level[next] : 'Loading...',
@@ -249,14 +301,16 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
                       ),
                       Expanded(
                         flex: 3,
-                        child: AssessmentRecord(
+                        child: SpeechAssessmentRecord1(
+                          grade: widget.grade,
                           onUploadComplete: _onUploadComplete,
                           moveToNextWord: moveToNextWord,
                           level: level.isNotEmpty ? level[next] : 'No data available',
                           isLevelEmpty: level.isEmpty,
                           userId: widget.userId,
                           lesson: widget.lesson,
-                          grade : widget.grade
+                          docID: docID,
+                          pre_assessment :widget.pre_assessment,
                         ),
                       ),
                     ],
@@ -269,15 +323,17 @@ class _AssessmentSpeechState extends State<AssessmentSpeech> {
         Positioned(
             top: 20,
             right: 20,
-            child: TextButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                return UnitScreen(userid: widget.userId);
-              })));
-              }, child: Icon(Icons.close, color: Colors.black,),
-              )
+            child: IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                  return TilesScreen(userId: widget.userId, grade: widget.grade,);
+                  }));
+              },
+            ),
           ),
       ]
-    ) : Center(child: Image.asset('assets/L3.gif'))
+    )
   ); 
  } 
 }

@@ -168,14 +168,6 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                             }));
                           },
                           child: Image.asset('assets/images/image 3.png')),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     // Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                        //     //   return Quizzes(
-                        //     //       userId: widget.userId, grade: widget.grade, classroomID: widget.classroomID,);
-                        //     // }));
-                        //   },
-                        //   child: Image.asset('assets/images/image 4.png')),
                         GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
@@ -184,6 +176,11 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                             }));
                           },
                           child: Image.asset('assets/images/image 5.png')),
+                          GestureDetector(
+                          onTap: () {
+                            _showDialog2(context);
+                          },
+                          child: Image.asset('assets/images/image 4.png')),
                       ],
                     ),
                   )
@@ -200,98 +197,248 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: AlertDialog(
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Container(
+            width: 250,
+            height: 350,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/board 1.png'), // Replace with your image path
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15, left:35, right: 35),
+              child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                      return UpdateAvatar(userId: widget.userId);
-                    }));
-                  },
-                  child: Text('Change Avatar'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.close)),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                      return ProgressUnitScreen(userid: widget.userId);
-                    }));
-                  },
-                  child: Text('Progress history'),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                //       return UpdateAvatar(userId: widget.userId);
+                //     }));
+                //   },
+                //   child: Text('Change Avatar'),
+                // ),
+                Container(
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return ProgressUnitScreen(userid: widget.userId);
+                      }));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
+                    ),
+                    child: Text('Progress history', style: TextStyle(color: Colors.white)),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                      return LeaderBoardScreen();
-                    }));
-                  },
-                  child: Text('leader board'),
+                SizedBox(height: 15,),
+                Container(
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return LeaderBoardScreen();
+                      }));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
+                    ),
+                    child: Text('leader board', style: TextStyle(color: Colors.white)),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                      return UpdateStudentProfile(userId: widget.userId,);
-                    }));
-                  },
-                  child: Text('Profile'),
+                SizedBox(height: 15,),
+                Container(
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return UpdateStudentProfile(userId: widget.userId,);
+                      }));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
+                    ),
+                    child: Text('Profile', style: TextStyle(color: Colors.white)),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    if (audio == "true") {
-                      audio = "false";
-                      EasyLoading.showSuccess('Volume turn off Sucessfully');
-                    } else {
-                      audio = "true";
-                      EasyLoading.showSuccess('Volume turn on Sucessfully');
-                    }
-                    FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
-                      'audio': audio
-                    }).then((_) {
-                      print('updated successfully');
-                    }).catchError((error) {
-                      print('Error updating $error');
-                    });
-                    setState(() {
-                    });
-                  },
-                  child: audio == "true"
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Audio ON'),
-                            Icon(Icons.volume_up)
-                          ],
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Audio OFF'),
-                            Icon(Icons.volume_off)
-                          ],
-                        ),
-                ),
+                SizedBox(height: 15,),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //     if (audio == "true") {
+                //       audio = "false";
+                //       EasyLoading.showSuccess('Volume turn off Sucessfully');
+                //     } else {
+                //       audio = "true";
+                //       EasyLoading.showSuccess('Volume turn on Sucessfully');
+                //     }
+                //     FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+                //       'audio': audio
+                //     }).then((_) {
+                //       print('updated successfully');
+                //     }).catchError((error) {
+                //       print('Error updating $error');
+                //     });
+                //     setState(() {
+                //     });
+                //   },
+                //   child: audio == "true"
+                //       ? Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text('Audio ON'),
+                //             Icon(Icons.volume_up)
+                //           ],
+                //         )
+                //       : Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text('Audio OFF'),
+                //             Icon(Icons.volume_off)
+                //           ],
+                //         ),
+                // ),
 
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    FirebaseAuth.instance.signOut();
-                    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                      return WelcomPageScreen();
-                    }));
-                  },
-                  child: Text('logout'),
+                Container(
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      FirebaseAuth.instance.signOut();
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return WelcomPageScreen();
+                      }));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFCC4242)), 
+                    ),
+                    child: Text('logout', style: TextStyle(color: Colors.white),),
+                  ),
                 ),
               ],
+            ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDialog2(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Container(
+            width: 270,
+            height: 380,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/board 1.png'), 
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 25, left:30, right: 30),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Settings', style: TextStyle(fontSize: 30, color: Colors.grey),),
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(Icons.close))
+                      ],
+                    ),
+                    SizedBox(height: 40,),
+                    Container(
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                            return UpdateAvatar(userId: widget.userId);
+                          }));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
+                        ),
+                        child: Text('Change Avatar', style: TextStyle(color: Colors.white),),
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    Text('Audio Settings', style: TextStyle(color: Colors.grey),),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                            setState(() {
+                              audio = "true";
+                              EasyLoading.showSuccess('Volume turn on Sucessfully');
+                            });
+                            FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+                              'audio': audio
+                            }).then((_) {
+                              print('updated successfully');
+                            }).catchError((error) {
+                              print('Error updating $error');
+                            });
+                            setState(() {
+                            });
+                          },
+                          child: Image.asset(audio == "true" ? 'assets/images/sound.png' : 'assets/images/sound 1.png')),
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              Navigator.pop(context);
+                              audio = "false";
+                              EasyLoading.showSuccess('Volume turn off Sucessfully');
+                            });
+                            FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+                              'audio': audio
+                            }).then((_) {
+                              print('updated successfully');
+                            }).catchError((error) {
+                              print('Error updating $error');
+                            });
+                            setState(() {
+                            });
+                          },
+                          child: Image.asset(audio == "true" ? 'assets/images/mute 1.png' : 'assets/images/mute.png'))
+                      ],
+                    ),
+                  ],
+                ),
             ),
           ),
         );

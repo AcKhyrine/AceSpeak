@@ -1,18 +1,18 @@
-import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/audio%20choices/test.dart';
+import 'package:acespeak/STUDENT/HOME/TILES/post-assessment/audio%20choices/test.dart';
+import 'package:acespeak/STUDENT/HOME/TILES/tiles_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-import '../../../map_screen.dart';
 
-class PostAssessmentInstructionsScreen extends StatefulWidget {
+class PostAssessmentInstructionsScreen1 extends StatefulWidget {
   final String userId;
   final String grade;
   final String pre_assessment;
   int length;
   final String lesson;
-PostAssessmentInstructionsScreen({super.key,
+PostAssessmentInstructionsScreen1({super.key,
     required this.length,
     required this.userId,
     required this.grade,
@@ -20,11 +20,10 @@ PostAssessmentInstructionsScreen({super.key,
     required this.lesson,});
 
   @override
-  State<PostAssessmentInstructionsScreen> createState() => _PostAssessmentInstructionsScreenState();
+  State<PostAssessmentInstructionsScreen1> createState() => _PostAssessmentInstructionsScreen1State();
 }
 
-class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstructionsScreen> {
- 
+class _PostAssessmentInstructionsScreen1State extends State<PostAssessmentInstructionsScreen1> {
   final FlutterTts flutterTts = FlutterTts();
 
   void audioValue() async {
@@ -128,7 +127,7 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
                           onPressed: () {
                             flutterTts.stop();
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                              return Post_Assessment_Screen(
+                              return Post_Assessment_Screen1(
                               userId: widget.userId,
                               grade: widget.grade,
                               pre_assessment: widget.pre_assessment,
@@ -151,7 +150,7 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
                           onPressed: () {
                             flutterTts.stop();
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                              return MapScreen(
+                              return TilesScreen(
                                 userId: widget.userId, grade: widget.grade);
                             }));
                           },

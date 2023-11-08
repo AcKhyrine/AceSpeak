@@ -1,32 +1,30 @@
-import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/audio%20choices/test.dart';
+import 'package:acespeak/STUDENT/HOME/TILES/post-assessment/speech%20reco/speech_speech.dart';
+import 'package:acespeak/STUDENT/HOME/TILES/tiles_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-import '../../../map_screen.dart';
-
-class PostAssessmentInstructionsScreen extends StatefulWidget {
+class SpeechPostAssessmentInstructionsScreen1 extends StatefulWidget {
   final String userId;
   final String grade;
   final String pre_assessment;
   int length;
   final String lesson;
-PostAssessmentInstructionsScreen({super.key,
+SpeechPostAssessmentInstructionsScreen1({super.key,
     required this.length,
     required this.userId,
     required this.grade,
     required this.pre_assessment,
-    required this.lesson,});
+    required this.lesson});
 
   @override
-  State<PostAssessmentInstructionsScreen> createState() => _PostAssessmentInstructionsScreenState();
+  State<SpeechPostAssessmentInstructionsScreen1> createState() => _SpeechPostAssessmentInstructionsScreen1State();
 }
 
-class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstructionsScreen> {
- 
-  final FlutterTts flutterTts = FlutterTts();
-
+class _SpeechPostAssessmentInstructionsScreen1State extends State<SpeechPostAssessmentInstructionsScreen1> {
+   final FlutterTts flutterTts = FlutterTts();
+  
   void audioValue() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -50,16 +48,18 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
     }
   }
 
+
   @override
   void initState() {
     audioValue();
     super.initState();
   }
+  
   void audio()async{
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(0.8);
     await flutterTts.setSpeechRate(0.25);
-    await flutterTts.speak("Hello, these are your post-assessment instructions. First, you must listen to the pronunciation carefully by clicking the choices a, b, c, and d. After listening, choose the best pronunciation, and then click next to proceed to the next pronunciation. Goodluck!");
+    await flutterTts.speak("Hi learners, the post-assessment for today involves saying the words that are displayed. Click the mic to start recording and the post button to stop. You can listen to your pronunciation and reset. then click the arrow to proceed. goodluck!");
   }
 
   @override
@@ -67,6 +67,7 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
     flutterTts.stop();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,13 +95,13 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
                   ),
                 ),
                 SizedBox(height: 16.0),
-                Text('1. Listen to the pronunciations carefully.'),
+                Text('1. Click the microphone to start recording.'),
                 SizedBox(height: 8.0),
-                Text('2. Click on choices A, B, C, and D to hear the pronunciations.'),
+                Text('2.  Click the pause button to stop recording.'),
                 SizedBox(height: 8.0),
-                Text('3. After listening to all options, choose the best pronunciation.'),
+                Text('3. You can listen to your pronunciation, and you can repeat it if you want.'),
                 SizedBox(height: 8.0),
-                Text('4. Click "Next" to proceed to the next question.'),
+                Text('4.  Click the arrow button to proceed to the next question.'),
                 SizedBox(height: 16.0),
                 Center(
                   child: Text(
@@ -128,12 +129,12 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
                           onPressed: () {
                             flutterTts.stop();
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                              return Post_Assessment_Screen(
+                              return SpeechRecoScreen1(
                               userId: widget.userId,
                               grade: widget.grade,
-                              pre_assessment: widget.pre_assessment,
+                              lesson: widget.lesson, 
                               length: widget.length,
-                              lesson: widget.lesson,
+                              pre_assessment: widget.pre_assessment,
                             );
                             }));
                           },
@@ -151,7 +152,7 @@ class _PostAssessmentInstructionsScreenState extends State<PostAssessmentInstruc
                           onPressed: () {
                             flutterTts.stop();
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                              return MapScreen(
+                              return TilesScreen(
                                 userId: widget.userId, grade: widget.grade);
                             }));
                           },

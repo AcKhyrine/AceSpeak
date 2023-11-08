@@ -2,6 +2,7 @@ import 'package:acespeak/STUDENT/HOME/LESSONS/post-assessment/speech%20reco/spee
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../../map_screen.dart';
 
@@ -23,18 +24,8 @@ SpeechPostAssessmentInstructionsScreen({super.key,
 }
 
 class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAssessmentInstructionsScreen> {
-  final player = AudioPlayer();
+  final FlutterTts flutterTts = FlutterTts();
   
-  Future<void> playAudio(String url) async{
-    AudioPlayer player = AudioPlayer();
-  await player.setPlaybackRate(.75);
-  await Future.delayed(Duration(seconds: 1));
-  await player.play(UrlSource(url));
-    // await Future.delayed(Duration(seconds: 1));
-    // await player.play(UrlSource(url));
-  }
-
-   String _audio = "";
   void audioValue() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -49,28 +40,33 @@ class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAsses
 
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       setState(() {
-        setState(() {
-          _audio = data['audio'];
-        });
-        print(_audio+"...............................................................");
+        if(data['audio'] == "true"){
+          audio();
+        }
       });
     } catch (e) {
       print('Error fetching data: $e');
     }
-    if(_audio == "true"){
-      playAudio('https://firebasestorage.googleapis.com/v0/b/casptone-14c19.appspot.com/o/audio%2Finstructions2.mp3?alt=media&token=4b6c7005-59a9-46be-8007-e81eed4f4506');
-    }
   }
+
 
   @override
   void initState() {
     audioValue();
     super.initState();
   }
+  
+  void audio()async{
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(0.8);
+    await flutterTts.setSpeechRate(0.25);
+    await flutterTts.speak("Hi learners, the post-assessment for today involves saying the words that are displayed. Click the mic to start recording and the post button to stop. You can listen to your pronunciation and reset. then click the arrow to proceed. goodluck!");
+  }
+
   @override
   void dispose() {
-    player.stop();
-   super.dispose();
+    flutterTts.stop();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -131,10 +127,7 @@ class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAsses
                         height: 40,
                         child: TextButton(
                           onPressed: () {
-                            setState(() {
-                              _audio = "false";
-                            });
-                            player.stop();
+                            flutterTts.stop();
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                               return SpeechRecoScreen(
                               userId: widget.userId,
@@ -157,7 +150,7 @@ class _SpeechPostAssessmentInstructionsScreenState extends State<SpeechPostAsses
                         ),
                         child: TextButton(
                           onPressed: () {
-                            player.stop();
+                            flutterTts.stop();
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                               return MapScreen(
                                 userId: widget.userId, grade: widget.grade);
