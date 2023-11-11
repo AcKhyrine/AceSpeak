@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import '../../HOME/LESSONS/mapORlist.dart';
 import '../../HOME/TILES/tiles_screen.dart';
 import '../../HOME/map_screen.dart';
@@ -14,6 +15,7 @@ class AssessmentScoreScreen extends StatefulWidget {
 }
 
 class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
+  final FlutterTts flutterTts = FlutterTts();
   String method ="";
   String _audio = "true";
   void audioValue() async {
@@ -70,6 +72,25 @@ class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
     }
   }
 
+   @override
+  void initState() {
+    audioValue();
+    super.initState();
+  }
+  
+  void audio()async{
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(0.8);
+    await flutterTts.setSpeechRate(0.25);
+    await flutterTts.speak("great job. You've completed the assessment. You're ready to make the most of the app to learn and grow.");
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
   void MethodofLearning() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -96,10 +117,9 @@ class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
 
   final player = AudioPlayer();
   Future<void> playAudio(String url) async{
-    await Future.delayed(Duration(seconds: 1));
-    await player.play(UrlSource(url));
+    audio();
     print("Playing...");
-    await Future.delayed(Duration(seconds: 11));
+    await Future.delayed(Duration(seconds: 13));
     if(method == "map"){
           Navigator.push(
           context,
@@ -130,11 +150,6 @@ class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
         }
   }
 
-  @override
-  void initState() {
-    audioValue();
-    super.initState();
-  }
 
 @override
 Widget build(BuildContext context) {

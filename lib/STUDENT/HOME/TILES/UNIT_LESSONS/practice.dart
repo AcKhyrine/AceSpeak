@@ -37,11 +37,18 @@ class _PracticeScreen1State extends State<PracticeScreen1> {
       print(downloadURL);
       setState(() {});
     } catch (e) {
-      print('Error getting image download URL: $e');
-      setState(() {
-        downloadURL = "not found";
-      });
-      return null;
+       try{
+        Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+'/'+ widget.words +'.png');
+        downloadURL = await reference.getDownloadURL();
+        setState(() {});
+      }
+      catch(e){
+        print('Error getting image download URL: $e');
+        setState(() {
+          downloadURL = "not found";
+        });
+        return null;
+      }
     }
     // try {
     //   Reference reference = FirebaseStorage.instance.ref('images/'+widget.words+'.png');
