@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../PRE-ASSESSMENT/start.dart';
+import '../TILES/tiles_screen.dart';
+import '../map_screen.dart';
 import '../student_classroom.dart';
 import 'mapORlist.dart';
 
@@ -16,9 +18,10 @@ class UnitScreen extends StatefulWidget {
 
 class _UnitScreenState extends State<UnitScreen> {
   bool grade2 = false, grade3 = false, grade4 = false, grade5 = false, grade6 = false;
-  
+  String method = "";
   @override
   void initState() {
+    MethodofLearning();
     Access();
     super.initState();
   }
@@ -105,7 +108,26 @@ void Access() async {
       else{
         Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       if (data['number']!= null) {
-        Navigator.push(
+        if(method == "map"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return MapScreen(userId:widget.userid, grade: grade);
+            },
+          ),
+        );return;
+        }else if(method == "tiles"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return TilesScreen(userId:widget.userid, grade: grade);
+            },
+          ),
+        );return;
+        }else{
+          Navigator.push(
           context,
           MaterialPageRoute(
             builder: (ctx) {
@@ -113,6 +135,7 @@ void Access() async {
             },
           ),
         );return;
+        }
       } else {
         Navigator.push(
           context,
@@ -122,6 +145,30 @@ void Access() async {
             },
           ),
         );return;
+      }
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
+  void MethodofLearning() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userid)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userid}');
+        return;
+      }
+      else{
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      if (data['method'] == "map" || data['method'] == "tiles") {
+        setState(() {
+          method = data["method"];
+        });
       }
       }
     } catch (e) {

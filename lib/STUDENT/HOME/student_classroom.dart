@@ -10,6 +10,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import '../AVATAR/update_avatar.dart';
 import '../GAMES/game.dart';
 import '../LEADERBOARD/leaderboard.dart';
+import '../LEARNING/update_learning.dart';
 import '../PROFILE/update_profile.dart';
 import '../PROGRESS/progress_units.dart';
 import 'LESSONS/units.dart'; 
@@ -363,7 +364,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 25, left:30, right: 30),
+              padding: const EdgeInsets.only(top: 20, left:30, right: 30),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -377,7 +378,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                         }, icon: Icon(Icons.close))
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 15,),
                     Container(
                       height: 50,
                       child: ElevatedButton(
@@ -391,6 +392,22 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                           backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
                         ),
                         child: Text('Change Avatar', style: TextStyle(color: Colors.white),),
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    Container(
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                            return UpdateLearning(userID: widget.userId);
+                          }));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
+                        ),
+                        child: Text('Change Method of Learning', style: TextStyle(color: Colors.white, fontSize: 13),),
                       ),
                     ),
                     SizedBox(height: 30,),

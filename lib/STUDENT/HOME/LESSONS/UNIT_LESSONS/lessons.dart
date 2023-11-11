@@ -164,6 +164,7 @@ void openDialog(BuildContext context) {
       return AlertDialog(
         title: Text('Meaning'),
         content: Container(
+          height: 200,
           width: double.maxFinite,
           child: FutureBuilder(
             future: DictionaryService().getMeaning(word: dictionary),
@@ -183,17 +184,56 @@ void openDialog(BuildContext context) {
                         title: Text('Not Found'),
                       );
                     }
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(data.word ?? 'No Word'),
-                          subtitle: Text(data.phonetics?[0]?.text ?? 'No Phonetics'),
-                        ),
-                        ListTile(
-                          title: Text(data.meanings?[0]?.definitions?[0]?.definition ?? 'No Definition'),
-                          subtitle: Text(data.meanings?[0]?.partOfSpeech ?? 'No Part of Speech'),
-                        ),
-                      ],
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Word: ', style: TextStyle(fontSize: 11),),
+                                Text(data.word ?? 'No Word', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 20)),
+                                SizedBox(height: 8,)
+                              ],
+                            ),
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Phonetics: ', style: TextStyle(fontSize: 11),),
+                                Text(data.phonetics?[0]?.text ?? 'No Phonetics', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 20)),
+                                SizedBox(height: 8,)
+                              ],
+                            ),
+                          ),
+                          ListTile(
+                            title: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Definition: ', style: TextStyle(fontSize: 11),),
+                                Text(data.meanings?[0]?.definitions?[0]?.definition ?? 'No Definition', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 17)),
+                                SizedBox(height: 8,)
+                              ],
+                            ),
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Part of Speech: ', style: TextStyle(fontSize: 11),),
+                                Text(data.meanings?[0]?.partOfSpeech ?? 'No Part of Speech', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 17)),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          Divider(
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 10,)
+                        ],
+                      ),
                     );
                   },
                 );

@@ -1,20 +1,18 @@
-import 'package:acespeak/STUDENT/HOME/LESSONS/units.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import '../map_screen.dart';
-import '../TILES/tiles_screen.dart';
+import '../HOME/student_classroom.dart';
 
-class NavigateUserChoice extends StatefulWidget {
-  final String userid;
-  final String grade;
-  const NavigateUserChoice({super.key, required this.userid, required this.grade});
+class UpdateLearning extends StatefulWidget {
+  final String userID;
+  const UpdateLearning({super.key, required this.userID});
 
   @override
-  State<NavigateUserChoice> createState() => _NavigateUserChoiceState();
+  State<UpdateLearning> createState() => _UpdateLearningState();
 }
 
-class _NavigateUserChoiceState extends State<NavigateUserChoice> {
+class _UpdateLearningState extends State<UpdateLearning> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -43,31 +41,27 @@ class _NavigateUserChoiceState extends State<NavigateUserChoice> {
                   SizedBox(height: screenHeight * 0.02),
                   GestureDetector(
                     onTap: () {
-                      FirebaseFirestore.instance.collection('users').doc(widget.userid).update({
+                      FirebaseFirestore.instance.collection('users').doc(widget.userID).update({
                         'method': "map"
                       }).then((_) {
+                        EasyLoading.showSuccess('Updated Sucessfully');
                         print('Profile updated successfully');
                       }).catchError((error) {
                         print('Error updating profile: $error');
                       });
-                      Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                        return MapScreen(userId : widget.userid, grade : widget.grade);
-                      })));
                     },
                     child: Image.asset('assets/images/map.png')),
                   
                   GestureDetector(
                     onTap: (){
-                      FirebaseFirestore.instance.collection('users').doc(widget.userid).update({
+                      FirebaseFirestore.instance.collection('users').doc(widget.userID).update({
                         'method': "tiles"
                       }).then((_) {
+                        EasyLoading.showSuccess('Updated Sucessfully');
                         print('Profile updated successfully');
                       }).catchError((error) {
                         print('Error updating profile: $error');
                       });
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                        return TilesScreen( userId : widget.userid, grade : widget.grade);
-                      }));
                     },
                     child: Image.asset('assets/images/tiles.png')),
                   
@@ -81,7 +75,7 @@ class _NavigateUserChoiceState extends State<NavigateUserChoice> {
                         icon: Icon(Icons.close),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                            return UnitScreen(userid: widget.userid);
+                            return ClassRoomScreen(userId: widget.userID);
                             }));
                         },
                       ),

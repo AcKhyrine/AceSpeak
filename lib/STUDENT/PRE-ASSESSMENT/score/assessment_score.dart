@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../HOME/LESSONS/mapORlist.dart';
+import '../../HOME/TILES/tiles_screen.dart';
+import '../../HOME/map_screen.dart';
 class AssessmentScoreScreen extends StatefulWidget {
   final String userId;
   final String grade;
@@ -12,7 +14,7 @@ class AssessmentScoreScreen extends StatefulWidget {
 }
 
 class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
-
+  String method ="";
   String _audio = "true";
   void audioValue() async {
     try {
@@ -37,10 +39,58 @@ class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
     if(_audio == "true"){
        playAudio('https://firebasestorage.googleapis.com/v0/b/casptone-14c19.appspot.com/o/audio%2Fdownload%20(2).mp3?alt=media&token=8c0d576c-c456-42a5-a9fc-555fc088f193');
     }else{
-      await Future.delayed(Duration(seconds: 11));
-      Navigator.push(context, MaterialPageRoute(builder: (ctx){
-        return NavigateUserChoice(userid:widget.userId, grade: widget.grade);
-      }));
+      if(method == "map"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return MapScreen(userId:widget.userId, grade: widget.grade);
+            },
+          ),
+        );
+        }else if(method == "tiles"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return TilesScreen(userId:widget.userId, grade: widget.grade);
+            },
+          ),
+        );
+        }else{
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return NavigateUserChoice(userid:widget.userId, grade: widget.grade);
+            },
+          ),
+        );
+        }
+    }
+  }
+
+  void MethodofLearning() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .get();
+
+      if (!snapshot.exists) {
+        print('No documents found for the user ID: ${widget.userId}');
+        return;
+      }
+      else{
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      if (data['method'] == "map" || data['method'] == "tiles") {
+        setState(() {
+          method = data["method"];
+        });
+      }
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
     }
   }
 
@@ -50,9 +100,34 @@ class _AssessmentScoreScreenState extends State<AssessmentScoreScreen> {
     await player.play(UrlSource(url));
     print("Playing...");
     await Future.delayed(Duration(seconds: 11));
-    Navigator.push(context, MaterialPageRoute(builder: (ctx){
-      return NavigateUserChoice(userid:widget.userId, grade: widget.grade);
-    }));
+    if(method == "map"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return MapScreen(userId:widget.userId, grade: widget.grade);
+            },
+          ),
+        );
+        }else if(method == "tiles"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return TilesScreen(userId:widget.userId, grade: widget.grade);
+            },
+          ),
+        );
+        }else{
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) {
+              return NavigateUserChoice(userid:widget.userId, grade: widget.grade);
+            },
+          ),
+        );
+        }
   }
 
   @override
