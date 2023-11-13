@@ -157,11 +157,11 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    padding: EdgeInsets.only(left: screenWidth * .08, right: screenWidth * .08),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 20,),
+                        SizedBox(height: screenHeight * 0.03,),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (ctx) {
@@ -195,6 +195,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
   }
 
   void _showDialog(BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double screenHeight = MediaQuery.of(context).size.width;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -204,16 +206,16 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            width: 250,
-            height: 350,
+            width: screenWidth * 0.05,
+            height: screenHeight * 1,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/board 1.png'), // Replace with your image path
+                image: AssetImage('assets/images/board 1.png'), 
                 fit: BoxFit.cover,
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 15, left:35, right: 35),
+              padding: EdgeInsets.only(top: screenHeight * 0.08, left:screenWidth * 0.09, right: screenWidth * 0.09),
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
@@ -226,17 +228,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                     }, icon: Icon(Icons.close)),
                   ],
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.of(context).pop();
-                //     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                //       return UpdateAvatar(userId: widget.userId);
-                //     }));
-                //   },
-                //   child: Text('Change Avatar'),
-                // ),
                 Container(
-                  height: 40,
+                  height: screenHeight * .13,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -250,9 +243,9 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                     child: Text('Progress history', style: TextStyle(color: Colors.white)),
                   ),
                 ),
-                SizedBox(height: 15,),
+                SizedBox(height: screenHeight * 0.02,),
                 Container(
-                  height: 40,
+                  height: screenHeight * .13,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -266,9 +259,9 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                     child: Text('leader board', style: TextStyle(color: Colors.white)),
                   ),
                 ),
-                SizedBox(height: 15,),
+                SizedBox(height: screenHeight * 0.02,),
                 Container(
-                  height: 40,
+                  height: screenHeight * .13,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -282,46 +275,9 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                     child: Text('Profile', style: TextStyle(color: Colors.white)),
                   ),
                 ),
-                SizedBox(height: 15,),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //     if (audio == "true") {
-                //       audio = "false";
-                //       EasyLoading.showSuccess('Volume turn off Sucessfully');
-                //     } else {
-                //       audio = "true";
-                //       EasyLoading.showSuccess('Volume turn on Sucessfully');
-                //     }
-                //     FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
-                //       'audio': audio
-                //     }).then((_) {
-                //       print('updated successfully');
-                //     }).catchError((error) {
-                //       print('Error updating $error');
-                //     });
-                //     setState(() {
-                //     });
-                //   },
-                //   child: audio == "true"
-                //       ? Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Text('Audio ON'),
-                //             Icon(Icons.volume_up)
-                //           ],
-                //         )
-                //       : Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Text('Audio OFF'),
-                //             Icon(Icons.volume_off)
-                //           ],
-                //         ),
-                // ),
-
+                SizedBox(height: screenHeight * 0.02,),
                 Container(
-                  height: 40,
+                  height: screenHeight * .13,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -346,6 +302,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
   }
 
   void _showDialog2(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.width;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -355,8 +313,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            width: 270,
-            height: 380,
+            width: screenWidth * 0.05,
+            height: screenHeight * 1,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/board 1.png'), 
@@ -364,7 +322,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 20, left:30, right: 30),
+              padding: EdgeInsets.only(top: screenHeight * 0.08, left:screenWidth * 0.09, right: screenWidth * 0.09),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -372,15 +330,15 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Settings', style: TextStyle(fontSize: 30, color: Colors.grey),),
+                        Text('Settings', style: TextStyle(fontSize: screenHeight * 0.1, color: Colors.grey),),
                         IconButton(onPressed: (){
                           Navigator.pop(context);
                         }, icon: Icon(Icons.close))
                       ],
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: screenHeight * 0.02,),
                     Container(
-                      height: 50,
+                      height: screenHeight * 0.13,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -394,9 +352,9 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                         child: Text('Change Avatar', style: TextStyle(color: Colors.white),),
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: screenHeight * 0.02,),
                     Container(
-                      height: 50,
+                      height: screenHeight * 0.13,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -410,9 +368,9 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                         child: Text('Change Method of Learning', style: TextStyle(color: Colors.white, fontSize: 13),),
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: screenHeight * 0.05,),
                     Text('Audio Settings', style: TextStyle(color: Colors.grey),),
-                    SizedBox(height: 20,),
+                    SizedBox(height: screenHeight * 0.02,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

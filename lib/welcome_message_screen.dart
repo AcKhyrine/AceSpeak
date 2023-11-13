@@ -32,6 +32,8 @@ class _WelcomeMessageState extends State<WelcomeMessage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -46,18 +48,18 @@ class _WelcomeMessageState extends State<WelcomeMessage> {
             children: [
               Column(children: [
                 SizedBox(
-                  height: 135,
+                  height: screenHeight * 0.27,
                 ),
                 Image.asset('assets/images/logo1.png'),
               ]),
               Column(
                 children: [
                   SizedBox(
-                    height: 245,
+                    height: screenHeight * 0.37,
                   ),
                   Container(
-                    width: 380,
-                    height: 230,
+                    width: screenWidth * 1,
+                    height: screenHeight * .3,
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(25),
@@ -69,17 +71,17 @@ class _WelcomeMessageState extends State<WelcomeMessage> {
                         Text(
                           'Welcome to Acespeak',
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: screenHeight * .035,
                             fontWeight: FontWeight.w900,
                             color: Colors.green,
                           ),
                         ),
-                        SizedBox(height: 2),
+                        SizedBox(height: screenHeight * .01),
                         Expanded(
                           child: Text(
                             'Get ready to improve your English pronunciation and boost your confidence in speaking. Whether you\'re a beginner or an advanced learner, our speech recognition technology will help you achieve accurate and fluent pronunciation.',
                             style: TextStyle(
-                              fontSize: 14.8,
+                              fontSize: screenHeight * 0.02,
                               color: Colors.black,
                             ),
                             textAlign: TextAlign.justify,
@@ -89,7 +91,7 @@ class _WelcomeMessageState extends State<WelcomeMessage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * .015),
                   ElevatedButton(
                     onPressed: () {
                       flutterTts.stop();

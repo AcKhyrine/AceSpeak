@@ -511,6 +511,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     print('SCORES');
     print(score1);
     print(score2);
@@ -531,11 +533,11 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: 70,),
-                    Text("Progress History",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+                    SizedBox(height: screenHeight * .1,),
+                    Text("Progress History",style: TextStyle(fontSize: screenHeight * .05, fontWeight: FontWeight.bold),),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -549,8 +551,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -558,7 +560,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score1 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -574,8 +576,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -589,8 +591,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -598,7 +600,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score2 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -614,8 +616,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -629,8 +631,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -638,7 +640,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score3 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -654,8 +656,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -669,8 +671,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -678,7 +680,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score4 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -694,8 +696,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -709,8 +711,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -718,7 +720,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score5 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -734,8 +736,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -749,8 +751,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -758,7 +760,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score6 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -774,8 +776,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -789,8 +791,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -798,7 +800,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score7 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -814,8 +816,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -829,8 +831,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -838,7 +840,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score8 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -854,8 +856,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -869,8 +871,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -878,7 +880,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score9 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -894,8 +896,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -909,8 +911,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -918,7 +920,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score10 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -934,8 +936,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -949,8 +951,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -958,7 +960,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score11 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -974,8 +976,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -989,8 +991,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -998,7 +1000,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score12 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1014,8 +1016,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1029,8 +1031,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1038,7 +1040,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score13 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1054,8 +1056,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1069,8 +1071,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1078,7 +1080,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score14 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1094,8 +1096,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1109,8 +1111,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1118,7 +1120,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score15 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1134,8 +1136,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1149,8 +1151,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1158,7 +1160,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score16 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1174,8 +1176,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1189,8 +1191,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1198,7 +1200,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score17 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1214,8 +1216,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1229,8 +1231,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1238,7 +1240,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score18 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1254,8 +1256,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1269,8 +1271,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1278,7 +1280,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score19 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -1294,8 +1296,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
               
                     SizedBox(height: 15,),
                     Container(
-                      width: 300,
-                      height: 20,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * .03,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1310,8 +1312,8 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                       children: [
                         SizedBox(height: 0,),
                         Container(
-                          width: 300, 
-                          height: 10,
+                          width: screenWidth * .82, 
+                          height: screenHeight * .015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.grey, 
@@ -1319,7 +1321,7 @@ class _ProgressHistoryState extends State<ProgressHistory> {
                         ),
                         Container(
                           width: score20 * 3, 
-                          height: 10, 
+                          height: screenHeight * 0.015,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
