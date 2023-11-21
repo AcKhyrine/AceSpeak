@@ -284,9 +284,10 @@ class _Post_Assessment_Screen1State extends State<Post_Assessment_Screen1> {
   }
 
   Future<String?> getImageDownloadURL(picture) async {
+     String lesson = widget.lesson.substring(0, 3);
     try {
       String pictureLower = picture.toLowerCase();
-      Reference reference = FirebaseStorage.instance.ref(widget.grade+"/"+widget.lesson+' lesson/$pictureLower.png');
+      Reference reference = FirebaseStorage.instance.ref(widget.grade+"/"+lesson+' lesson/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
       print(downloadURL);
       setState(() {});

@@ -34,8 +34,70 @@ class _Post_Assessment_Score1State extends State<Post_Assessment_Score1> {
     super.initState();
     fetchResults();
     fetchlesson();
+    Dashboard();
   }
 
+   Future<void> Dashboard() async {
+    int unit_Highest_score = 0;
+    int unit_Lowest_score = 0;
+    String unit = '';
+    if(widget.grade == 'Grade 1'){
+        unit = 'Unit 1';
+      }
+      else if(widget.grade == 'Grade 2'){
+        unit = 'Unit 2';
+      }
+      else if(widget.grade == 'Grade 3'){
+        unit = 'Unit 3';
+      }
+      else if(widget.grade == 'Grade 4'){
+        unit = 'Unit 4';
+      }
+      else if(widget.grade == 'Grade 5'){
+        unit = 'Unit 5';
+      }
+      else if(widget.grade == 'Grade 6'){
+        unit = 'Unit 6';
+      }
+      else{
+        print('check your grade level');
+      }
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('dashboard')
+          .doc(widget.userId)
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        Map<String, dynamic> updates = {};
+
+        if (data['Lowest_score'] > widget.average) {
+          updates['Lowest_score'] =  widget.average;
+          updates['Unit_Lowest_score'] = unit;
+        }
+
+        if (data['Highest_score'] <  widget.average) {
+          updates['Highest_score'] =  widget.average;
+          updates['Unit_Highest_score'] = unit;
+        }
+
+        await FirebaseFirestore.instance
+            .collection('dashboard')
+            .doc(widget.userId)
+            .update(updates);
+      } else {
+        await FirebaseFirestore.instance.collection('dashboard').doc(widget.userId).set({
+          'Lowest_score':  widget.average,
+          'Highest_score':  widget.average,
+          'Unit_Lowest_score': unit,
+          'Unit_Highest_score': unit,
+        });
+      }
+    } catch (e) {
+      print('Error updating document: $e');
+    }
+  }
   Future<void> fetchlesson() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance

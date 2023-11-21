@@ -52,18 +52,6 @@ void assessment() async {
           pre_assessment: widget.post,
          );
          }));
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (ctx) {
-        //     return SpeechPostAssessmentInstructionsScreen(
-        //       userId: widget.userId,
-        //       grade: widget.grade,
-        //       pre_assessment: widget.post,
-        //       length: length,
-        //       lesson: widget.lesson,
-        //     );
-        //   }),
-        // );
       } else {
         Navigator.push(
         context,
@@ -79,25 +67,45 @@ void assessment() async {
       );
       }
     } else {
-      await FirebaseFirestore.instance
-        .collection('score')
-        .doc(widget.userId+widget.grade)
-        .update({
-          widget.lesson + ' lesson': [],
-          widget.lesson + 'wrong' : []
-        });
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (ctx) {
-          return SpeechPostAssessmentInstructionsScreen1(
-            userId: widget.userId,
-            grade: widget.grade,
-            pre_assessment: widget.post,
-            length: 0,
-            lesson: widget.lesson,
+      int i = 0;
+      String len;
+      while (true) {
+        len = widget.lesson + ' ' + i.toString();
+        if (data[len+ ' lesson'] != null) {
+          int length = data[len + ' lesson'].length;
+          if(length < 9){
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (ctx) {
+              return SpeechPostAssessmentInstructionsScreen1(
+                userId: widget.userId,
+                grade: widget.grade,
+                pre_assessment: widget.post,
+                length: length > 0 ? length : 0,
+                lesson: len,
+              );
+            }),
           );
-        }),
-      );
+          break;
+          }else{
+            i++;
+          }
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (ctx) {
+              return SpeechPostAssessmentInstructionsScreen1(
+                userId: widget.userId,
+                grade: widget.grade,
+                pre_assessment: widget.post,
+                length: 0,
+                lesson: len,
+              );
+            }),
+          );
+          break;
+        }
+      }
     }
   } else {
     Navigator.push(
@@ -118,7 +126,6 @@ void assessment() async {
     print('Error fetching data: $e');
   }
 }
-
 
   final List<String> gifPaths = [
     'assets/L1.gif',

@@ -154,10 +154,11 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
   }
 
    Future<String?> getImageDownloadURL(picture) async {
-    print(widget.grade +'/'+widget.lesson+"=========================================");
+    String lesson = widget.lesson.substring(0, 3);
+    print(widget.grade +'/'+lesson+"=========================================");
     try {
       String pictureLower = picture.toLowerCase();
-      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+' lesson/$pictureLower.png');
+      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+lesson+' lesson/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
       setState(() {});
     } catch (e) {

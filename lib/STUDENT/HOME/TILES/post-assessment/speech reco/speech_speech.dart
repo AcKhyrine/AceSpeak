@@ -155,10 +155,11 @@ class _SpeechRecoScreen1State extends State<SpeechRecoScreen1> {
   }
 
    Future<String?> getImageDownloadURL(picture) async {
-    print(widget.grade +'/'+widget.lesson+"=========================================");
+    String lesson = widget.lesson.substring(0, 3);
+    print(widget.grade +'/'+lesson+"=========================================");
     try {
       String pictureLower = picture.toLowerCase();
-      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+widget.lesson+' lesson/$pictureLower.png');
+      Reference reference = FirebaseStorage.instance.ref(widget.grade +'/'+lesson+' lesson/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
       setState(() {});
     } catch (e) {
@@ -169,17 +170,6 @@ class _SpeechRecoScreen1State extends State<SpeechRecoScreen1> {
       return null;
     }
     print(downloadURL+"................................................");
-    // print(picture);
-    // try {
-    //   Reference reference = FirebaseStorage.instance.ref('images/'+picture+'.png');
-    //   downloadURL = await reference.getDownloadURL();
-    //   print(downloadURL);
-    //   setState(() {});
-    // } catch (e) {
-    //   print('Error getting image download URL: $e');
-    //   return null; 
-    // }
-    // return null;
   }
 
   void moveToNextWord() {
@@ -245,7 +235,7 @@ class _SpeechRecoScreen1State extends State<SpeechRecoScreen1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 10),
-                      Text('Pre Assessment',
+                      Text('Post Assessment',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

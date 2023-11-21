@@ -21,7 +21,7 @@ class _MapScreenState extends State<MapScreen> {
   int number = 0;
   List<dynamic> finished = [];
   int score1=0, score2=0, score3=0, score4=0, score5=0, score6=0, score7=0, score8=0, score9=0, score10=0, score11=0, score12=0, score13=0, score14=0, score15=0, score16=0, score17=0, score18=0, score19=0, score20=0;
- 
+  String unit = '';
   @override
   void initState() {
     super.initState();
@@ -30,6 +30,27 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void assessment() async {
+    if(widget.grade == 'Grade 1'){
+        unit = 'Unit 1';
+      }
+      else if(widget.grade == 'Grade 2'){
+        unit = 'Unit 2';
+      }
+      else if(widget.grade == 'Grade 3'){
+        unit = 'Unit 3';
+      }
+      else if(widget.grade == 'Grade 4'){
+        unit = 'Unit 4';
+      }
+      else if(widget.grade == 'Grade 5'){
+        unit = 'Unit 5';
+      }
+      else if(widget.grade == 'Grade 6'){
+        unit = 'Unit 6';
+      }
+      else{
+        print('check your grade level');
+      }
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('score')
@@ -2171,6 +2192,11 @@ class _MapScreenState extends State<MapScreen> {
                   }));
               },
             ),
+          ),
+          Positioned(
+            top: 30,
+            left: 20,
+            child: Text(unit, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
           ),
         ],
       ),

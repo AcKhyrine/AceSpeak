@@ -46,8 +46,8 @@ class _AssessmentRecordState extends State<AssessmentRecord> {
   bool _isRecording = false;
   String _filePath = '';
 
-  final String appKey = "16939684470001d2";
-  final String secretKey = "14c646774d681c1e81c871fc2b1a7375";
+final String appKey = "1700462103000227";
+  final String secretKey = "97f4f017aab00e286f01bd06599d7f7f";
   final String userId = "uid";
   final String baseHOST = "api.speechsuper.com";
 

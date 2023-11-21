@@ -3,6 +3,7 @@ import 'package:acespeak/STUDENT/GAMES/spelling.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../HOME/student_classroom.dart';
 import 'animal.dart';
 import 'findobject.dart';
 
@@ -17,10 +18,13 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp, DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -42,7 +46,10 @@ class _GameScreenState extends State<GameScreen> {
                 Row(
                   children: [
                     IconButton(onPressed: (){
-                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                        return ClassRoomScreen(userId: widget.userId,);
+                      }));
+                      // Navigator.pop(context);
                     }, icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 3, 48, 85),)),
                     Text('Back'),
                   ],

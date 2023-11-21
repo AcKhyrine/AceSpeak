@@ -14,7 +14,7 @@ class _WelcomeMessageState extends State<WelcomeMessage> {
 
   @override
   void initState() {
-    audio();
+    // audio();
     super.initState();
   }
 

@@ -68,25 +68,66 @@ void assessment() async {
     );
       }
     } else {
-      await FirebaseFirestore.instance
-        .collection('score')
-        .doc(widget.userId+widget.grade)
-        .update({
-          widget.lesson + ' lesson': [],
-          widget.lesson + 'wrong' : []
-        });
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (ctx) {
-          return PostAssessmentInstructionsScreen(
-            userId: widget.userId,
-            grade: widget.grade,
-            pre_assessment: widget.post,
-            length: 1,
-            lesson: widget.lesson,
+      int i = 0;
+      String len;
+      while (true) {
+        len = widget.lesson + ' ' + i.toString();
+        if (data[len+ ' lesson'] != null) {
+          int length = data[len + ' lesson'].length;
+          if(length < 9){
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (ctx) {
+              return PostAssessmentInstructionsScreen(
+                userId: widget.userId,
+                grade: widget.grade,
+                pre_assessment: widget.post,
+                length: length > 0 ? length + 1 : 1,
+                lesson: len,
+              );
+            }),
           );
-        }),
-      );
+          break;
+          }else{
+            i++;
+          }
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (ctx) {
+              return PostAssessmentInstructionsScreen(
+                userId: widget.userId,
+                grade: widget.grade,
+                pre_assessment: widget.post,
+                length: 1,
+                lesson: len,
+              );
+            }),
+          );
+          break;
+        }
+      }
+
+        
+      // await FirebaseFirestore.instance
+      //   .collection('score')
+      //   .doc(widget.userId+widget.grade)
+      //   .update({
+      //     widget.lesson + ' lesson': [],
+      //     widget.lesson + 'wrong' : []
+      //   });
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (ctx) {
+      //     return PostAssessmentInstructionsScreen(
+      //       userId: widget.userId,
+      //       grade: widget.grade,
+      //       pre_assessment: widget.post,
+      //       length: 1,
+      //       lesson: widget.lesson,
+      //     );
+      //   }),
+      // );
     }
   } else {
     Navigator.push(
@@ -102,56 +143,6 @@ void assessment() async {
       }),
     );
   }
-
-    // if (data[pre] != null) {
-    //   if (data[pre].length < 9) {
-    //     int length = data[pre].length;
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(builder: (ctx) {
-    //         return PostAssessmentInstructionsScreen(
-    //           userId: widget.userId,
-    //           grade: widget.grade,
-    //           pre_assessment: widget.post,
-    //           length: data[pre].length,
-    //           lesson: widget.lesson,
-    //         );
-    //       }),
-    //     );
-    //   } else {
-    //     await FirebaseFirestore.instance
-    //       .collection('score')
-    //       .doc(widget.userId)
-    //       .update({
-    //          widget.lesson + ' lesson': [],
-    //       });
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(builder: (ctx) {
-    //         return PostAssessmentInstructionsScreen(
-    //           userId: widget.userId,
-    //           grade: widget.grade,
-    //           pre_assessment: widget.post,
-    //           length: 1,
-    //           lesson: widget.lesson,
-    //         );
-    //       }),
-    //     );
-    //   }
-    // } else {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(builder: (ctx) {
-    //       return PostAssessmentInstructionsScreen(
-    //         userId: widget.userId,
-    //         grade: widget.grade,
-    //         pre_assessment: widget.post,
-    //         length: 1,
-    //         lesson: widget.lesson,
-    //       );
-    //     }),
-    //   );
-    // }
   } catch (e) {
     print('Error fetching data: $e');
   }

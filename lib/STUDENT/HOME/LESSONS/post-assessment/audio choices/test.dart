@@ -132,6 +132,8 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
       score += 1;
       newScore = '100';
     }
+
+    
     
     try {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('score').doc(widget.userId+widget.grade).get();
@@ -284,9 +286,10 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
   }
 
   Future<String?> getImageDownloadURL(picture) async {
+     String lesson = widget.lesson.substring(0, 3);
     try {
       String pictureLower = picture.toLowerCase();
-      Reference reference = FirebaseStorage.instance.ref(widget.grade+"/"+widget.lesson+' lesson/$pictureLower.png');
+      Reference reference = FirebaseStorage.instance.ref(widget.grade+"/"+lesson+' lesson/$pictureLower.png');
       downloadURL = await reference.getDownloadURL();
       print(downloadURL);
       setState(() {});
@@ -567,7 +570,7 @@ class _Post_Assessment_ScreenState extends State<Post_Assessment_Screen> {
     'Bug' : ['Boog','Bug','vug','Beg'],
     'Egg' : ['Emge','Elge','Egg','Ege'],
     'Pie' : ['Vie','Rie','Pee','Pie'],
-    'Arm' : ['Arm','Arme','larm','Am'],
+    'Arm' : ['Arm','Ame','larm','Am'],
     'Rat': ['Ram', 'Ral', 'Rat', 'Ray'],
     'Bag' : ['Bang', 'Fag', 'Pag', 'Bag'],
     'Boy' : ['Booy', 'Boy', 'Moy', 'Voy'],

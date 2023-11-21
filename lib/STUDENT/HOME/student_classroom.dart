@@ -1,3 +1,4 @@
+import 'package:acespeak/STUDENT/DASHBOARD/dashboardScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -206,7 +207,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            width: screenWidth * 0.05,
+            width: double.infinity,
+            // width: screenWidth * 0.05,
             height: screenHeight * 1,
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -215,7 +217,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.08, left:screenWidth * 0.09, right: screenWidth * 0.09),
+              padding: EdgeInsets.only(top: screenHeight * 0.05, left:screenWidth * 0.09, right: screenWidth * 0.09),
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
@@ -229,7 +231,23 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                   ],
                 ),
                 Container(
-                  height: screenHeight * .13,
+                  height: screenHeight * .12,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                        return DashboardScreen(userId: widget.userId);
+                      }));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFF07883A)), 
+                    ),
+                    child: Text('Dashboard', style: TextStyle(color: Colors.white)),
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02,),
+                Container(
+                  height: screenHeight * .12,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -245,7 +263,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.02,),
                 Container(
-                  height: screenHeight * .13,
+                  height: screenHeight * .12,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -261,7 +279,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.02,),
                 Container(
-                  height: screenHeight * .13,
+                  height: screenHeight * .12,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -277,7 +295,7 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.02,),
                 Container(
-                  height: screenHeight * .13,
+                  height: screenHeight * .12,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();

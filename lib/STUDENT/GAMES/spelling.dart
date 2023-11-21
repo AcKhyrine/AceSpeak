@@ -268,12 +268,11 @@ class _SpellingGameState extends State<SpellingGame> {
                             print(answer + select);
                             if(answer == select){
                               EasyLoading.showSuccess('You spell it correctly');
-                              setState(() {
                                 image = !image;
                                 updateArray();
                                 selectAnswer.clear();
                                 spell.clear();
-                              });
+                              setState(() {});
                             }else{
                               EasyLoading.showError('you spell it wrong');
                             }
@@ -425,6 +424,11 @@ class _SpellingGameState extends State<SpellingGame> {
                 ],
               ),
         ),
+        Positioned(
+            top: 80,
+            right: 20,
+            child: Text('Score: ' + level.toString())
+          ),
         Positioned(
           left: 2,
           bottom:5,

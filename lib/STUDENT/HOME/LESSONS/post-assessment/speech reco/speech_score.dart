@@ -92,6 +92,69 @@ class _SpeechPost_Assessment_ScoreState extends State<SpeechPost_Assessment_Scor
     }
   }
 
+  Future<void> Dashboard() async {
+    int unit_Highest_score = 0;
+    int unit_Lowest_score = 0;
+    int lowest_score = 0;
+    int highest_score = 0;
+    String unit = '';
+    if(widget.grade == 'Grade 1'){
+        unit = 'Unit 1';
+      }
+      else if(widget.grade == 'Grade 2'){
+        unit = 'Unit 2';
+      }
+      else if(widget.grade == 'Grade 3'){
+        unit = 'Unit 3';
+      }
+      else if(widget.grade == 'Grade 4'){
+        unit = 'Unit 4';
+      }
+      else if(widget.grade == 'Grade 5'){
+        unit = 'Unit 5';
+      }
+      else if(widget.grade == 'Grade 6'){
+        unit = 'Unit 6';
+      }
+      else{
+        print('check your grade level');
+      }
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('dashboard')
+          .doc(widget.userId)
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        Map<String, dynamic> updates = {};
+
+        if (data['Lowest_score'] > average) {
+          updates['Lowest_score'] = average;
+          updates['Unit_Lowest_score'] = unit;
+        }
+
+        if (data['Highest_score'] < average) {
+          updates['Highest_score'] = average;
+          updates['Unit_Highest_score'] = unit;
+        }
+
+        await FirebaseFirestore.instance
+            .collection('dashboard')
+            .doc(widget.userId)
+            .update(updates);
+      } else {
+        await FirebaseFirestore.instance.collection('dashboard').doc(widget.userId).set({
+          'Lowest_score': average,
+          'Highest_score': average,
+          'Unit_Lowest_score': unit_Lowest_score,
+          'Unit_Highest_score': unit_Highest_score,
+        });
+      }
+    } catch (e) {
+      print('Error updating document: $e');
+    }
+  }
 
  Future<void> fetchLesson() async {
   try {
@@ -147,6 +210,7 @@ Future<void> fetchResults() async {
       }
       setState(() {
         average = (sum / 10).toInt(); 
+        Dashboard();
       });
       
     }

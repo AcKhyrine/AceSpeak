@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +15,11 @@ class AnimalGameScreen extends StatefulWidget {
 class _AnimalGameScreenState extends State<AnimalGameScreen> {
   final player = AudioPlayer();
   int currentLevel = 0;
-  List<Map<String, dynamic>> levels = [
+
+  List<Map<String, dynamic>> levels =[];
+  
+  void Audio(){
+    levels = [
     {
       'imagePath': 'assets/game/cat.jpg',
       'correctAnswer': 'A',
@@ -56,7 +62,7 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
     },
     {
       'imagePath': 'assets/game/apple.png',
-      'correctAnswer': 'B',
+      'correctAnswer': 'D',
       'choices': [
         {'label': 'A', 'audioPath': 'assets/sounds/strawberry.mp3'},
         {'label': 'B', 'audioPath': 'assets/sounds/orange.mp3'},
@@ -65,7 +71,9 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
       ],
     },
   ];
-
+  levels.shuffle(Random());
+  }
+  
 
   String? selectedAnswer;
   bool showResult = false;
@@ -85,6 +93,13 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
       final snapshot = await FirebaseFirestore.instance.collection('game').doc('widget.userId').get();
       if (snapshot.exists) {
         final data = snapshot.data();
+        if(data!['last_level_played'] == 5 ){
+          final CollectionReference gameCollection = FirebaseFirestore.instance.collection('game');
+          final DocumentReference userDocument = gameCollection.doc(widget.userId);
+          await userDocument.update({
+          'last_level_played': 0,
+        });
+        }
         return data?['last_level_played'] ?? 0;
       }
       return 0;
@@ -133,8 +148,12 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    if (currentLevel < levels.length - 1) {
+                    if(levels.length == 4){
+                      resetLevels();
+                    }else{
+                      if (currentLevel < levels.length - 1) {
                       goToNextLevel();
+                    }
                     }
                   },
                   child: Text('Next Level'),
@@ -186,12 +205,18 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
       selectedAnswer = null;
       showResult = false;
     });
+    final CollectionReference gameCollection = FirebaseFirestore.instance.collection('game');
+      final DocumentReference userDocument = gameCollection.doc(widget.userId);
+      await userDocument.update({
+      'last_level_played': 0,
+    });
     await saveLastLevelPlayed(currentLevel);
   }
 
   @override
   void initState() {
     super.initState();
+    Audio();
     getLastLevelPlayed().then((level) {
       setState(() {
         currentLevel = level;
@@ -225,7 +250,6 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
     }
 
     final currentLevelData = levels[currentLevel];
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -261,8 +285,9 @@ class _AnimalGameScreenState extends State<AnimalGameScreen> {
                     child: Container(
                       width: 300,
                       height: 300,
+                      color: const Color.fromARGB(255, 209, 209, 209),
                       child: Image.asset(
-                        currentLevelData['imagePath'],
+                        currentLevelData['imagePath'], width: 300, height: 300,
                       ),
                     ),
                   ),

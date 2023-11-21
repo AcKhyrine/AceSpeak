@@ -44,7 +44,7 @@ class _ProgressUnitScreenState extends State<ProgressUnitScreen> {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return ProgressHistory(userId: widget.userid, grade: 'Grade 1',);
+                      return ProgressHistory(userId: widget.userid, grade: 'Grade 1', unit: "Unit 1");
                     }));
                   },
                   child: Container(
@@ -64,7 +64,7 @@ class _ProgressUnitScreenState extends State<ProgressUnitScreen> {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return ProgressHistory(userId: widget.userid, grade: 'Grade 2',);
+                      return ProgressHistory(userId: widget.userid, grade: 'Grade 2',unit: "Unit 2");
                     }));
                   },
                   child: Container(
@@ -84,7 +84,7 @@ class _ProgressUnitScreenState extends State<ProgressUnitScreen> {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return ProgressHistory(userId: widget.userid, grade: 'Grade 3',);
+                      return ProgressHistory(userId: widget.userid, grade: 'Grade 3',unit: "Unit 3");
                     }));
                   },
                   child: Container(
@@ -104,7 +104,7 @@ class _ProgressUnitScreenState extends State<ProgressUnitScreen> {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return ProgressHistory(userId: widget.userid, grade: 'Grade 4',);
+                      return ProgressHistory(userId: widget.userid, grade: 'Grade 4',unit: "Unit 4");
                     }));
                   },
                   child: Container(
@@ -124,7 +124,7 @@ class _ProgressUnitScreenState extends State<ProgressUnitScreen> {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return ProgressHistory(userId: widget.userid, grade: 'Grade 5',);
+                      return ProgressHistory(userId: widget.userid, grade: 'Grade 5',unit: "Unit 5");
                     }));
                   },
                   child: Container(
@@ -144,7 +144,7 @@ class _ProgressUnitScreenState extends State<ProgressUnitScreen> {
                 GestureDetector(
                   onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return ProgressHistory(userId: widget.userid, grade: 'Grade 6',);
+                      return ProgressHistory(userId: widget.userid, grade: 'Grade 6',unit: "Unit 6");
                     }));
                   },
                   child: Container(
