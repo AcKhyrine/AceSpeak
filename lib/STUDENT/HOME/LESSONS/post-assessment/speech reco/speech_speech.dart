@@ -245,7 +245,7 @@ class _SpeechRecoScreenState extends State<SpeechRecoScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 10),
-                      Text('Pre Assessment',
+                      Text('Post Assessment',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

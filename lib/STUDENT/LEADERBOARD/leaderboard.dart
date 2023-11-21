@@ -77,6 +77,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
 
 //Grade 1
   Future<int> StudentScore1(int i) async {
+    
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('score')
         .doc(student[i]+'Grade 1')
@@ -88,307 +89,587 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     }
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
     if (data != null) {
-      int average, score1, score2, score3, score4, score5, score6, score7, score8, score9, score10, score11, score12, score13, score14, score15, score16, score17, score18, score19, score20;
+      int average, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0, score8 = 0, score9 = 0, score10 = 0, score11 = 0, score12 = 0, score13 = 0, score14 = 0, score15 = 0, score16 = 0, score17 = 0, score18 = 0, score19 = 0, score20 = 0;
     //lesson 1
       if(data['1-1 lesson'] != null){
-        List<int> studentScores = (data['1-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score1 = (sum / 10).toInt();
-      }else{
-        score1 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score1 = score1 > averageScore ? score1 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 2
       if(data['1-2 lesson'] != null){
-        List<int> studentScores = (data['1-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score2 = (sum / 10).toInt();
-      }else{
-        score2 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score2 = score2 > averageScore ? score2 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 3
       if(data['1-3 lesson'] != null){
-        List<int> studentScores = (data['1-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score3 = (sum / 10).toInt();
-      }else{
-        score3 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score3 = score3 > averageScore ? score3 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 4
       if(data['1-4 lesson'] != null){
-        List<int> studentScores = (data['1-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score4 = (sum / 10).toInt();
-      }else{
-        score4 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score4 = score4 > averageScore ? score4 : averageScore;
+                }
+              }
+            }
+          });
       }
 
       //lesson 5
       if(data['1-5 lesson'] != null){
-        List<int> studentScores = (data['1-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score5 = (sum / 10).toInt();
-      }else{
-        score5 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score5 = score5 > averageScore ? score5 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 6
       if(data['2-1 lesson'] != null){
-        List<int> studentScores = (data['2-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score6 = (sum / 10).toInt();
-      }else{
-        score6 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score6 = score6 > averageScore ? score6 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 7
       if(data['2-2 lesson'] != null){
-        List<int> studentScores = (data['2-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score7 = (sum / 10).toInt();
-      }else{
-        score7 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score7 = score7 > averageScore ? score7 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 8
       if(data['2-3 lesson'] != null){
-        List<int> studentScores = (data['2-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score8 = (sum / 10).toInt();
-      }else{
-        score8 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score8 = score8 > averageScore ? score8 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 9
       if(data['2-4 lesson'] != null){
-        List<int> studentScores = (data['2-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score9 = (sum / 10).toInt();
-      }else{
-        score9 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score9 = score9 > averageScore ? score9 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 10
       if(data['2-5 lesson'] != null){
-        List<int> studentScores = (data['2-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score10 = (sum / 10).toInt();
-      }else{
-        score10 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score10 = score10 > averageScore ? score10 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 11
       if(data['3-1 lesson'] != null){
-        List<int> studentScores = (data['3-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score11 = (sum / 10).toInt();
-      }else{
-        score11 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score11 = score11 > averageScore ? score11 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 12
       if(data['3-2 lesson'] != null){
-        List<int> studentScores = (data['3-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score12 = (sum / 10).toInt();
-      }else{
-        score12 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score12 = score12 > averageScore ? score12 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 13
       if(data['3-3 lesson'] != null){
-        List<int> studentScores = (data['3-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score13 = (sum / 10).toInt();
-      }else{
-        score13 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score13 = score13 > averageScore ? score13 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 14
       if(data['3-4 lesson'] != null){
-        List<int> studentScores = (data['3-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score14 = (sum / 10).toInt();
-      }else{
-        score14 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score14 = score14 > averageScore ? score14 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 15
       if(data['3-5 lesson'] != null){
-        List<int> studentScores = (data['3-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score15 = (sum / 10).toInt();
-      }else{
-        score15 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score15 = score15 > averageScore ? score15 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 16
       if(data['4-1 lesson'] != null){
-        List<int> studentScores = (data['4-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score16 = (sum / 10).toInt();
-      }else{
-        score16 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score16 = score16 > averageScore ? score16 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 17
       if(data['4-2 lesson'] != null){
-        List<int> studentScores = (data['4-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score17 = (sum / 10).toInt();
-      }else{
-        score17 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score17 = score17 > averageScore ? score17 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 18
       if(data['4-3 lesson'] != null){
-        List<int> studentScores = (data['4-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+       data.keys.forEach((key) {
+            if (key.startsWith('4-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score18 = (sum / 10).toInt();
-      }else{
-        score18 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score18 = score18 > averageScore ? score18 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 19
       if(data['4-4 lesson'] != null){
-        List<int> studentScores = (data['4-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score19 = (sum / 10).toInt();
-      }else{
-        score19 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score19 = score19 > averageScore ? score19 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 20
       if(data['4-5 lesson'] != null){
-        List<int> studentScores = (data['4-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score20 = (sum / 10).toInt();
-      }else{
-        score20 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score20 = score20 > averageScore ? score20 : averageScore;
+                }
+              }
+            }
+          });
       }
       int total = score1+score2+score3+score4+score5+score6+score7+score8+score9+score10+score11+score12+score13+score14+score15+score16+score17+score18+score19+score20;
       return average = (total / 20).toInt();
@@ -409,307 +690,587 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     }
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
     if (data != null) {
-      int average, score1, score2, score3, score4, score5, score6, score7, score8, score9, score10, score11, score12, score13, score14, score15, score16, score17, score18, score19, score20;
+      int average, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0, score8 = 0, score9 = 0, score10 = 0, score11 = 0, score12 = 0, score13 = 0, score14 = 0, score15 = 0, score16 = 0, score17 = 0, score18 = 0, score19 = 0, score20 = 0;
     //lesson 1
       if(data['1-1 lesson'] != null){
-        List<int> studentScores = (data['1-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score1 = (sum / 10).toInt();
-      }else{
-        score1 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score1 = score1 > averageScore ? score1 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 2
       if(data['1-2 lesson'] != null){
-        List<int> studentScores = (data['1-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score2 = (sum / 10).toInt();
-      }else{
-        score2 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score2 = score2 > averageScore ? score2 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 3
       if(data['1-3 lesson'] != null){
-        List<int> studentScores = (data['1-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score3 = (sum / 10).toInt();
-      }else{
-        score3 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score3 = score3 > averageScore ? score3 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 4
       if(data['1-4 lesson'] != null){
-        List<int> studentScores = (data['1-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score4 = (sum / 10).toInt();
-      }else{
-        score4 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score4 = score4 > averageScore ? score4 : averageScore;
+                }
+              }
+            }
+          });
       }
 
       //lesson 5
       if(data['1-5 lesson'] != null){
-        List<int> studentScores = (data['1-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score5 = (sum / 10).toInt();
-      }else{
-        score5 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score5 = score5 > averageScore ? score5 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 6
       if(data['2-1 lesson'] != null){
-        List<int> studentScores = (data['2-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score6 = (sum / 10).toInt();
-      }else{
-        score6 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score6 = score6 > averageScore ? score6 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 7
       if(data['2-2 lesson'] != null){
-        List<int> studentScores = (data['2-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score7 = (sum / 10).toInt();
-      }else{
-        score7 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score7 = score7 > averageScore ? score7 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 8
       if(data['2-3 lesson'] != null){
-        List<int> studentScores = (data['2-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score8 = (sum / 10).toInt();
-      }else{
-        score8 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score8 = score8 > averageScore ? score8 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 9
       if(data['2-4 lesson'] != null){
-        List<int> studentScores = (data['2-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score9 = (sum / 10).toInt();
-      }else{
-        score9 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score9 = score9 > averageScore ? score9 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 10
       if(data['2-5 lesson'] != null){
-        List<int> studentScores = (data['2-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score10 = (sum / 10).toInt();
-      }else{
-        score10 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score10 = score10 > averageScore ? score10 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 11
       if(data['3-1 lesson'] != null){
-        List<int> studentScores = (data['3-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score11 = (sum / 10).toInt();
-      }else{
-        score11 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score11 = score11 > averageScore ? score11 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 12
       if(data['3-2 lesson'] != null){
-        List<int> studentScores = (data['3-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score12 = (sum / 10).toInt();
-      }else{
-        score12 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score12 = score12 > averageScore ? score12 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 13
       if(data['3-3 lesson'] != null){
-        List<int> studentScores = (data['3-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score13 = (sum / 10).toInt();
-      }else{
-        score13 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score13 = score13 > averageScore ? score13 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 14
       if(data['3-4 lesson'] != null){
-        List<int> studentScores = (data['3-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score14 = (sum / 10).toInt();
-      }else{
-        score14 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score14 = score14 > averageScore ? score14 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 15
       if(data['3-5 lesson'] != null){
-        List<int> studentScores = (data['3-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score15 = (sum / 10).toInt();
-      }else{
-        score15 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score15 = score15 > averageScore ? score15 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 16
       if(data['4-1 lesson'] != null){
-        List<int> studentScores = (data['4-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score16 = (sum / 10).toInt();
-      }else{
-        score16 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score16 = score16 > averageScore ? score16 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 17
       if(data['4-2 lesson'] != null){
-        List<int> studentScores = (data['4-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score17 = (sum / 10).toInt();
-      }else{
-        score17 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score17 = score17 > averageScore ? score17 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 18
       if(data['4-3 lesson'] != null){
-        List<int> studentScores = (data['4-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+       data.keys.forEach((key) {
+            if (key.startsWith('4-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score18 = (sum / 10).toInt();
-      }else{
-        score18 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score18 = score18 > averageScore ? score18 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 19
       if(data['4-4 lesson'] != null){
-        List<int> studentScores = (data['4-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score19 = (sum / 10).toInt();
-      }else{
-        score19 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score19 = score19 > averageScore ? score19 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 20
       if(data['4-5 lesson'] != null){
-        List<int> studentScores = (data['4-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score20 = (sum / 10).toInt();
-      }else{
-        score20 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score20 = score20 > averageScore ? score20 : averageScore;
+                }
+              }
+            }
+          });
       }
       int total = score1+score2+score3+score4+score5+score6+score7+score8+score9+score10+score11+score12+score13+score14+score15+score16+score17+score18+score19+score20;
       return average = (total / 20).toInt();
@@ -730,307 +1291,587 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     }
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
     if (data != null) {
-      int average, score1, score2, score3, score4, score5, score6, score7, score8, score9, score10, score11, score12, score13, score14, score15, score16, score17, score18, score19, score20;
+     int average, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0, score8 = 0, score9 = 0, score10 = 0, score11 = 0, score12 = 0, score13 = 0, score14 = 0, score15 = 0, score16 = 0, score17 = 0, score18 = 0, score19 = 0, score20 = 0;
     //lesson 1
       if(data['1-1 lesson'] != null){
-        List<int> studentScores = (data['1-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score1 = (sum / 10).toInt();
-      }else{
-        score1 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score1 = score1 > averageScore ? score1 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 2
       if(data['1-2 lesson'] != null){
-        List<int> studentScores = (data['1-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score2 = (sum / 10).toInt();
-      }else{
-        score2 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score2 = score2 > averageScore ? score2 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 3
       if(data['1-3 lesson'] != null){
-        List<int> studentScores = (data['1-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score3 = (sum / 10).toInt();
-      }else{
-        score3 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score3 = score3 > averageScore ? score3 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 4
       if(data['1-4 lesson'] != null){
-        List<int> studentScores = (data['1-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score4 = (sum / 10).toInt();
-      }else{
-        score4 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score4 = score4 > averageScore ? score4 : averageScore;
+                }
+              }
+            }
+          });
       }
 
       //lesson 5
       if(data['1-5 lesson'] != null){
-        List<int> studentScores = (data['1-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score5 = (sum / 10).toInt();
-      }else{
-        score5 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score5 = score5 > averageScore ? score5 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 6
       if(data['2-1 lesson'] != null){
-        List<int> studentScores = (data['2-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score6 = (sum / 10).toInt();
-      }else{
-        score6 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score6 = score6 > averageScore ? score6 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 7
       if(data['2-2 lesson'] != null){
-        List<int> studentScores = (data['2-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score7 = (sum / 10).toInt();
-      }else{
-        score7 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score7 = score7 > averageScore ? score7 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 8
       if(data['2-3 lesson'] != null){
-        List<int> studentScores = (data['2-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score8 = (sum / 10).toInt();
-      }else{
-        score8 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score8 = score8 > averageScore ? score8 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 9
       if(data['2-4 lesson'] != null){
-        List<int> studentScores = (data['2-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score9 = (sum / 10).toInt();
-      }else{
-        score9 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score9 = score9 > averageScore ? score9 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 10
       if(data['2-5 lesson'] != null){
-        List<int> studentScores = (data['2-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score10 = (sum / 10).toInt();
-      }else{
-        score10 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score10 = score10 > averageScore ? score10 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 11
       if(data['3-1 lesson'] != null){
-        List<int> studentScores = (data['3-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score11 = (sum / 10).toInt();
-      }else{
-        score11 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score11 = score11 > averageScore ? score11 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 12
       if(data['3-2 lesson'] != null){
-        List<int> studentScores = (data['3-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score12 = (sum / 10).toInt();
-      }else{
-        score12 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score12 = score12 > averageScore ? score12 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 13
       if(data['3-3 lesson'] != null){
-        List<int> studentScores = (data['3-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score13 = (sum / 10).toInt();
-      }else{
-        score13 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score13 = score13 > averageScore ? score13 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 14
       if(data['3-4 lesson'] != null){
-        List<int> studentScores = (data['3-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score14 = (sum / 10).toInt();
-      }else{
-        score14 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score14 = score14 > averageScore ? score14 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 15
       if(data['3-5 lesson'] != null){
-        List<int> studentScores = (data['3-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score15 = (sum / 10).toInt();
-      }else{
-        score15 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score15 = score15 > averageScore ? score15 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 16
       if(data['4-1 lesson'] != null){
-        List<int> studentScores = (data['4-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score16 = (sum / 10).toInt();
-      }else{
-        score16 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score16 = score16 > averageScore ? score16 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 17
       if(data['4-2 lesson'] != null){
-        List<int> studentScores = (data['4-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score17 = (sum / 10).toInt();
-      }else{
-        score17 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score17 = score17 > averageScore ? score17 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 18
       if(data['4-3 lesson'] != null){
-        List<int> studentScores = (data['4-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+       data.keys.forEach((key) {
+            if (key.startsWith('4-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score18 = (sum / 10).toInt();
-      }else{
-        score18 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score18 = score18 > averageScore ? score18 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 19
       if(data['4-4 lesson'] != null){
-        List<int> studentScores = (data['4-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score19 = (sum / 10).toInt();
-      }else{
-        score19 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score19 = score19 > averageScore ? score19 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 20
       if(data['4-5 lesson'] != null){
-        List<int> studentScores = (data['4-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score20 = (sum / 10).toInt();
-      }else{
-        score20 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score20 = score20 > averageScore ? score20 : averageScore;
+                }
+              }
+            }
+          });
       }
       int total = score1+score2+score3+score4+score5+score6+score7+score8+score9+score10+score11+score12+score13+score14+score15+score16+score17+score18+score19+score20;
       return average = (total / 20).toInt();
@@ -1051,307 +1892,587 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     }
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
     if (data != null) {
-      int average, score1, score2, score3, score4, score5, score6, score7, score8, score9, score10, score11, score12, score13, score14, score15, score16, score17, score18, score19, score20;
+      int average, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0, score8 = 0, score9 = 0, score10 = 0, score11 = 0, score12 = 0, score13 = 0, score14 = 0, score15 = 0, score16 = 0, score17 = 0, score18 = 0, score19 = 0, score20 = 0;
     //lesson 1
       if(data['1-1 lesson'] != null){
-        List<int> studentScores = (data['1-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score1 = (sum / 10).toInt();
-      }else{
-        score1 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score1 = score1 > averageScore ? score1 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 2
       if(data['1-2 lesson'] != null){
-        List<int> studentScores = (data['1-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score2 = (sum / 10).toInt();
-      }else{
-        score2 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score2 = score2 > averageScore ? score2 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 3
       if(data['1-3 lesson'] != null){
-        List<int> studentScores = (data['1-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score3 = (sum / 10).toInt();
-      }else{
-        score3 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score3 = score3 > averageScore ? score3 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 4
       if(data['1-4 lesson'] != null){
-        List<int> studentScores = (data['1-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score4 = (sum / 10).toInt();
-      }else{
-        score4 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score4 = score4 > averageScore ? score4 : averageScore;
+                }
+              }
+            }
+          });
       }
 
       //lesson 5
       if(data['1-5 lesson'] != null){
-        List<int> studentScores = (data['1-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score5 = (sum / 10).toInt();
-      }else{
-        score5 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score5 = score5 > averageScore ? score5 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 6
       if(data['2-1 lesson'] != null){
-        List<int> studentScores = (data['2-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score6 = (sum / 10).toInt();
-      }else{
-        score6 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score6 = score6 > averageScore ? score6 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 7
       if(data['2-2 lesson'] != null){
-        List<int> studentScores = (data['2-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score7 = (sum / 10).toInt();
-      }else{
-        score7 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score7 = score7 > averageScore ? score7 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 8
       if(data['2-3 lesson'] != null){
-        List<int> studentScores = (data['2-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score8 = (sum / 10).toInt();
-      }else{
-        score8 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score8 = score8 > averageScore ? score8 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 9
       if(data['2-4 lesson'] != null){
-        List<int> studentScores = (data['2-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score9 = (sum / 10).toInt();
-      }else{
-        score9 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score9 = score9 > averageScore ? score9 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 10
       if(data['2-5 lesson'] != null){
-        List<int> studentScores = (data['2-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score10 = (sum / 10).toInt();
-      }else{
-        score10 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score10 = score10 > averageScore ? score10 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 11
       if(data['3-1 lesson'] != null){
-        List<int> studentScores = (data['3-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score11 = (sum / 10).toInt();
-      }else{
-        score11 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score11 = score11 > averageScore ? score11 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 12
       if(data['3-2 lesson'] != null){
-        List<int> studentScores = (data['3-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score12 = (sum / 10).toInt();
-      }else{
-        score12 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score12 = score12 > averageScore ? score12 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 13
       if(data['3-3 lesson'] != null){
-        List<int> studentScores = (data['3-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score13 = (sum / 10).toInt();
-      }else{
-        score13 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score13 = score13 > averageScore ? score13 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 14
       if(data['3-4 lesson'] != null){
-        List<int> studentScores = (data['3-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score14 = (sum / 10).toInt();
-      }else{
-        score14 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score14 = score14 > averageScore ? score14 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 15
       if(data['3-5 lesson'] != null){
-        List<int> studentScores = (data['3-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score15 = (sum / 10).toInt();
-      }else{
-        score15 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score15 = score15 > averageScore ? score15 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 16
       if(data['4-1 lesson'] != null){
-        List<int> studentScores = (data['4-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score16 = (sum / 10).toInt();
-      }else{
-        score16 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score16 = score16 > averageScore ? score16 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 17
       if(data['4-2 lesson'] != null){
-        List<int> studentScores = (data['4-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score17 = (sum / 10).toInt();
-      }else{
-        score17 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score17 = score17 > averageScore ? score17 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 18
       if(data['4-3 lesson'] != null){
-        List<int> studentScores = (data['4-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+       data.keys.forEach((key) {
+            if (key.startsWith('4-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score18 = (sum / 10).toInt();
-      }else{
-        score18 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score18 = score18 > averageScore ? score18 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 19
       if(data['4-4 lesson'] != null){
-        List<int> studentScores = (data['4-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score19 = (sum / 10).toInt();
-      }else{
-        score19 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score19 = score19 > averageScore ? score19 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 20
       if(data['4-5 lesson'] != null){
-        List<int> studentScores = (data['4-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score20 = (sum / 10).toInt();
-      }else{
-        score20 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score20 = score20 > averageScore ? score20 : averageScore;
+                }
+              }
+            }
+          });
       }
       int total = score1+score2+score3+score4+score5+score6+score7+score8+score9+score10+score11+score12+score13+score14+score15+score16+score17+score18+score19+score20;
       return average = (total / 20).toInt();
@@ -1372,307 +2493,587 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     }
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
     if (data != null) {
-      int average, score1, score2, score3, score4, score5, score6, score7, score8, score9, score10, score11, score12, score13, score14, score15, score16, score17, score18, score19, score20;
+     int average, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0, score8 = 0, score9 = 0, score10 = 0, score11 = 0, score12 = 0, score13 = 0, score14 = 0, score15 = 0, score16 = 0, score17 = 0, score18 = 0, score19 = 0, score20 = 0;
     //lesson 1
       if(data['1-1 lesson'] != null){
-        List<int> studentScores = (data['1-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score1 = (sum / 10).toInt();
-      }else{
-        score1 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score1 = score1 > averageScore ? score1 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 2
       if(data['1-2 lesson'] != null){
-        List<int> studentScores = (data['1-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score2 = (sum / 10).toInt();
-      }else{
-        score2 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score2 = score2 > averageScore ? score2 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 3
       if(data['1-3 lesson'] != null){
-        List<int> studentScores = (data['1-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score3 = (sum / 10).toInt();
-      }else{
-        score3 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score3 = score3 > averageScore ? score3 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 4
       if(data['1-4 lesson'] != null){
-        List<int> studentScores = (data['1-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score4 = (sum / 10).toInt();
-      }else{
-        score4 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score4 = score4 > averageScore ? score4 : averageScore;
+                }
+              }
+            }
+          });
       }
 
       //lesson 5
       if(data['1-5 lesson'] != null){
-        List<int> studentScores = (data['1-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score5 = (sum / 10).toInt();
-      }else{
-        score5 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score5 = score5 > averageScore ? score5 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 6
       if(data['2-1 lesson'] != null){
-        List<int> studentScores = (data['2-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score6 = (sum / 10).toInt();
-      }else{
-        score6 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score6 = score6 > averageScore ? score6 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 7
       if(data['2-2 lesson'] != null){
-        List<int> studentScores = (data['2-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score7 = (sum / 10).toInt();
-      }else{
-        score7 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score7 = score7 > averageScore ? score7 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 8
       if(data['2-3 lesson'] != null){
-        List<int> studentScores = (data['2-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score8 = (sum / 10).toInt();
-      }else{
-        score8 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score8 = score8 > averageScore ? score8 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 9
       if(data['2-4 lesson'] != null){
-        List<int> studentScores = (data['2-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score9 = (sum / 10).toInt();
-      }else{
-        score9 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score9 = score9 > averageScore ? score9 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 10
       if(data['2-5 lesson'] != null){
-        List<int> studentScores = (data['2-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score10 = (sum / 10).toInt();
-      }else{
-        score10 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score10 = score10 > averageScore ? score10 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 11
       if(data['3-1 lesson'] != null){
-        List<int> studentScores = (data['3-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score11 = (sum / 10).toInt();
-      }else{
-        score11 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score11 = score11 > averageScore ? score11 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 12
       if(data['3-2 lesson'] != null){
-        List<int> studentScores = (data['3-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score12 = (sum / 10).toInt();
-      }else{
-        score12 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score12 = score12 > averageScore ? score12 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 13
       if(data['3-3 lesson'] != null){
-        List<int> studentScores = (data['3-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score13 = (sum / 10).toInt();
-      }else{
-        score13 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score13 = score13 > averageScore ? score13 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 14
       if(data['3-4 lesson'] != null){
-        List<int> studentScores = (data['3-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score14 = (sum / 10).toInt();
-      }else{
-        score14 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score14 = score14 > averageScore ? score14 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 15
       if(data['3-5 lesson'] != null){
-        List<int> studentScores = (data['3-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score15 = (sum / 10).toInt();
-      }else{
-        score15 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score15 = score15 > averageScore ? score15 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 16
       if(data['4-1 lesson'] != null){
-        List<int> studentScores = (data['4-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score16 = (sum / 10).toInt();
-      }else{
-        score16 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score16 = score16 > averageScore ? score16 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 17
       if(data['4-2 lesson'] != null){
-        List<int> studentScores = (data['4-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score17 = (sum / 10).toInt();
-      }else{
-        score17 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score17 = score17 > averageScore ? score17 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 18
       if(data['4-3 lesson'] != null){
-        List<int> studentScores = (data['4-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+       data.keys.forEach((key) {
+            if (key.startsWith('4-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score18 = (sum / 10).toInt();
-      }else{
-        score18 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score18 = score18 > averageScore ? score18 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 19
       if(data['4-4 lesson'] != null){
-        List<int> studentScores = (data['4-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score19 = (sum / 10).toInt();
-      }else{
-        score19 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score19 = score19 > averageScore ? score19 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 20
       if(data['4-5 lesson'] != null){
-        List<int> studentScores = (data['4-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score20 = (sum / 10).toInt();
-      }else{
-        score20 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score20 = score20 > averageScore ? score20 : averageScore;
+                }
+              }
+            }
+          });
       }
       int total = score1+score2+score3+score4+score5+score6+score7+score8+score9+score10+score11+score12+score13+score14+score15+score16+score17+score18+score19+score20;
       return average = (total / 20).toInt();
@@ -1693,307 +3094,587 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     }
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
     if (data != null) {
-      int average, score1, score2, score3, score4, score5, score6, score7, score8, score9, score10, score11, score12, score13, score14, score15, score16, score17, score18, score19, score20;
+    int average, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0, score8 = 0, score9 = 0, score10 = 0, score11 = 0, score12 = 0, score13 = 0, score14 = 0, score15 = 0, score16 = 0, score17 = 0, score18 = 0, score19 = 0, score20 = 0;
     //lesson 1
       if(data['1-1 lesson'] != null){
-        List<int> studentScores = (data['1-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score1 = (sum / 10).toInt();
-      }else{
-        score1 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score1 = score1 > averageScore ? score1 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 2
       if(data['1-2 lesson'] != null){
-        List<int> studentScores = (data['1-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score2 = (sum / 10).toInt();
-      }else{
-        score2 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score2 = score2 > averageScore ? score2 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 3
       if(data['1-3 lesson'] != null){
-        List<int> studentScores = (data['1-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score3 = (sum / 10).toInt();
-      }else{
-        score3 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score3 = score3 > averageScore ? score3 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 4
       if(data['1-4 lesson'] != null){
-        List<int> studentScores = (data['1-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score4 = (sum / 10).toInt();
-      }else{
-        score4 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score4 = score4 > averageScore ? score4 : averageScore;
+                }
+              }
+            }
+          });
       }
 
       //lesson 5
       if(data['1-5 lesson'] != null){
-        List<int> studentScores = (data['1-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('1-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score5 = (sum / 10).toInt();
-      }else{
-        score5 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score5 = score5 > averageScore ? score5 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 6
       if(data['2-1 lesson'] != null){
-        List<int> studentScores = (data['2-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score6 = (sum / 10).toInt();
-      }else{
-        score6 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score6 = score6 > averageScore ? score6 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 7
       if(data['2-2 lesson'] != null){
-        List<int> studentScores = (data['2-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score7 = (sum / 10).toInt();
-      }else{
-        score7 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score7 = score7 > averageScore ? score7 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 8
       if(data['2-3 lesson'] != null){
-        List<int> studentScores = (data['2-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score8 = (sum / 10).toInt();
-      }else{
-        score8 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score8 = score8 > averageScore ? score8 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 9
       if(data['2-4 lesson'] != null){
-        List<int> studentScores = (data['2-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score9 = (sum / 10).toInt();
-      }else{
-        score9 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score9 = score9 > averageScore ? score9 : averageScore;
+                }
+              }
+            }
+          });
       }
     //lesson 10
       if(data['2-5 lesson'] != null){
-        List<int> studentScores = (data['2-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('2-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score10 = (sum / 10).toInt();
-      }else{
-        score10 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score10 = score10 > averageScore ? score10 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 11
       if(data['3-1 lesson'] != null){
-        List<int> studentScores = (data['3-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score11 = (sum / 10).toInt();
-      }else{
-        score11 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score11 = score11 > averageScore ? score11 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 12
       if(data['3-2 lesson'] != null){
-        List<int> studentScores = (data['3-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score12 = (sum / 10).toInt();
-      }else{
-        score12 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score12 = score12 > averageScore ? score12 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 13
       if(data['3-3 lesson'] != null){
-        List<int> studentScores = (data['3-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score13 = (sum / 10).toInt();
-      }else{
-        score13 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score13 = score13 > averageScore ? score13 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 14
       if(data['3-4 lesson'] != null){
-        List<int> studentScores = (data['3-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score14 = (sum / 10).toInt();
-      }else{
-        score14 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score14 = score14 > averageScore ? score14 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 15
       if(data['3-5 lesson'] != null){
-        List<int> studentScores = (data['3-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('3-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score15 = (sum / 10).toInt();
-      }else{
-        score15 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score15 = score15 > averageScore ? score15 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 16
       if(data['4-1 lesson'] != null){
-        List<int> studentScores = (data['4-1 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-1 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score16 = (sum / 10).toInt();
-      }else{
-        score16 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score16 = score16 > averageScore ? score16 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 17
       if(data['4-2 lesson'] != null){
-        List<int> studentScores = (data['4-2 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-2 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score17 = (sum / 10).toInt();
-      }else{
-        score17 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score17 = score17 > averageScore ? score17 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 18
       if(data['4-3 lesson'] != null){
-        List<int> studentScores = (data['4-3 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+       data.keys.forEach((key) {
+            if (key.startsWith('4-3 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score18 = (sum / 10).toInt();
-      }else{
-        score18 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score18 = score18 > averageScore ? score18 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 19
       if(data['4-4 lesson'] != null){
-        List<int> studentScores = (data['4-4 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-4 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score19 = (sum / 10).toInt();
-      }else{
-        score19 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score19 = score19 > averageScore ? score19 : averageScore;
+                }
+              }
+            }
+          });
       }
       //lesson 20
       if(data['4-5 lesson'] != null){
-        List<int> studentScores = (data['4-5 lesson'] as List<dynamic>?)
-          ?.map((dynamic score) => int.tryParse(score.toString()) ?? 0)
-          ?.toList() ?? [];
+        data.keys.forEach((key) {
+            if (key.startsWith('4-5 ') && key.endsWith(' lesson')) {
+              List<dynamic>? scores = data[key] as List<dynamic>?;
+              if (scores != null && scores.isNotEmpty) {
+                int totalScore = 0;
+                int numberOfScores = 0;
 
-      int sum = 0;
-      for (int score in studentScores) {
-        sum += score;
-      }
+                for (dynamic score in scores) {
+                  if (score is String) {
+                    int? parsedScore = int.tryParse(score);
+                    if (parsedScore != null) {
+                      totalScore += parsedScore;
+                      numberOfScores++;
+                    } else {
+                      print('Warning: Failed to parse score $score as an integer.');
+                    }
+                  }
+                }
 
-        score20 = (sum / 10).toInt();
-      }else{
-        score20 = 0;
+                if (numberOfScores > 0) {
+                  int averageScore = totalScore ~/ numberOfScores;
+                  score20 = score20 > averageScore ? score20 : averageScore;
+                }
+              }
+            }
+          });
       }
       int total = score1+score2+score3+score4+score5+score6+score7+score8+score9+score10+score11+score12+score13+score14+score15+score16+score17+score18+score19+score20;
       return average = (total / 20).toInt();

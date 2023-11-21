@@ -754,11 +754,11 @@ class _TilesScreenState extends State<TilesScreen> {
                                     GestureDetector(
                                       onTap: (){
                                         print(score8);
-                                        if(finished.contains('2-4') || number > 9){
+                                        if(finished.contains('2-3') || number > 8){
                                           print('you may go');
                                           // add number + 1;
                                         Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                                          return  SpeechPostAssessment1(userId: widget.userId, grade: widget.grade, lesson : '2-4', post : '9');
+                                          return  SpeechPostAssessment1(userId: widget.userId, grade: widget.grade, lesson : '2-3', post : '8');
                                         }));
                                         }
                                         else{
@@ -771,7 +771,7 @@ class _TilesScreenState extends State<TilesScreen> {
                                         height: screenHeight * .1,  
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
-                                            image: AssetImage(finished.contains('2-4') || number > 9 ? 'assets/images/_tiles4.png' : 'assets/images/_tiles2.png'),
+                                            image: AssetImage(finished.contains('2-3') || number > 8 ? 'assets/images/_tiles4.png' : 'assets/images/_tiles2.png'),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
