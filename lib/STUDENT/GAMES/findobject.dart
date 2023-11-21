@@ -87,16 +87,6 @@ class _FindObjectsState extends State<FindObjects> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-    future: Future.delayed(Duration(seconds: 2)),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Scaffold(
-          body: Center(
-            child: Center(child: Image.asset('assets/L3.gif'))
-          ),
-        );
-      }
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -2368,6 +2358,6 @@ class _FindObjectsState extends State<FindObjects> {
           ),
         ],
       ),
-    );});
+    );
   }
 }
