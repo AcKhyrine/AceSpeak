@@ -331,7 +331,8 @@ class _ClassRoomScreenState extends State<ClassRoomScreen> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            width: screenWidth * 0.05,
+            width: double.infinity,
+            // width: screenWidth * 0.05,
             height: screenHeight * 1,
             decoration: BoxDecoration(
               image: DecorationImage(
