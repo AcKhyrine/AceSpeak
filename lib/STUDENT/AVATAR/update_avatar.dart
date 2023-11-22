@@ -20,6 +20,8 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
               children: [
@@ -37,13 +39,13 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Center(child: Text('Choose your Avatar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color.fromARGB(255, 3, 101, 31)),)),
+                      Center(child: Text('Choose your Avatar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: screenHeight * .03, color: Color.fromARGB(255, 3, 101, 31)),)),
                       Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
+              padding: EdgeInsets.only(left: screenWidth * .12, right: screenWidth * .12,),
               child: Column(
                 children: [
                   Container(
-                    height: 190,
+                    height: screenWidth * .55,
                     width: double.infinity,
                     child: PageView.builder(
                       itemCount: 3, 
@@ -68,7 +70,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .26,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 1
@@ -82,7 +84,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a1.png', width: 90),
+                                child: Image.asset('assets/avatar/a1.png', width: screenWidth * .24,),
                               )
                               ),
                     
@@ -93,7 +95,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 2
@@ -107,7 +109,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a2.png', width: 90),
+                                child: Image.asset('assets/avatar/a2.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -117,7 +119,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 3
@@ -131,7 +133,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a3.png', width: 90),
+                                child: Image.asset('assets/avatar/a3.png', width: screenWidth * .24,),
                               )
                               ),
                           ],
@@ -146,7 +148,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 4
@@ -160,7 +162,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a4.png', width: 90),
+                                child: Image.asset('assets/avatar/a4.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -170,7 +172,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                               width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 5
@@ -184,7 +186,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a5.png', width: 90),
+                                child: Image.asset('assets/avatar/a5.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -194,7 +196,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 6
@@ -208,7 +210,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a6.png', width: 90),
+                                child: Image.asset('assets/avatar/a6.png', width: screenWidth * .24,),
                               )
                               ),
                           ],
@@ -230,7 +232,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 7
@@ -244,7 +246,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a7.png', width: 90),
+                                child: Image.asset('assets/avatar/a7.png', width: screenWidth * .24,),
                               )
                               ),
                     
@@ -255,7 +257,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 8
@@ -269,7 +271,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a8.png', width: 90),
+                                child: Image.asset('assets/avatar/a8.png',width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -279,7 +281,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 9
@@ -293,7 +295,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a9.png', width: 90),
+                                child: Image.asset('assets/avatar/a9.png', width: screenWidth * .24,),
                               )
                               ),
                           ],
@@ -308,7 +310,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 10
@@ -322,7 +324,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a10.png', width: 90),
+                                child: Image.asset('assets/avatar/a10.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -332,7 +334,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 11
@@ -346,7 +348,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a11.png', width: 90),
+                                child: Image.asset('assets/avatar/a11.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -356,7 +358,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 12
@@ -370,7 +372,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a12.png', width: 90),
+                                child: Image.asset('assets/avatar/a12.png', width: screenWidth * .24,),
                               )
                               ),
                           ],
@@ -391,7 +393,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 13
@@ -405,7 +407,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a13.png', width: 90),
+                                child: Image.asset('assets/avatar/a13.png', width: screenWidth * .24,),
                               )
                               ),
                     
@@ -416,7 +418,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 14
@@ -430,7 +432,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a14.png', width: 90),
+                                child: Image.asset('assets/avatar/a14.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -440,7 +442,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 15
@@ -454,7 +456,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a15.png', width: 90),
+                                child: Image.asset('assets/avatar/a15.png', width: screenWidth * .24,),
                               )
                               ),
                           ],
@@ -469,7 +471,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 16
@@ -483,7 +485,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a16.png', width: 90),
+                                child: Image.asset('assets/avatar/a16.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -493,7 +495,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 17
@@ -507,7 +509,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a17.png', width: 90),
+                                child: Image.asset('assets/avatar/a17.png', width: screenWidth * .24,),
                               )
                               ),
                               GestureDetector(
@@ -517,7 +519,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                 });
                               },
                               child: Container(
-                                width: 90,
+                                width: screenWidth * .24,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: avatar == 18
@@ -531,7 +533,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                                         ]
                                       : null,
                                 ),
-                                child: Image.asset('assets/avatar/a18.png', width: 90),
+                                child: Image.asset('assets/avatar/a18.png', width: screenWidth * .24,),
                               )
                               ),
                           ],
@@ -542,7 +544,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                       },
                     ),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: screenHeight * .01,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -555,7 +557,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
               ),
             ), 
                       Padding(
-                        padding: const EdgeInsets.only(left:50, right: 50),
+                        padding: EdgeInsets.only(left: screenWidth * .15, right:screenWidth * .15,),
                         child: ElevatedButton(
                           onPressed: () async {
                             if(avatar ==0 ){
@@ -580,7 +582,7 @@ class _UpdateAvatarState extends State<UpdateAvatar> {
                           child: Text('Done'),
                         ),
                       ),
-                      SizedBox(height: 30,)
+                      SizedBox(height: screenHeight * .08,)
                     ],
                   ),
                 )
